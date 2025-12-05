@@ -139,7 +139,7 @@ export default function Home() {
               style={{ animationDelay: "400ms" }}
             >
               <Link
-                href="/signin"
+                href="/signup"
                 className="group relative px-8 py-4 bg-gradient-animated rounded-full text-white font-semibold text-lg overflow-hidden transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-primary/50 w-full sm:w-auto hover-glow"
               >
                 <span className="relative z-10 flex items-center gap-2 justify-center">
@@ -317,7 +317,7 @@ export default function Home() {
                 transformation today.
               </p>
               <Link
-                href="/signin"
+                href="/signup"
                 className="group inline-block px-10 py-5 bg-gradient-animated rounded-full text-white font-bold text-xl transition-all duration-500 hover:scale-110 hover:shadow-2xl hover:shadow-primary/50 hover-glow relative overflow-hidden"
               >
                 <span className="relative z-10 flex items-center gap-3 justify-center">
