@@ -353,10 +353,6 @@ export default function OnboardingOptional() {
     ((currentModuleIndex + 1) / modules.length) * 100
   );
 
-  const allQuestionsAnswered = currentQuestions.every(
-    (q) => answers[currentModule][q.key]
-  );
-
   const handleAnswer = (questionKey: string, value: string) => {
     setAnswers((prev) => ({
       ...prev,
@@ -379,14 +375,13 @@ export default function OnboardingOptional() {
     }
   };
 
-  const handleSkip = () => {
-    const nextIndex = currentModuleIndex + 1;
-
-    if (nextIndex < modules.length) {
-      setCurrentModule(modules[nextIndex].key);
+  const handleBack = () => {
+    const prevIndex = currentModuleIndex - 1;
+    if (prevIndex >= 0) {
+      setCurrentModule(modules[prevIndex].key);
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
-      handleComplete();
+      router.push("/onboarding");
     }
   };
 
@@ -514,16 +509,23 @@ export default function OnboardingOptional() {
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 mt-10">
-            <button
-              onClick={handleSkip}
-              disabled={isLoading}
-              className="flex-1 px-6 py-4 bg-dark-bg border-2 border-dark-border rounded-xl text-white font-semibold text-lg transition-all duration-300 hover:border-primary/50 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Skip
-            </button>
+            {currentModuleIndex > 0 && (
+              <button
+                onClick={handleBack}
+                disabled={isLoading}
+                className="flex-1 px-6 py-4 bg-dark-bg border-2 border-dark-border rounded-xl text-white font-semibold text-lg transition-all duration-300 hover:border-primary/50 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <span className="flex items-center justify-center gap-2">
+                  <span className="transition-transform duration-300 group-hover:-translate-x-1">
+                    ←
+                  </span>
+                  Back
+                </span>
+              </button>
+            )}
             <button
               onClick={handleNext}
-              disabled={!allQuestionsAnswered || isLoading}
+              disabled={isLoading}
               className="flex-1 px-6 py-4 bg-gradient-animated rounded-xl text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover-glow disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 relative overflow-hidden group"
             >
               <span className="relative z-10 flex items-center justify-center gap-2">
@@ -550,13 +552,6 @@ export default function OnboardingOptional() {
               </span>
             </button>
           </div>
-
-          {/* Help Text */}
-          {!allQuestionsAnswered && (
-            <p className="text-center text-sm text-gray-500 mt-4 animate-fade-in">
-              Answer all questions to enable Next button, or skip this section
-            </p>
-          )}
         </div>
 
         {/* Footer Note */}
