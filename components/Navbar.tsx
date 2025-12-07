@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 interface NavbarProps {
@@ -33,7 +34,10 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
           </button>
 
           {/* Friends Button */}
-          <button className="relative p-2.5 rounded-xl bg-dark-bg border border-white/5 hover:border-accent/40 transition-all duration-300 group">
+          <Link
+            href={"/friends"}
+            className="relative p-2.5 rounded-xl bg-dark-bg border border-white/5 hover:border-accent/40 transition-all duration-300 group"
+          >
             <svg
               className="w-5 h-5 text-gray-400 group-hover:text-accent transition-colors"
               fill="none"
@@ -51,7 +55,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
             <span className="absolute -top-1 -right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center text-xs font-bold text-white">
               3
             </span>
-          </button>
+          </Link>
         </div>
 
         {/* Right Side - Hamburger Menu (Mobile Only) */}
