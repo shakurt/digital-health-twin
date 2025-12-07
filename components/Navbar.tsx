@@ -58,6 +58,17 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
           </Link>
         </div>
 
+        {/* Center/Right - Leaderboard Button */}
+        <Link
+          href={"/leaderboard"}
+          className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl bg-linear-to-r from-yellow-500/10 to-orange-500/10 border border-yellow-500/30 hover:border-yellow-500/50 transition-all duration-300 group"
+        >
+          <span className="text-xl">🏆</span>
+          <span className="text-sm font-semibold text-yellow-400 group-hover:text-yellow-300 transition-colors">
+            Leaderboard
+          </span>
+        </Link>
+
         {/* Right Side - Hamburger Menu (Mobile Only) */}
         <button
           onClick={onMenuClick}
