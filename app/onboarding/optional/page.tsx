@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 type Module =
@@ -20,17 +20,61 @@ interface Question {
 export default function OnboardingOptional() {
   const router = useRouter();
   const [currentModule, setCurrentModule] = useState<Module>("nutrition");
+
+  // Load user data from localStorage during initialization
+  const [email] = useState<string>(() => {
+    if (typeof window !== "undefined") {
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key?.startsWith("user_")) {
+          const userData = localStorage.getItem(key);
+          if (userData) {
+            const parsedUser = JSON.parse(userData);
+            return parsedUser.email || "";
+          }
+        }
+      }
+    }
+    return "";
+  });
+
   const [answers, setAnswers] = useState<
     Record<string, Record<string, string>>
-  >({
-    nutrition: {},
-    activity: {},
-    health: {},
-    sleep: {},
-    mindfulness: {},
-    avatar: {},
+  >(() => {
+    if (typeof window !== "undefined" && email) {
+      const userData = localStorage.getItem(`user_${email}`);
+      if (userData) {
+        const parsedUser = JSON.parse(userData);
+        return (
+          parsedUser.optionalAnswers || {
+            nutrition: {},
+            activity: {},
+            health: {},
+            sleep: {},
+            mindfulness: {},
+            avatar: {},
+          }
+        );
+      }
+    }
+    return {
+      nutrition: {},
+      activity: {},
+      health: {},
+      sleep: {},
+      mindfulness: {},
+      avatar: {},
+    };
   });
+
   const [isLoading, setIsLoading] = useState(false);
+
+  // Redirect if no user found
+  useEffect(() => {
+    if (!email) {
+      router.push("/signin");
+    }
+  }, [email, router]);
 
   const modules: { key: Module; label: string; icon: string }[] = [
     { key: "nutrition", label: "Nutrition", icon: "🍎" },
@@ -366,6 +410,29 @@ export default function OnboardingOptional() {
   const handleNext = async () => {
     const nextIndex = currentModuleIndex + 1;
 
+    // Get user data from localStorage
+    if (!email) return;
+    const userData = JSON.parse(localStorage.getItem(`user_${email}`) || "{}");
+
+    // Prepare data for current module - fill with null if not answered
+    const moduleData: Record<string, string | null> = {};
+    const moduleQuestions = getQuestions(currentModule);
+    moduleQuestions.forEach((q) => {
+      moduleData[q.key] = answers[currentModule][q.key] || null;
+    });
+
+    // Update user object with current module data
+    const updatedUserData = {
+      ...userData,
+      optionalAnswers: {
+        ...userData.optionalAnswers,
+        [currentModule]: moduleData,
+      },
+    };
+
+    // Save ONLY to localStorage
+    localStorage.setItem(`user_${email}`, JSON.stringify(updatedUserData));
+
     if (nextIndex < modules.length) {
       setCurrentModule(modules[nextIndex].key);
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -391,16 +458,40 @@ export default function OnboardingOptional() {
     // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    // Store all onboarding data
-    const userData = JSON.parse(sessionStorage.getItem("user") || "{}");
-    sessionStorage.setItem(
-      "user",
-      JSON.stringify({
-        ...userData,
-        optionalAnswers: answers,
-        onboardingComplete: true,
-      })
-    );
+    // Get user from localStorage using email state
+    if (!email) {
+      router.push("/signin");
+      return;
+    }
+
+    const userData = JSON.parse(localStorage.getItem(`user_${email}`) || "{}");
+
+    // Ensure all modules are in optionalAnswers (fill any missing with null values)
+    const completeOptionalAnswers: Record<
+      string,
+      Record<string, string | null>
+    > = userData.optionalAnswers || {};
+
+    modules.forEach((module) => {
+      if (!completeOptionalAnswers[module.key]) {
+        const moduleData: Record<string, string | null> = {};
+        const moduleQuestions = getQuestions(module.key);
+        moduleQuestions.forEach((q) => {
+          moduleData[q.key] = null;
+        });
+        completeOptionalAnswers[module.key] = moduleData;
+      }
+    });
+
+    // Complete user object with all data
+    const completedUserData = {
+      ...userData,
+      optionalAnswers: completeOptionalAnswers,
+      lastUpdated: new Date().toISOString(),
+    };
+
+    // Save ONLY to localStorage
+    localStorage.setItem(`user_${email}`, JSON.stringify(completedUserData));
 
     setIsLoading(false);
     router.push("/dashboard");
@@ -523,6 +614,8 @@ export default function OnboardingOptional() {
                 </span>
               </button>
             )}
+
+            {/* Next button - saves null for unanswered questions */}
             <button
               onClick={handleNext}
               disabled={isLoading}

@@ -29,6 +29,14 @@ export default function SignIn() {
 
     setIsLoading(true);
 
+    // Check if email exists in localStorage
+    const existingUser = localStorage.getItem(`user_${email}`);
+    if (!existingUser) {
+      setError("No account found with this email. Please sign up instead.");
+      setIsLoading(false);
+      return;
+    }
+
     // Simulate API call to send OTP
     await new Promise((resolve) => setTimeout(resolve, 1500));
 

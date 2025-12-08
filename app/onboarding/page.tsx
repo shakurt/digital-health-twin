@@ -111,16 +111,34 @@ export default function OnboardingBasic() {
     // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    // Store onboarding data
+    // Get current user from sessionStorage (temporary data from OTP)
     const userData = JSON.parse(sessionStorage.getItem("user") || "{}");
-    sessionStorage.setItem(
-      "user",
-      JSON.stringify({
-        ...userData,
-        ...formData,
-        onboardingBasic: true,
-      })
-    );
+    const email = userData.email;
+
+    if (!email) {
+      router.push("/signin");
+      return;
+    }
+
+    // Create complete user object with basic onboarding data
+    const updatedUserData = {
+      ...userData,
+      sex: formData.sex,
+      birthdate: formData.birthdate,
+      height: formData.height,
+      weight: formData.weight,
+      job: formData.job,
+      goal: formData.goal,
+      activityLevel: formData.activityLevel,
+      session: true,
+      createdAt: new Date().toISOString(),
+    };
+
+    // Save ONLY to localStorage (source of truth)
+    localStorage.setItem(`user_${email}`, JSON.stringify(updatedUserData));
+
+    // Clear ALL sessionStorage after required info is complete
+    sessionStorage.clear();
 
     setIsLoading(false);
     // Navigate to optional questions (next phase)

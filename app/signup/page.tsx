@@ -49,6 +49,18 @@ export default function SignUp() {
 
     setIsLoading(true);
 
+    // Check if email already exists in localStorage
+    const existingUser = localStorage.getItem(`user_${formData.email}`);
+    if (existingUser) {
+      setErrors({
+        ...errors,
+        email:
+          "You already have an account with this email. Please sign in instead.",
+      });
+      setIsLoading(false);
+      return;
+    }
+
     // Simulate API call to send OTP
     await new Promise((resolve) => setTimeout(resolve, 1500));
 

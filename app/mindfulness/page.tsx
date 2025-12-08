@@ -30,8 +30,16 @@ export default function Mindfulness() {
 
   // Initialize or load mindfulness data
   useEffect(() => {
-    const user = sessionStorage.getItem("user");
-    if (!user) {
+    // Load from localStorage only
+    let foundUser = false;
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key?.startsWith("user_")) {
+        foundUser = true;
+        break;
+      }
+    }
+    if (!foundUser) {
       router.push("/signin");
       return;
     }
@@ -98,6 +106,16 @@ export default function Mindfulness() {
 
     setData(newData);
     sessionStorage.setItem("mindfulnessData", JSON.stringify(newData));
+
+    // Also update localStorage with mindfulness data
+    const user = JSON.parse(sessionStorage.getItem("user") || "{}");
+    const updatedUser = {
+      ...user,
+      mindfulnessData: newData,
+    };
+    localStorage.setItem(`user_${user.email}`, JSON.stringify(updatedUser));
+    sessionStorage.setItem("user", JSON.stringify(updatedUser));
+
     setShowMoodModal(false);
     setShowSuccess(true);
     setTimeout(() => setShowSuccess(false), 2000);
@@ -142,6 +160,16 @@ export default function Mindfulness() {
 
     setData(newData);
     sessionStorage.setItem("mindfulnessData", JSON.stringify(newData));
+
+    // Also update localStorage with mindfulness data
+    const user2 = JSON.parse(sessionStorage.getItem("user") || "{}");
+    const updatedUser2 = {
+      ...user2,
+      mindfulnessData: newData,
+    };
+    localStorage.setItem(`user_${user2.email}`, JSON.stringify(updatedUser2));
+    sessionStorage.setItem("user", JSON.stringify(updatedUser2));
+
     setShowPracticeModal(false);
     setShowSuccess(true);
     setTimeout(() => setShowSuccess(false), 2000);

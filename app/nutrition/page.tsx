@@ -28,8 +28,16 @@ export default function Nutrition() {
 
   // Initialize or load nutrition data
   useEffect(() => {
-    const user = sessionStorage.getItem("user");
-    if (!user) {
+    // Load from localStorage only
+    let foundUser = false;
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key?.startsWith("user_")) {
+        foundUser = true;
+        break;
+      }
+    }
+    if (!foundUser) {
       router.push("/signin");
       return;
     }
@@ -79,6 +87,15 @@ export default function Nutrition() {
 
     setData(newData);
     sessionStorage.setItem("nutritionData", JSON.stringify(newData));
+
+    // Also update localStorage with nutrition data
+    const user = JSON.parse(sessionStorage.getItem("user") || "{}");
+    const updatedUser = {
+      ...user,
+      nutritionData: newData,
+    };
+    localStorage.setItem(`user_${user.email}`, JSON.stringify(updatedUser));
+    sessionStorage.setItem("user", JSON.stringify(updatedUser));
 
     // Show success animation
     setShowSuccess(true);
@@ -204,6 +221,18 @@ export default function Nutrition() {
               };
               setData(newData);
               sessionStorage.setItem("nutritionData", JSON.stringify(newData));
+
+              // Also update localStorage
+              const user = JSON.parse(sessionStorage.getItem("user") || "{}");
+              const updatedUser = {
+                ...user,
+                nutritionData: newData,
+              };
+              localStorage.setItem(
+                `user_${user.email}`,
+                JSON.stringify(updatedUser)
+              );
+              sessionStorage.setItem("user", JSON.stringify(updatedUser));
             }}
             className="px-4 py-2 bg-dark-card border border-white/10 rounded-xl text-gray-300 text-sm hover:border-primary/40 transition-all"
           >

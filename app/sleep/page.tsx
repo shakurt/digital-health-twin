@@ -24,8 +24,16 @@ export default function Sleep() {
 
   // Initialize or load sleep data
   useEffect(() => {
-    const user = sessionStorage.getItem("user");
-    if (!user) {
+    // Load from localStorage only
+    let foundUser = false;
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key?.startsWith("user_")) {
+        foundUser = true;
+        break;
+      }
+    }
+    if (!foundUser) {
       router.push("/signin");
       return;
     }
@@ -104,6 +112,16 @@ export default function Sleep() {
 
     setData(newData);
     sessionStorage.setItem("sleepData", JSON.stringify(newData));
+
+    // Also update localStorage with sleep data
+    const user = JSON.parse(sessionStorage.getItem("user") || "{}");
+    const updatedUser = {
+      ...user,
+      sleepData: newData,
+    };
+    localStorage.setItem(`user_${user.email}`, JSON.stringify(updatedUser));
+    sessionStorage.setItem("user", JSON.stringify(updatedUser));
+
     setShowLogModal(false);
     setShowSuccess(true);
     setTimeout(() => setShowSuccess(false), 2000);

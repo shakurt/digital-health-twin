@@ -14,8 +14,16 @@ export default function Dashboard() {
   const router = useRouter();
   const [user] = useState<UserData | null>(() => {
     if (typeof window !== "undefined") {
-      const userData = sessionStorage.getItem("user");
-      return userData ? JSON.parse(userData) : null;
+      // Load ONLY from localStorage (find the most recent user)
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key?.startsWith("user_")) {
+          const userData = localStorage.getItem(key);
+          if (userData) {
+            return JSON.parse(userData);
+          }
+        }
+      }
     }
     return null;
   });

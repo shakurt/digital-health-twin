@@ -111,16 +111,29 @@ export default function VerifyOTP() {
     // For prototype, accept any 6-digit code
     // In production, verify with backend
     if (otpString.length === 6) {
-      // Store user as authenticated
+      // Store user as authenticated in sessionStorage and localStorage
       if (authData) {
-        sessionStorage.setItem(
-          "user",
-          JSON.stringify({
-            email: authData.email,
-            username: authData.username || authData.email.split("@")[0],
-            authenticated: true,
-          })
-        );
+        let userData: Record<string, unknown> = {
+          email: authData.email,
+          username: authData.username || authData.email.split("@")[0],
+        };
+
+        // For signin, load existing user data from localStorage
+        if (authData.type === "signin") {
+          const existingUser = localStorage.getItem(`user_${authData.email}`);
+          if (existingUser) {
+            const savedData = JSON.parse(existingUser);
+            userData = { ...savedData, session: true };
+            // Update localStorage with active session
+            localStorage.setItem(
+              `user_${authData.email}`,
+              JSON.stringify(userData)
+            );
+          }
+        }
+
+        // Store in sessionStorage for current session
+        sessionStorage.setItem("user", JSON.stringify(userData));
         sessionStorage.removeItem("authData");
       }
 
