@@ -56,6 +56,26 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
               3
             </span>
           </Link>
+
+          {/* Devices Button */}
+          <Link
+            href={"/devices"}
+            className="p-2.5 rounded-xl bg-dark-bg border border-white/5 hover:border-primary/40 transition-all duration-300 group"
+          >
+            <svg
+              className="w-5 h-5 text-gray-400 group-hover:text-primary transition-colors"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+              />
+            </svg>
+          </Link>
         </div>
 
         {/* Center/Right - Leaderboard Button */}
