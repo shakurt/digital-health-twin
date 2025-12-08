@@ -85,13 +85,28 @@ export default function OnboardingOptional() {
       case "nutrition":
         return [
           {
-            key: "meals",
-            label: "How many meals do you usually eat per day?",
+            key: "allergies",
+            label: "Do you have any food allergies or sensitivities?",
             options: [
-              { value: "1", label: "1 meal" },
-              { value: "2", label: "2 meals" },
-              { value: "3", label: "3 meals" },
-              { value: "4+", label: "More than 3 meals" },
+              { value: "", label: "None" },
+              { value: "dairy", label: "Dairy / Lactose" },
+              { value: "gluten", label: "Gluten / Wheat" },
+              { value: "nuts", label: "Tree nuts / Peanuts" },
+              { value: "shellfish", label: "Shellfish" },
+              { value: "eggs", label: "Eggs" },
+              { value: "soy", label: "Soy" },
+            ],
+          },
+          {
+            key: "diet",
+            label: "Do you follow any specific diet or eating style?",
+            options: [
+              { value: "no", label: "No specific diet" },
+              { value: "high-protein", label: "High-protein / gym-focused" },
+              { value: "low-carb", label: "Low-carb / keto style" },
+              { value: "vegetarian", label: "Vegetarian / vegan" },
+              { value: "mediterranean", label: "Mediterranean" },
+              { value: "intermittent-fasting", label: "Intermittent fasting" },
             ],
           },
           {
@@ -115,24 +130,23 @@ export default function OnboardingOptional() {
             ],
           },
           {
-            key: "latenight",
-            label: "How often do you eat late at night (after 10 PM)?",
+            key: "hydration",
+            label: "How much water do you drink daily?",
             options: [
-              { value: "rarely", label: "Rarely / never" },
-              { value: "1-2", label: "1–2 times per week" },
-              { value: "3-4", label: "3–4 times per week" },
-              { value: "almost-every", label: "Almost every night" },
+              { value: "<4", label: "Less than 4 glasses" },
+              { value: "4-6", label: "4-6 glasses" },
+              { value: "6-8", label: "6-8 glasses" },
+              { value: "8+", label: "More than 8 glasses" },
             ],
           },
           {
-            key: "diet",
-            label: "Do you follow any specific diet or eating style?",
+            key: "meals",
+            label: "How many meals do you usually eat per day?",
             options: [
-              { value: "no", label: "No specific diet" },
-              { value: "high-protein", label: "High-protein / gym-focused" },
-              { value: "low-carb", label: "Low-carb / keto style" },
-              { value: "vegetarian", label: "Vegetarian / vegan" },
-              { value: "other", label: "Other" },
+              { value: "1-2", label: "1-2 meals" },
+              { value: "3", label: "3 meals" },
+              { value: "4+", label: "More than 3 meals" },
+              { value: "varies", label: "Varies day to day" },
             ],
           },
         ];
