@@ -58,30 +58,18 @@ export default function Leaderboard() {
     ];
 
     // Check session in localStorage
-    let hasActiveSession = false;
-    let userData = null;
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (key?.startsWith("user_")) {
-        const data = localStorage.getItem(key);
-        if (data) {
-          const user = JSON.parse(data);
-          if (user.session === true) {
-            hasActiveSession = true;
-            userData = user;
-            break;
-          }
-        }
-      }
-    }
-
-    if (!hasActiveSession) {
+    const data = localStorage.getItem("user");
+    if (!data) {
       router.push("/");
       return;
     }
-    setCurrentUser(userData);
 
-    // Generate mock leaderboard data
+    const user = JSON.parse(data);
+    if (user.session !== true) {
+      router.push("/");
+      return;
+    }
+    setCurrentUser(user); // Generate mock leaderboard data
     const mockUsers: LeaderboardUser[] = [
       {
         rank: 1,
@@ -124,7 +112,7 @@ export default function Leaderboard() {
       },
       {
         rank: 4,
-        username: userData.username,
+        username: user.username,
         avatar: "👤",
         healthScore: 87,
         totalPoints: 11240,

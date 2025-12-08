@@ -31,42 +31,29 @@ export default function Mindfulness() {
   // Initialize or load mindfulness data
   useEffect(() => {
     // Load from localStorage and check session
-    let hasActiveSession = false;
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (key?.startsWith("user_")) {
-        const userData = localStorage.getItem(key);
-        if (userData) {
-          const user = JSON.parse(userData);
-          if (user.session === true) {
-            hasActiveSession = true;
-            break;
-          }
-        }
-      }
-    }
-    if (!hasActiveSession) {
+    const userData = localStorage.getItem("user");
+    if (!userData) {
       router.push("/");
       return;
     }
 
-    const storedData = sessionStorage.getItem("mindfulnessData");
-    if (storedData) {
-      setData(JSON.parse(storedData));
-    } else {
-      const initialData: MindfulnessData = {
-        weeklyPractice: [true, false, true, true, false, true, true],
-        weeklyMinutes: [10, 0, 15, 10, 0, 20, 15],
-        weeklyMood: [4, 3, 4, 4, 3, 5, 4],
-        weeklyStress: [5, 7, 5, 4, 6, 3, 4],
-        streak: 2,
-        mentalScore: 78,
-        avatarMentalHealth: 82,
-        lastUpdated: new Date().toISOString(),
-      };
-      setData(initialData);
-      sessionStorage.setItem("mindfulnessData", JSON.stringify(initialData));
+    const user = JSON.parse(userData);
+    if (user.session !== true) {
+      router.push("/");
+      return;
     }
+
+    const initialData: MindfulnessData = {
+      weeklyPractice: [true, false, true, true, false, true, true],
+      weeklyMinutes: [10, 0, 15, 10, 0, 20, 15],
+      weeklyMood: [4, 3, 4, 4, 3, 5, 4],
+      weeklyStress: [5, 7, 5, 4, 6, 3, 4],
+      streak: 2,
+      mentalScore: 78,
+      avatarMentalHealth: 82,
+      lastUpdated: new Date().toISOString(),
+    };
+    setData(initialData);
   }, [router]);
 
   // Calculate metrics
@@ -111,16 +98,17 @@ export default function Mindfulness() {
     newData.lastUpdated = new Date().toISOString();
 
     setData(newData);
-    sessionStorage.setItem("mindfulnessData", JSON.stringify(newData));
 
-    // Also update localStorage with mindfulness data
-    const user = JSON.parse(sessionStorage.getItem("user") || "{}");
-    const updatedUser = {
-      ...user,
-      mindfulnessData: newData,
-    };
-    localStorage.setItem(`user_${user.email}`, JSON.stringify(updatedUser));
-    sessionStorage.setItem("user", JSON.stringify(updatedUser));
+    // Update localStorage with mindfulness data
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      const user = JSON.parse(userData);
+      const updatedUser = {
+        ...user,
+        mindfulnessData: newData,
+      };
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+    }
 
     setShowMoodModal(false);
     setShowSuccess(true);
@@ -165,16 +153,17 @@ export default function Mindfulness() {
     newData.lastUpdated = new Date().toISOString();
 
     setData(newData);
-    sessionStorage.setItem("mindfulnessData", JSON.stringify(newData));
 
-    // Also update localStorage with mindfulness data
-    const user2 = JSON.parse(sessionStorage.getItem("user") || "{}");
-    const updatedUser2 = {
-      ...user2,
-      mindfulnessData: newData,
-    };
-    localStorage.setItem(`user_${user2.email}`, JSON.stringify(updatedUser2));
-    sessionStorage.setItem("user", JSON.stringify(updatedUser2));
+    // Update localStorage with mindfulness data
+    const userData2 = localStorage.getItem("user");
+    if (userData2) {
+      const user2 = JSON.parse(userData2);
+      const updatedUser2 = {
+        ...user2,
+        mindfulnessData: newData,
+      };
+      localStorage.setItem("user", JSON.stringify(updatedUser2));
+    }
 
     setShowPracticeModal(false);
     setShowSuccess(true);

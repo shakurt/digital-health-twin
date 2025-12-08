@@ -25,41 +25,28 @@ export default function Sleep() {
   // Initialize or load sleep data
   useEffect(() => {
     // Load from localStorage and check session
-    let hasActiveSession = false;
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (key?.startsWith("user_")) {
-        const userData = localStorage.getItem(key);
-        if (userData) {
-          const user = JSON.parse(userData);
-          if (user.session === true) {
-            hasActiveSession = true;
-            break;
-          }
-        }
-      }
-    }
-    if (!hasActiveSession) {
+    const userData = localStorage.getItem("user");
+    if (!userData) {
       router.push("/");
       return;
     }
 
-    const storedData = sessionStorage.getItem("sleepData");
-    if (storedData) {
-      setData(JSON.parse(storedData));
-    } else {
-      const initialData: SleepData = {
-        weeklyHours: [7, 6.5, 8, 7.5, 6, 5.5, 7.5],
-        weeklyQuality: [4, 3, 4, 4, 3, 2, 4],
-        idealSleep: 8,
-        recoveryScore: 75,
-        sleepDebt: 4.5,
-        avatarImpact: 0,
-        lastUpdated: new Date().toISOString(),
-      };
-      setData(initialData);
-      sessionStorage.setItem("sleepData", JSON.stringify(initialData));
+    const user = JSON.parse(userData);
+    if (user.session !== true) {
+      router.push("/");
+      return;
     }
+
+    const initialData: SleepData = {
+      weeklyHours: [7, 6.5, 8, 7.5, 6, 5.5, 7.5],
+      weeklyQuality: [4, 3, 4, 4, 3, 2, 4],
+      idealSleep: 8,
+      recoveryScore: 75,
+      sleepDebt: 4.5,
+      avatarImpact: 0,
+      lastUpdated: new Date().toISOString(),
+    };
+    setData(initialData);
   }, [router]);
 
   // Calculate metrics
@@ -117,16 +104,17 @@ export default function Sleep() {
     newData.lastUpdated = new Date().toISOString();
 
     setData(newData);
-    sessionStorage.setItem("sleepData", JSON.stringify(newData));
 
-    // Also update localStorage with sleep data
-    const user = JSON.parse(sessionStorage.getItem("user") || "{}");
-    const updatedUser = {
-      ...user,
-      sleepData: newData,
-    };
-    localStorage.setItem(`user_${user.email}`, JSON.stringify(updatedUser));
-    sessionStorage.setItem("user", JSON.stringify(updatedUser));
+    // Update localStorage with sleep data
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      const user = JSON.parse(userData);
+      const updatedUser = {
+        ...user,
+        sleepData: newData,
+      };
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+    }
 
     setShowLogModal(false);
     setShowSuccess(true);

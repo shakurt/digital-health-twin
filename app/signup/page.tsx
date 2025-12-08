@@ -18,17 +18,12 @@ export default function SignUp() {
 
   // Redirect authenticated users to dashboard
   useEffect(() => {
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (key?.startsWith("user_")) {
-        const userData = localStorage.getItem(key);
-        if (userData) {
-          const user = JSON.parse(userData);
-          if (user.session === true) {
-            router.push("/dashboard");
-            return;
-          }
-        }
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      const user = JSON.parse(userData);
+      if (user.session === true) {
+        router.push("/dashboard");
+        return;
       }
     }
   }, [router]);
@@ -66,16 +61,16 @@ export default function SignUp() {
 
     setIsLoading(true);
 
-    // Check if email already exists in localStorage
-    const existingUser = localStorage.getItem(`user_${formData.email}`);
+    // Check if user data exists in localStorage (any existing account)
+    const existingUser = localStorage.getItem("user");
     if (existingUser) {
-      setErrors({
-        ...errors,
-        email:
-          "You already have an account with this email. Please sign in instead.",
-      });
-      setIsLoading(false);
-      return;
+      const userData = JSON.parse(existingUser);
+      // If session is true, redirect to dashboard (already logged in)
+      if (userData.session === true) {
+        router.push("/dashboard");
+        return;
+      }
+      // If session is false, allow signup (will replace old data)
     }
 
     // Simulate API call to send OTP

@@ -72,30 +72,18 @@ export default function Friends() {
 
   useEffect(() => {
     // Check session in localStorage
-    let hasActiveSession = false;
-    let userData = null;
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (key?.startsWith("user_")) {
-        const data = localStorage.getItem(key);
-        if (data) {
-          const user = JSON.parse(data);
-          if (user.session === true) {
-            hasActiveSession = true;
-            userData = user;
-            break;
-          }
-        }
-      }
-    }
-
-    if (!hasActiveSession) {
+    const data = localStorage.getItem("user");
+    if (!data) {
       router.push("/");
       return;
     }
-    setCurrentUser(userData);
 
-    // Initialize mock friends data
+    const user = JSON.parse(data);
+    if (user.session !== true) {
+      router.push("/");
+      return;
+    }
+    setCurrentUser(user); // Initialize mock friends data
     const mockFriends: Friend[] = [
       {
         id: "1",

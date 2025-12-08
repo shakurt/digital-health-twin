@@ -183,17 +183,12 @@ export default function Sidebar({ isMobileOpen, onClose }: SidebarProps) {
           <div className="absolute bottom-6 left-0 right-0 px-3">
             <button
               onClick={() => {
-                // Set session to false for all users in localStorage
-                for (let i = 0; i < localStorage.length; i++) {
-                  const key = localStorage.key(i);
-                  if (key?.startsWith("user_")) {
-                    const userData = localStorage.getItem(key);
-                    if (userData) {
-                      const user = JSON.parse(userData);
-                      user.session = false;
-                      localStorage.setItem(key, JSON.stringify(user));
-                    }
-                  }
+                // Set session to false in localStorage
+                const userData = localStorage.getItem("user");
+                if (userData) {
+                  const user = JSON.parse(userData);
+                  user.session = false;
+                  localStorage.setItem("user", JSON.stringify(user));
                 }
                 router.push("/signin");
               }}

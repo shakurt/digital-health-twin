@@ -9,16 +9,11 @@ export default function NotFound() {
     if (typeof window === "undefined") return false;
 
     // Check if user has active session
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (key?.startsWith("user_")) {
-        const userData = localStorage.getItem(key);
-        if (userData) {
-          const user = JSON.parse(userData);
-          if (user.session === true) {
-            return true;
-          }
-        }
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      const user = JSON.parse(userData);
+      if (user.session === true) {
+        return true;
       }
     }
     return false;

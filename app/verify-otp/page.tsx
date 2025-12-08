@@ -14,17 +14,12 @@ export default function VerifyOTP() {
 
   // Redirect authenticated users to dashboard
   useEffect(() => {
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (key?.startsWith("user_")) {
-        const userData = localStorage.getItem(key);
-        if (userData) {
-          const user = JSON.parse(userData);
-          if (user.session === true) {
-            router.push("/dashboard");
-            return;
-          }
-        }
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      const user = JSON.parse(userData);
+      if (user.session === true) {
+        router.push("/dashboard");
+        return;
       }
     }
   }, [router]);
@@ -137,20 +132,19 @@ export default function VerifyOTP() {
 
         // For signin, load existing user data from localStorage
         if (authData.type === "signin") {
-          const existingUser = localStorage.getItem(`user_${authData.email}`);
+          const existingUser = localStorage.getItem("user");
           if (existingUser) {
             const savedData = JSON.parse(existingUser);
             userData = { ...savedData, session: true };
             // Update localStorage with active session
-            localStorage.setItem(
-              `user_${authData.email}`,
-              JSON.stringify(userData)
-            );
+            localStorage.setItem("user", JSON.stringify(userData));
           }
         }
 
-        // Store in sessionStorage for current session
-        sessionStorage.setItem("user", JSON.stringify(userData));
+        // Store minimal temp data in sessionStorage ONLY for onboarding flow
+        if (authData.type === "signup") {
+          sessionStorage.setItem("user", JSON.stringify(userData));
+        }
         sessionStorage.removeItem("authData");
       }
 

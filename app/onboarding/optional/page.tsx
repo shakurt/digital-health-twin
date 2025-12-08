@@ -24,15 +24,10 @@ export default function OnboardingOptional() {
   // Load user data from localStorage during initialization
   const [email] = useState<string>(() => {
     if (typeof window !== "undefined") {
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key?.startsWith("user_")) {
-          const userData = localStorage.getItem(key);
-          if (userData) {
-            const parsedUser = JSON.parse(userData);
-            return parsedUser.email || "";
-          }
-        }
+      const userData = localStorage.getItem("user");
+      if (userData) {
+        const parsedUser = JSON.parse(userData);
+        return parsedUser.email || "";
       }
     }
     return "";
@@ -41,8 +36,8 @@ export default function OnboardingOptional() {
   const [answers, setAnswers] = useState<
     Record<string, Record<string, string>>
   >(() => {
-    if (typeof window !== "undefined" && email) {
-      const userData = localStorage.getItem(`user_${email}`);
+    if (typeof window !== "undefined") {
+      const userData = localStorage.getItem("user");
       if (userData) {
         const parsedUser = JSON.parse(userData);
         return (
@@ -412,7 +407,7 @@ export default function OnboardingOptional() {
 
     // Get user data from localStorage
     if (!email) return;
-    const userData = JSON.parse(localStorage.getItem(`user_${email}`) || "{}");
+    const userData = JSON.parse(localStorage.getItem("user") || "{}");
 
     // Prepare data for current module - fill with null if not answered
     const moduleData: Record<string, string | null> = {};
@@ -431,7 +426,7 @@ export default function OnboardingOptional() {
     };
 
     // Save ONLY to localStorage
-    localStorage.setItem(`user_${email}`, JSON.stringify(updatedUserData));
+    localStorage.setItem("user", JSON.stringify(updatedUserData));
 
     if (nextIndex < modules.length) {
       setCurrentModule(modules[nextIndex].key);
@@ -458,13 +453,13 @@ export default function OnboardingOptional() {
     // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    // Get user from localStorage using email state
+    // Get user from localStorage
     if (!email) {
       router.push("/signin");
       return;
     }
 
-    const userData = JSON.parse(localStorage.getItem(`user_${email}`) || "{}");
+    const userData = JSON.parse(localStorage.getItem("user") || "{}");
 
     // Ensure all modules are in optionalAnswers (fill any missing with null values)
     const completeOptionalAnswers: Record<
@@ -491,7 +486,7 @@ export default function OnboardingOptional() {
     };
 
     // Save ONLY to localStorage
-    localStorage.setItem(`user_${email}`, JSON.stringify(completedUserData));
+    localStorage.setItem("user", JSON.stringify(completedUserData));
 
     setIsLoading(false);
     router.push("/dashboard");

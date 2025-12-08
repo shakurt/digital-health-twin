@@ -12,17 +12,12 @@ export default function SignIn() {
 
   // Redirect authenticated users to dashboard
   useEffect(() => {
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (key?.startsWith("user_")) {
-        const userData = localStorage.getItem(key);
-        if (userData) {
-          const user = JSON.parse(userData);
-          if (user.session === true) {
-            router.push("/dashboard");
-            return;
-          }
-        }
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      const user = JSON.parse(userData);
+      if (user.session === true) {
+        router.push("/dashboard");
+        return;
       }
     }
   }, [router]);
@@ -46,9 +41,17 @@ export default function SignIn() {
 
     setIsLoading(true);
 
-    // Check if email exists in localStorage
-    const existingUser = localStorage.getItem(`user_${email}`);
+    // Check if user exists in localStorage
+    const existingUser = localStorage.getItem("user");
     if (!existingUser) {
+      setError("No account found. Please sign up instead.");
+      setIsLoading(false);
+      return;
+    }
+
+    // Verify email matches
+    const userData = JSON.parse(existingUser);
+    if (userData.email !== email) {
       setError("No account found with this email. Please sign up instead.");
       setIsLoading(false);
       return;

@@ -27,18 +27,13 @@ export default function OnboardingBasic() {
     }
 
     // Check if user already has completed onboarding
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (key?.startsWith("user_")) {
-        const userData = localStorage.getItem(key);
-        if (userData) {
-          const user = JSON.parse(userData);
-          if (user.session === true && user.sex) {
-            // Already completed onboarding, redirect to dashboard
-            router.push("/dashboard");
-            return;
-          }
-        }
+    const existingUser = localStorage.getItem("user");
+    if (existingUser) {
+      const user = JSON.parse(existingUser);
+      if (user.session === true && user.sex) {
+        // Already completed onboarding, redirect to dashboard
+        router.push("/dashboard");
+        return;
       }
     }
   }, [router]);
@@ -161,7 +156,7 @@ export default function OnboardingBasic() {
     };
 
     // Save ONLY to localStorage (source of truth)
-    localStorage.setItem(`user_${email}`, JSON.stringify(updatedUserData));
+    localStorage.setItem("user", JSON.stringify(updatedUserData));
 
     // Clear ALL sessionStorage after required info is complete
     sessionStorage.clear();

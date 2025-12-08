@@ -29,21 +29,14 @@ export default function Nutrition() {
   // Initialize or load nutrition data
   useEffect(() => {
     // Load from localStorage and check session
-    let hasActiveSession = false;
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (key?.startsWith("user_")) {
-        const userData = localStorage.getItem(key);
-        if (userData) {
-          const user = JSON.parse(userData);
-          if (user.session === true) {
-            hasActiveSession = true;
-            break;
-          }
-        }
-      }
+    const userData = localStorage.getItem("user");
+    if (!userData) {
+      router.push("/");
+      return;
     }
-    if (!hasActiveSession) {
+
+    const user = JSON.parse(userData);
+    if (user.session !== true) {
       router.push("/");
       return;
     }
@@ -70,7 +63,6 @@ export default function Nutrition() {
         lastUpdated: new Date().toISOString(),
       };
       setData(initialData);
-      sessionStorage.setItem("nutritionData", JSON.stringify(initialData));
     }
   }, [router]);
 
@@ -92,16 +84,14 @@ export default function Nutrition() {
     newData.lastUpdated = new Date().toISOString();
 
     setData(newData);
-    sessionStorage.setItem("nutritionData", JSON.stringify(newData));
 
-    // Also update localStorage with nutrition data
-    const user = JSON.parse(sessionStorage.getItem("user") || "{}");
+    // Update localStorage with nutrition data
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
     const updatedUser = {
       ...user,
       nutritionData: newData,
     };
-    localStorage.setItem(`user_${user.email}`, JSON.stringify(updatedUser));
-    sessionStorage.setItem("user", JSON.stringify(updatedUser));
+    localStorage.setItem("user", JSON.stringify(updatedUser));
 
     // Show success animation
     setShowSuccess(true);
@@ -226,19 +216,17 @@ export default function Nutrition() {
                 },
               };
               setData(newData);
-              sessionStorage.setItem("nutritionData", JSON.stringify(newData));
 
-              // Also update localStorage
-              const user = JSON.parse(sessionStorage.getItem("user") || "{}");
-              const updatedUser = {
-                ...user,
-                nutritionData: newData,
-              };
-              localStorage.setItem(
-                `user_${user.email}`,
-                JSON.stringify(updatedUser)
-              );
-              sessionStorage.setItem("user", JSON.stringify(updatedUser));
+              // Update localStorage
+              const userData = localStorage.getItem("user");
+              if (userData) {
+                const user = JSON.parse(userData);
+                const updatedUser = {
+                  ...user,
+                  nutritionData: newData,
+                };
+                localStorage.setItem("user", JSON.stringify(updatedUser));
+              }
             }}
             className="px-4 py-2 bg-dark-card border border-white/10 rounded-xl text-gray-300 text-sm hover:border-primary/40 transition-all"
           >
