@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -9,6 +9,23 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  // Redirect authenticated users to dashboard
+  useEffect(() => {
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key?.startsWith("user_")) {
+        const userData = localStorage.getItem(key);
+        if (userData) {
+          const user = JSON.parse(userData);
+          if (user.session === true) {
+            router.push("/dashboard");
+            return;
+          }
+        }
+      }
+    }
+  }, [router]);
 
   const validateEmail = () => {
     if (!email.trim()) {

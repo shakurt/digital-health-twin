@@ -24,17 +24,23 @@ export default function Sleep() {
 
   // Initialize or load sleep data
   useEffect(() => {
-    // Load from localStorage only
-    let foundUser = false;
+    // Load from localStorage and check session
+    let hasActiveSession = false;
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
       if (key?.startsWith("user_")) {
-        foundUser = true;
-        break;
+        const userData = localStorage.getItem(key);
+        if (userData) {
+          const user = JSON.parse(userData);
+          if (user.session === true) {
+            hasActiveSession = true;
+            break;
+          }
+        }
       }
     }
-    if (!foundUser) {
-      router.push("/signin");
+    if (!hasActiveSession) {
+      router.push("/");
       return;
     }
 

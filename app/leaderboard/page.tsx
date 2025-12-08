@@ -57,13 +57,28 @@ export default function Leaderboard() {
       "👩‍🚒",
     ];
 
-    const user = sessionStorage.getItem("user");
-    if (!user) {
-      router.push("/signin");
-      return;
+    // Check session in localStorage
+    let hasActiveSession = false;
+    let userData = null;
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key?.startsWith("user_")) {
+        const data = localStorage.getItem(key);
+        if (data) {
+          const user = JSON.parse(data);
+          if (user.session === true) {
+            hasActiveSession = true;
+            userData = user;
+            break;
+          }
+        }
+      }
     }
 
-    const userData = JSON.parse(user);
+    if (!hasActiveSession) {
+      router.push("/");
+      return;
+    }
     setCurrentUser(userData);
 
     // Generate mock leaderboard data

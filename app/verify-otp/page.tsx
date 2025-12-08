@@ -12,6 +12,23 @@ export default function VerifyOTP() {
   const [resendCooldown, setResendCooldown] = useState(0);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
+  // Redirect authenticated users to dashboard
+  useEffect(() => {
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key?.startsWith("user_")) {
+        const userData = localStorage.getItem(key);
+        if (userData) {
+          const user = JSON.parse(userData);
+          if (user.session === true) {
+            router.push("/dashboard");
+            return;
+          }
+        }
+      }
+    }
+  }, [router]);
+
   // Initialize authData directly from sessionStorage
   const getAuthData = () => {
     if (typeof window !== "undefined") {

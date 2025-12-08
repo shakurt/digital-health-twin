@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function OnboardingBasic() {
@@ -16,6 +16,32 @@ export default function OnboardingBasic() {
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(false);
+
+  // Check if user should be here (has sessionStorage data from OTP)
+  useEffect(() => {
+    const sessionUser = sessionStorage.getItem("user");
+    if (!sessionUser) {
+      // No session data, redirect to signin
+      router.push("/signin");
+      return;
+    }
+
+    // Check if user already has completed onboarding
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key?.startsWith("user_")) {
+        const userData = localStorage.getItem(key);
+        if (userData) {
+          const user = JSON.parse(userData);
+          if (user.session === true && user.sex) {
+            // Already completed onboarding, redirect to dashboard
+            router.push("/dashboard");
+            return;
+          }
+        }
+      }
+    }
+  }, [router]);
 
   const jobOptions = [
     { value: "student", label: "Student" },

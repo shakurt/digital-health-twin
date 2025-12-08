@@ -7,7 +7,8 @@ import AppLayout from "@/components/AppLayout";
 interface UserData {
   username: string;
   email: string;
-  authenticated: boolean;
+  session?: boolean;
+  [key: string]: unknown;
 }
 
 export default function Dashboard() {
@@ -29,8 +30,8 @@ export default function Dashboard() {
   });
 
   useEffect(() => {
-    if (!user) {
-      router.push("/signin");
+    if (!user || user.session !== true) {
+      router.push("/");
     }
   }, [user, router]);
 
