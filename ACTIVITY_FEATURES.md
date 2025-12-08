@@ -298,6 +298,53 @@ Motivational reward system for consistency and milestones:
   - Record streak display
   - "2 more days for a new record!" motivational messages
 
+### 12. **Settings & Data Management** ⚙️
+User control over activity preferences and data:
+
+- **Activity Settings Modal**
+  - Access via settings button (⚙️) in header
+  - Sticky header with title and close button
+  - Scrollable question interface
+  - Save/cancel buttons at bottom
+
+- **Customizable Preferences** (8 Questions):
+  1. **Exercise Frequency**: 0 days → 5+ days per week
+  2. **Workout Duration**: <20min → 60+ minutes per session
+  3. **Activity Type**: Walking/running, Gym, Sports, Home workouts, Cycling, Yoga, Other
+  4. **Workout Intensity**: Light (easy pace) → Intense (difficult to talk) → Varies
+  5. **Fitness Tracker**: Yes regularly / Sometimes / No
+  6. **Fitness Goals**: Weight loss, Build muscle, Endurance, Flexibility, General health, Sports performance
+  7. **Equipment Access**: None/bodyweight → Basic → Full gym → Home gym
+  8. **Injuries/Limitations**: None, Back issues, Knee problems, Shoulder problems, Other
+
+- **Visual Feedback**
+  - Selected options highlighted with primary color
+  - Button hover effects
+  - Smooth transitions
+  - Success toast on save
+
+- **Data Reset Functionality**
+  - Reset button (🔄) in header
+  - Confirmation modal with warning
+  - Resets all workout progress to default state
+  - Cannot be undone warning
+  - Clears completion checkmarks
+  - Resets to fresh 7-day workout plan
+  - Success notification after reset
+
+- **Persistent Storage**
+  - Settings saved to localStorage under `optionalAnswers.activity`
+  - Preferences persist across sessions
+  - Integrated with user profile data
+  - Synced with onboarding data
+
+- **User Experience**
+  - Modal backdrop blur effect
+  - Prevents body scroll when modal open
+  - Click outside to close (via cancel button)
+  - Keyboard accessible (ESC to close)
+  - Mobile-responsive design
+
 - **Milestones**
   - 100 Workouts ✓ (Completed Nov 15)
   - 50,000 Calories Burned ✓ (Completed Nov 28)

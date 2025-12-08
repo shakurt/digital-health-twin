@@ -80,6 +80,9 @@ export default function Activity() {
   );
   const [showExerciseModal, setShowExerciseModal] = useState(false);
   const [selectedDay, setSelectedDay] = useState<WorkoutDay | null>(null);
+  const [showOnboardingModal, setShowOnboardingModal] = useState(false);
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   // Check session
   useEffect(() => {
@@ -96,7 +99,7 @@ export default function Activity() {
 
   // Disable body scroll when modal is open
   useEffect(() => {
-    if (showExerciseModal) {
+    if (showExerciseModal || showOnboardingModal || showResetConfirm) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
@@ -104,7 +107,7 @@ export default function Activity() {
     return () => {
       document.body.style.overflow = "unset";
     };
-  }, [showExerciseModal]);
+  }, [showExerciseModal, showOnboardingModal, showResetConfirm]);
 
   // Hardcoded movement profile
   const movementProfile: MovementProfile = {
@@ -502,8 +505,275 @@ export default function Activity() {
     setWeekPlan(updatedPlan);
   };
 
+  const handleResetActivityData = () => {
+    // Reset to default state
+    const defaultPlan: WorkoutDay[] = [
+      {
+        day: "Mon",
+        date: "Dec 8",
+        type: "Upper Body",
+        intensity: "Moderate",
+        completed: false,
+        scheduled: true,
+        exercises: [
+          {
+            name: "Push-ups",
+            sets: 3,
+            reps: "12-15",
+            rest: "60s",
+            equipment: "None",
+            completed: false,
+            icon: "💪",
+          },
+          {
+            name: "Dumbbell Rows",
+            sets: 3,
+            reps: "10-12",
+            rest: "60s",
+            equipment: "Dumbbells",
+            completed: false,
+            icon: "🏋️",
+          },
+          {
+            name: "Shoulder Press",
+            sets: 3,
+            reps: "10-12",
+            rest: "60s",
+            equipment: "Dumbbells",
+            completed: false,
+            icon: "💪",
+          },
+          {
+            name: "Bicep Curls",
+            sets: 3,
+            reps: "12-15",
+            rest: "45s",
+            equipment: "Dumbbells",
+            completed: false,
+            icon: "💪",
+          },
+        ],
+      },
+      {
+        day: "Tue",
+        date: "Dec 9",
+        type: "Cardio",
+        intensity: "Light",
+        completed: false,
+        scheduled: true,
+        exercises: [
+          {
+            name: "Light Jogging",
+            sets: 1,
+            reps: "20 min",
+            rest: "N/A",
+            equipment: "None",
+            completed: false,
+            icon: "🏃",
+          },
+          {
+            name: "Cycling",
+            sets: 1,
+            reps: "15 min",
+            rest: "N/A",
+            equipment: "Bike",
+            completed: false,
+            icon: "🚴",
+          },
+        ],
+      },
+      {
+        day: "Wed",
+        date: "Dec 10",
+        type: "Rest Day",
+        intensity: "Rest",
+        completed: false,
+        scheduled: true,
+      },
+      {
+        day: "Thu",
+        date: "Dec 11",
+        type: "Lower Body",
+        intensity: "High",
+        completed: false,
+        scheduled: true,
+        exercises: [
+          {
+            name: "Squats",
+            sets: 4,
+            reps: "12-15",
+            rest: "90s",
+            equipment: "Barbell",
+            completed: false,
+            icon: "🦵",
+          },
+          {
+            name: "Lunges",
+            sets: 3,
+            reps: "10 each",
+            rest: "60s",
+            equipment: "Dumbbells",
+            completed: false,
+            icon: "🦵",
+          },
+          {
+            name: "Leg Press",
+            sets: 3,
+            reps: "12-15",
+            rest: "75s",
+            equipment: "Machine",
+            completed: false,
+            icon: "🏋️",
+          },
+          {
+            name: "Calf Raises",
+            sets: 3,
+            reps: "15-20",
+            rest: "45s",
+            equipment: "None",
+            completed: false,
+            icon: "🦵",
+          },
+        ],
+      },
+      {
+        day: "Fri",
+        date: "Dec 12",
+        type: "Core & Flexibility",
+        intensity: "Light",
+        completed: false,
+        scheduled: true,
+        exercises: [
+          {
+            name: "Plank",
+            sets: 3,
+            reps: "45s",
+            rest: "30s",
+            equipment: "None",
+            completed: false,
+            icon: "🧘",
+          },
+          {
+            name: "Russian Twists",
+            sets: 3,
+            reps: "20",
+            rest: "30s",
+            equipment: "None",
+            completed: false,
+            icon: "🧘",
+          },
+          {
+            name: "Stretching",
+            sets: 1,
+            reps: "15 min",
+            rest: "N/A",
+            equipment: "Mat",
+            completed: false,
+            icon: "🧘",
+          },
+        ],
+      },
+      {
+        day: "Sat",
+        date: "Dec 13",
+        type: "Full Body",
+        intensity: "Moderate",
+        completed: false,
+        scheduled: true,
+        exercises: [
+          {
+            name: "Burpees",
+            sets: 3,
+            reps: "10",
+            rest: "60s",
+            equipment: "None",
+            completed: false,
+            icon: "💪",
+          },
+          {
+            name: "Pull-ups",
+            sets: 3,
+            reps: "8-10",
+            rest: "90s",
+            equipment: "Bar",
+            completed: false,
+            icon: "💪",
+          },
+          {
+            name: "Deadlifts",
+            sets: 3,
+            reps: "10-12",
+            rest: "90s",
+            equipment: "Barbell",
+            completed: false,
+            icon: "🏋️",
+          },
+        ],
+      },
+      {
+        day: "Sun",
+        date: "Dec 14",
+        type: "Active Recovery",
+        intensity: "Light",
+        completed: false,
+        scheduled: true,
+        exercises: [
+          {
+            name: "Yoga",
+            sets: 1,
+            reps: "30 min",
+            rest: "N/A",
+            equipment: "Mat",
+            completed: false,
+            icon: "🧘",
+          },
+          {
+            name: "Light Walk",
+            sets: 1,
+            reps: "20 min",
+            rest: "N/A",
+            equipment: "None",
+            completed: false,
+            icon: "🚶",
+          },
+        ],
+      },
+    ];
+
+    setWeekPlan(defaultPlan);
+    setShowResetConfirm(false);
+    setShowSuccess(true);
+    setTimeout(() => setShowSuccess(false), 2000);
+  };
+
+  const handleUpdateOnboardingAnswers = (
+    newAnswers: Record<string, string>
+  ) => {
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    const updatedUser = {
+      ...user,
+      optionalAnswers: {
+        ...user.optionalAnswers,
+        activity: newAnswers,
+      },
+    };
+    localStorage.setItem("user", JSON.stringify(updatedUser));
+
+    setShowOnboardingModal(false);
+    setShowSuccess(true);
+    setTimeout(() => setShowSuccess(false), 2000);
+  };
+
   return (
     <AppLayout>
+      {/* Success Toast */}
+      {showSuccess && (
+        <div className="fixed top-24 right-6 z-50 bg-green-500/90 backdrop-blur-lg text-white px-6 py-4 rounded-2xl shadow-lg animate-fade-in flex items-center gap-3">
+          <span className="text-2xl">✅</span>
+          <span className="font-medium">Updated successfully!</span>
+        </div>
+      )}
+
       <div className="min-h-screen pb-20">
         {/* Header */}
         <div className="sticky top-0 z-30 bg-dark/95 backdrop-blur-xl border-b border-white/5">
@@ -516,22 +786,22 @@ export default function Activity() {
                 Track your workouts and reach your fitness goals
               </p>
             </div>
-            <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-medium hover:scale-105 transition-all duration-300 shadow-lg shadow-primary/20">
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+            <div className="flex gap-2">
+              <button
+                onClick={() => setShowOnboardingModal(true)}
+                className="px-3 py-2 md:px-4 md:py-2 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-lg font-medium transition-all duration-300 hover:scale-105 text-sm md:text-base flex items-center gap-2"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 4v16m8-8H4"
-                />
-              </svg>
-              <span className="hidden md:inline">Log Workout</span>
-            </button>
+                <span>⚙️</span>
+                <span className="hidden sm:inline">Settings</span>
+              </button>
+              <button
+                onClick={() => setShowResetConfirm(true)}
+                className="px-3 py-2 md:px-4 md:py-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-400 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-sm md:text-base flex items-center gap-2"
+              >
+                <span>🔄</span>
+                <span className="hidden sm:inline">Reset</span>
+              </button>
+            </div>
           </div>
 
           {/* Top Stats Bar */}
@@ -1457,14 +1727,230 @@ export default function Activity() {
 
               <button
                 onClick={() => setShowExerciseModal(false)}
-                className="w-full mt-6 px-4 py-3 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-medium hover:scale-105 transition-all duration-300"
+                className="w-full mt-6 px-4 py-3 rounded-xl bg-linear-to-r from-primary to-secondary text-white font-medium hover:scale-105 transition-all duration-300"
               >
                 Close
               </button>
             </div>
           </div>
         )}
+
+        {/* Reset Confirmation Modal */}
+        {showResetConfirm && (
+          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div className="bg-dark-card border border-white/10 rounded-2xl max-w-md w-full p-6">
+              <div className="text-center mb-6">
+                <span className="text-6xl mb-4 block">⚠️</span>
+                <h2 className="text-2xl font-bold text-white mb-2">
+                  Reset Activity Data?
+                </h2>
+                <p className="text-gray-400">
+                  This will reset all your workout progress. This action cannot
+                  be undone.
+                </p>
+              </div>
+
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setShowResetConfirm(false)}
+                  className="flex-1 px-4 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-xl font-medium transition-all duration-300"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleResetActivityData}
+                  className="flex-1 px-4 py-3 bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-400 rounded-xl font-medium transition-all duration-300"
+                >
+                  Reset
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Onboarding Settings Modal */}
+        {showOnboardingModal && (
+          <OnboardingSettingsModal
+            onClose={() => setShowOnboardingModal(false)}
+            onSave={handleUpdateOnboardingAnswers}
+          />
+        )}
       </div>
     </AppLayout>
+  );
+}
+
+// ============= ONBOARDING SETTINGS MODAL COMPONENT =============
+
+function OnboardingSettingsModal({
+  onClose,
+  onSave,
+}: {
+  onClose: () => void;
+  onSave: (answers: Record<string, string>) => void;
+}) {
+  const [answers, setAnswers] = useState<Record<string, string>>(() => {
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    return user.optionalAnswers?.activity || {};
+  });
+
+  const questions = [
+    {
+      key: "frequency",
+      label: "How many days per week do you usually exercise?",
+      options: [
+        { value: "0", label: "0 days" },
+        { value: "1-2", label: "1–2 days" },
+        { value: "3-4", label: "3–4 days" },
+        { value: "5+", label: "5 or more days" },
+      ],
+    },
+    {
+      key: "duration",
+      label: "On a typical workout day, how long are you active?",
+      options: [
+        { value: "<20", label: "Less than 20 minutes" },
+        { value: "20-40", label: "20–40 minutes" },
+        { value: "40-60", label: "40–60 minutes" },
+        { value: "60+", label: "More than 60 minutes" },
+      ],
+    },
+    {
+      key: "type",
+      label: "What type of activity do you do most often?",
+      options: [
+        { value: "walking", label: "Walking / running" },
+        { value: "gym", label: "Gym / strength training" },
+        { value: "sports", label: "Team sports" },
+        { value: "home", label: "Home workouts" },
+        { value: "cycling", label: "Cycling" },
+        { value: "yoga", label: "Yoga / Pilates" },
+        { value: "other", label: "Other" },
+      ],
+    },
+    {
+      key: "intensity",
+      label: "How would you describe your usual workout intensity?",
+      options: [
+        { value: "light", label: "Light (easy pace, can talk easily)" },
+        {
+          value: "moderate",
+          label: "Moderate (somewhat hard, can still talk)",
+        },
+        { value: "intense", label: "Intense (hard, difficult to talk)" },
+        { value: "varies", label: "Varies day to day" },
+      ],
+    },
+    {
+      key: "tracker",
+      label: "Do you use any fitness tracker or smartwatch?",
+      options: [
+        { value: "yes", label: "Yes, regularly" },
+        { value: "sometimes", label: "Sometimes" },
+        { value: "no", label: "No" },
+      ],
+    },
+    {
+      key: "goals",
+      label: "What are your main fitness goals?",
+      options: [
+        { value: "weight-loss", label: "Weight loss" },
+        { value: "muscle", label: "Build muscle / strength" },
+        { value: "endurance", label: "Improve endurance / cardio" },
+        { value: "flexibility", label: "Increase flexibility" },
+        { value: "general", label: "General health & wellness" },
+        { value: "sports", label: "Sports performance" },
+      ],
+    },
+    {
+      key: "equipment",
+      label: "What equipment do you have access to?",
+      options: [
+        { value: "none", label: "None / bodyweight only" },
+        { value: "basic", label: "Basic (dumbbells, resistance bands)" },
+        { value: "gym", label: "Full gym access" },
+        { value: "home-gym", label: "Home gym setup" },
+      ],
+    },
+    {
+      key: "injuries",
+      label: "Do you have any injuries or physical limitations?",
+      options: [
+        { value: "none", label: "None" },
+        { value: "back", label: "Back issues" },
+        { value: "knee", label: "Knee problems" },
+        { value: "shoulder", label: "Shoulder problems" },
+        { value: "other", label: "Other limitations" },
+      ],
+    },
+  ];
+
+  const handleAnswer = (key: string, value: string) => {
+    setAnswers((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleSave = () => {
+    onSave(answers);
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-dark-card border border-white/10 rounded-2xl max-w-3xl w-full max-h-[85vh] overflow-y-auto">
+        <div className="p-4 sm:p-6 border-b border-white/5 flex items-center justify-between sticky top-0 bg-dark-card z-10">
+          <div>
+            <h2 className="text-2xl font-bold text-white">Activity Settings</h2>
+            <p className="text-sm text-gray-400 mt-1">
+              Customize your fitness tracking preferences
+            </p>
+          </div>
+          <button
+            onClick={onClose}
+            className="w-10 h-10 rounded-lg bg-white/5 hover:bg-white/10 text-white transition-all duration-300"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div className="p-4 sm:p-6 space-y-6">
+          {questions.map((question) => (
+            <div key={question.key}>
+              <label className="block text-sm font-medium text-white mb-3">
+                {question.label}
+              </label>
+              <div className="space-y-2">
+                {question.options.map((option) => (
+                  <button
+                    key={option.value}
+                    onClick={() => handleAnswer(question.key, option.value)}
+                    className={`w-full p-3 rounded-xl border transition-all duration-300 text-left ${
+                      answers[question.key] === option.value
+                        ? "bg-primary/20 border-primary/40 text-white"
+                        : "bg-white/5 border-white/10 text-gray-300 hover:border-white/30"
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="p-4 sm:p-6 border-t border-white/5 flex gap-3 sticky bottom-0 bg-dark-card">
+          <button
+            onClick={onClose}
+            className="flex-1 px-4 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-xl font-medium transition-all duration-300"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={handleSave}
+            className="flex-1 px-4 py-3 bg-linear-to-r from-primary to-secondary text-white rounded-xl font-medium transition-all duration-300 hover:scale-105"
+          >
+            Save Settings
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }

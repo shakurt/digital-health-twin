@@ -484,542 +484,592 @@ export default function Nutrition() {
         </div>
       )}
 
-      <div className="max-w-7xl mx-auto space-y-6">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <h1 className="text-3xl md:text-4xl font-bold gradient-text-animated mb-2">
-              🍎 Nutrition Hub
-            </h1>
-            <p className="text-gray-400 text-sm md:text-base">
-              Track patterns, build habits, join challenges
-            </p>
-          </div>
-
-          {/* Action Buttons */}
-          <div className="flex gap-2">
-            <button
-              onClick={() => setShowOnboardingModal(true)}
-              className="px-3 py-2 md:px-4 md:py-2 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-lg font-medium transition-all duration-300 hover:scale-105 text-sm md:text-base flex items-center gap-2"
-            >
-              <span>⚙️</span>
-              <span className="hidden sm:inline">Settings</span>
-            </button>
-            <button
-              onClick={() => setShowResetConfirm(true)}
-              className="px-3 py-2 md:px-4 md:py-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-400 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-sm md:text-base flex items-center gap-2"
-            >
-              <span>🔄</span>
-              <span className="hidden sm:inline">Reset</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Tab Navigation */}
-        <div className="flex flex-col sm:flex-row gap-2 p-1 bg-dark-card border border-white/5 rounded-xl">
-          <button
-            onClick={() => setActiveTab("overview")}
-            className={`flex-1 px-3 sm:px-4 py-3 rounded-lg font-medium transition-all duration-300 text-sm sm:text-base ${
-              activeTab === "overview"
-                ? "bg-primary text-white"
-                : "text-gray-400 hover:text-white"
-            }`}
-          >
-            📊 Overview
-          </button>
-          <button
-            onClick={() => setActiveTab("habits")}
-            className={`flex-1 px-3 sm:px-4 py-3 rounded-lg font-medium transition-all duration-300 text-sm sm:text-base ${
-              activeTab === "habits"
-                ? "bg-primary text-white"
-                : "text-gray-400 hover:text-white"
-            }`}
-          >
-            🎯 Micro-Habits
-          </button>
-          <button
-            onClick={() => setActiveTab("challenges")}
-            className={`flex-1 px-3 sm:px-4 py-3 rounded-lg font-medium transition-all duration-300 text-sm sm:text-base ${
-              activeTab === "challenges"
-                ? "bg-primary text-white"
-                : "text-gray-400 hover:text-white"
-            }`}
-          >
-            🏆 Challenges
-          </button>
-        </div>
-
-        {/* Allergies Badge */}
-        {data.allergies.length > 0 && (
-          <div className="bg-dark-card border border-white/5 rounded-2xl p-4 flex flex-wrap gap-2 items-center">
-            <span className="text-sm text-gray-400 font-medium">
-              ⚠️ Allergies:
-            </span>
-            {data.allergies.map((allergy, idx) => (
-              <span
-                key={idx}
-                className="px-3 py-1 bg-red-500/20 border border-red-500/40 rounded-full text-red-400 text-sm font-medium"
-              >
-                🚫 {allergy}
-              </span>
-            ))}
-          </div>
-        )}
-
-        {/* Pro Tips */}
-        <div className="bg-dark-card border border-white/5 rounded-2xl p-4 md:p-6">
-          <div className="flex items-center gap-2 mb-3">
-            <span className="text-xl">💡</span>
-            <h3 className="text-lg font-bold text-white">Pro Tips</h3>
-          </div>
-          <div className="space-y-2">
-            {generateProTips().map((tip, idx) => (
-              <div
-                key={idx}
-                className={`p-3 rounded-xl border animate-fade-in ${
-                  tip.color === "red"
-                    ? "bg-red-500/10 border-red-500/30"
-                    : tip.color === "yellow"
-                    ? "bg-yellow-500/10 border-yellow-500/30"
-                    : tip.color === "purple"
-                    ? "bg-purple-500/10 border-purple-500/30"
-                    : "bg-blue-500/10 border-blue-500/30"
-                }`}
-              >
-                <div className="flex items-start gap-3">
-                  <span className="text-2xl">{tip.icon}</span>
-                  <div className="flex-1">
-                    <h4
-                      className={`font-medium text-sm mb-1 ${
-                        tip.color === "red"
-                          ? "text-red-400"
-                          : tip.color === "yellow"
-                          ? "text-yellow-400"
-                          : tip.color === "purple"
-                          ? "text-purple-400"
-                          : "text-blue-400"
-                      }`}
-                    >
-                      {tip.title}
-                    </h4>
-                    <p className="text-gray-300 text-xs md:text-sm">
-                      {tip.message}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* OVERVIEW TAB */}
-        {activeTab === "overview" && (
-          <div className="space-y-6">
-            {/* Cross-Feature Insights */}
-            {data.crossFeatureInsights.length > 0 && (
-              <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-                <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  🔗 Cross-Feature Intelligence
-                </h2>
-                <div className="space-y-3">
-                  {data.crossFeatureInsights.map((insight, idx) => (
-                    <div
-                      key={idx}
-                      className={`p-4 rounded-xl border animate-fade-in ${
-                        insight.type === "warning"
-                          ? "bg-red-500/10 border-red-500/30"
-                          : insight.type === "positive"
-                          ? "bg-green-500/10 border-green-500/30"
-                          : "bg-blue-500/10 border-blue-500/30"
-                      }`}
-                    >
-                      <div className="flex items-start gap-3">
-                        <span className="text-2xl">{insight.icon}</span>
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-1">
-                            <h3
-                              className={`font-medium ${
-                                insight.type === "warning"
-                                  ? "text-red-400"
-                                  : insight.type === "positive"
-                                  ? "text-green-400"
-                                  : "text-blue-400"
-                              }`}
-                            >
-                              {insight.title}
-                            </h3>
-                            <span className="text-xs text-gray-500 uppercase">
-                              from {insight.source}
-                            </span>
-                          </div>
-                          <p className="text-gray-300 text-sm">
-                            {insight.message}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Food Photo Analysis (Phase 2/3) */}
-            <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                  📸 Meal Recognition
-                </h2>
-                <span className="px-3 py-1 bg-primary/20 border border-primary/40 rounded-full text-primary text-xs font-medium">
-                  AI Powered
-                </span>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-4">
-                {/* Upload Section */}
-                <div className="border-2 border-dashed border-white/20 rounded-xl p-6 hover:border-primary/40 transition-all duration-300 cursor-pointer group">
-                  <div className="text-center">
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/20 rounded-full mb-3 group-hover:scale-110 transition-transform duration-300">
-                      <span className="text-3xl">📷</span>
-                    </div>
-                    <h3 className="text-white font-medium mb-1">Take Photo</h3>
-                    <p className="text-gray-400 text-xs mb-3">
-                      Snap a picture of your meal
-                    </p>
-                    <div className="flex items-center justify-center gap-2 text-xs text-gray-500">
-                      <span>•</span>
-                      <span>Instant nutrition analysis</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Recent Analysis */}
-                <div className="bg-white/5 rounded-xl p-4">
-                  <div className="flex items-start gap-3 mb-3">
-                    <div className="w-16 h-16 bg-white/10 rounded-lg flex items-center justify-center">
-                      <span className="text-2xl">🍕</span>
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="text-white font-medium text-sm mb-1">
-                        Last Analysis
-                      </h4>
-                      <p className="text-gray-400 text-xs">
-                        Pizza detected - 850 cal
-                      </p>
-                      <p className="text-gray-500 text-xs mt-1">2 hours ago</p>
-                    </div>
-                  </div>
-                  <div className="pt-3 border-t border-white/10">
-                    <button className="w-full px-3 py-2 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-lg text-xs font-medium transition-all duration-300">
-                      View Full History
-                    </button>
-                  </div>
-                </div>
-              </div>
+      <div className="min-h-screen pb-20">
+        {/* Sticky Header */}
+        <div className="sticky top-0 z-30 bg-dark/95 backdrop-blur-xl border-b border-white/5">
+          <div className="flex items-center justify-between p-4 md:p-6">
+            <div>
+              <h1 className="text-2xl md:text-4xl font-bold gradient-text-animated">
+                Nutrition Hub
+              </h1>
+              <p className="text-sm text-gray-400 mt-1">
+                Track patterns, build habits, join challenges
+              </p>
             </div>
-
-            {/* Time & Place Patterns (Phase 2/3) */}
-            <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-              <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                🕐 Time & Place Patterns
-              </h2>
-
-              <div className="space-y-4">
-                {/* Pattern Cards */}
-                <div className="grid md:grid-cols-2 gap-4">
-                  {/* Friday Pattern */}
-                  <div className="bg-gradient-to-br from-orange-500/10 to-red-500/10 border border-orange-500/30 rounded-xl p-4">
-                    <div className="flex items-start gap-3">
-                      <span className="text-3xl">🍔</span>
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <h3 className="text-orange-400 font-medium">
-                            Friday Pattern
-                          </h3>
-                          <span className="px-2 py-0.5 bg-orange-500/20 rounded text-orange-400 text-xs">
-                            Weekly
-                          </span>
-                        </div>
-                        <p className="text-gray-300 text-sm mb-2">
-                          You tend to eat 40% more on Fridays, especially fast
-                          food
-                        </p>
-                        <div className="flex items-center gap-2 text-xs text-gray-400">
-                          <span className="px-2 py-1 bg-white/5 rounded">
-                            📍 Usually near work
-                          </span>
-                          <span className="px-2 py-1 bg-white/5 rounded">
-                            🕐 6-8 PM
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="mt-3 pt-3 border-t border-orange-500/20">
-                      <p className="text-orange-400 text-xs font-medium">
-                        💡 Suggestion:
-                      </p>
-                      <p className="text-gray-400 text-xs mt-1">
-                        Have a high-protein snack at 5 PM to reduce cravings
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Stress Period Pattern */}
-                  <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/30 rounded-xl p-4">
-                    <div className="flex items-start gap-3">
-                      <span className="text-3xl">☕</span>
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <h3 className="text-purple-400 font-medium">
-                            Stress Period
-                          </h3>
-                          <span className="px-2 py-0.5 bg-purple-500/20 rounded text-purple-400 text-xs">
-                            Detected
-                          </span>
-                        </div>
-                        <p className="text-gray-300 text-sm mb-2">
-                          During busy weeks, coffee intake increases by 60%
-                        </p>
-                        <div className="flex items-center gap-2 text-xs text-gray-400">
-                          <span className="px-2 py-1 bg-white/5 rounded">
-                            📍 Office area
-                          </span>
-                          <span className="px-2 py-1 bg-white/5 rounded">
-                            🕐 Morning
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="mt-3 pt-3 border-t border-purple-500/20">
-                      <p className="text-purple-400 text-xs font-medium">
-                        💡 Suggestion:
-                      </p>
-                      <p className="text-gray-400 text-xs mt-1">
-                        Try green tea - same energy, less crash
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Location Insight */}
-                <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4">
-                  <div className="flex items-start gap-3">
-                    <span className="text-2xl">📍</span>
-                    <div className="flex-1">
-                      <h3 className="text-blue-400 font-medium mb-2">
-                        Location Analysis
-                      </h3>
-                      <div className="grid grid-cols-3 gap-3 text-center">
-                        <div className="bg-white/5 rounded-lg p-3">
-                          <p className="text-2xl font-bold text-white">45%</p>
-                          <p className="text-xs text-gray-400 mt-1">
-                            Home meals
-                          </p>
-                        </div>
-                        <div className="bg-white/5 rounded-lg p-3">
-                          <p className="text-2xl font-bold text-white">35%</p>
-                          <p className="text-xs text-gray-400 mt-1">
-                            Work area
-                          </p>
-                        </div>
-                        <div className="bg-white/5 rounded-lg p-3">
-                          <p className="text-2xl font-bold text-white">20%</p>
-                          <p className="text-xs text-gray-400 mt-1">
-                            Restaurants
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Weekly Patterns */}
-            <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-              <h2 className="text-xl font-bold text-white mb-6">
-                📅 Weekly Patterns
-              </h2>
-
-              <div className="space-y-6">
-                {/* Fast Food */}
-                <PatternItem
-                  icon="🍔"
-                  label="Fast Food"
-                  logged={data.weeklyPattern.fastFood.logged}
-                  limit={data.weeklyPattern.fastFood.limit}
-                  onLog={() => logPattern("fastFood")}
-                  status={getPatternStatus(
-                    data.weeklyPattern.fastFood.logged,
-                    data.weeklyPattern.fastFood.limit
-                  )}
-                />
-
-                {/* Sugary Drinks */}
-                <PatternItem
-                  icon="🥤"
-                  label="Sugary Drinks"
-                  logged={data.weeklyPattern.sugaryDrinks.logged}
-                  limit={data.weeklyPattern.sugaryDrinks.limit}
-                  onLog={() => logPattern("sugaryDrinks")}
-                  status={getPatternStatus(
-                    data.weeklyPattern.sugaryDrinks.logged,
-                    data.weeklyPattern.sugaryDrinks.limit
-                  )}
-                />
-
-                {/* Late Night */}
-                <PatternItem
-                  icon="🌙"
-                  label="Late Night Eating"
-                  logged={data.weeklyPattern.lateNight.logged}
-                  limit={data.weeklyPattern.lateNight.limit}
-                  onLog={() => logPattern("lateNight")}
-                  status={getPatternStatus(
-                    data.weeklyPattern.lateNight.logged,
-                    data.weeklyPattern.lateNight.limit
-                  )}
-                />
-              </div>
-            </div>
-
-            {/* Weight & Avatar */}
-            <div className="grid md:grid-cols-2 gap-6">
-              {/* Weight Projection */}
-              <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-                <h2 className="text-lg font-bold text-white mb-4">
-                  ⚖️ Weight Projection
-                </h2>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-400">Current</span>
-                    <span className="text-2xl font-bold text-white">
-                      {data.currentWeight} kg
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-400">8-Week Projection</span>
-                    <span className="text-2xl font-bold text-primary">
-                      {projectedWeight.toFixed(1)} kg
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-400">Goal</span>
-                    <span className="text-2xl font-bold text-secondary">
-                      {data.goalWeight} kg
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Avatar Health */}
-              <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-                <h2 className="text-lg font-bold text-white mb-4">
-                  🎮 Avatar Health
-                </h2>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-center gap-2">
-                    <span className="text-4xl font-bold text-white">
-                      {data.avatarHealth}
-                    </span>
-                    <span className="text-gray-400">/100</span>
-                  </div>
-                  <div className="h-4 bg-white/5 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-linear-to-r from-green-500 to-primary transition-all duration-1000"
-                      style={{ width: `${data.avatarHealth}%` }}
-                    ></div>
-                  </div>
-                  <p className="text-center text-sm text-gray-400">
-                    {data.avatarHealth >= 80
-                      ? "🌟 Thriving!"
-                      : data.avatarHealth >= 60
-                      ? "💪 Doing well"
-                      : "⚠️ Needs attention"}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* MICRO-HABITS TAB */}
-        {activeTab === "habits" && (
-          <div className="space-y-6">
-            <div className="flex justify-between items-center">
-              <div>
-                <h2 className="text-2xl font-bold text-white mb-1">
-                  🎯 Micro-Habits
-                </h2>
-                <p className="text-gray-400 text-sm">
-                  Small changes, big impact
-                </p>
-              </div>
+            <div className="flex gap-2">
               <button
-                onClick={() => setShowHabitModal(true)}
-                className="px-4 py-2 bg-primary hover:bg-primary/80 text-white rounded-xl font-medium transition-all duration-300 hover:scale-105"
+                onClick={() => setShowOnboardingModal(true)}
+                className="px-3 py-2 md:px-4 md:py-2 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-lg font-medium transition-all duration-300 hover:scale-105 text-sm md:text-base flex items-center gap-2"
               >
-                + Add Habit
+                <span>⚙️</span>
+                <span className="hidden sm:inline">Settings</span>
+              </button>
+              <button
+                onClick={() => setShowResetConfirm(true)}
+                className="px-3 py-2 md:px-4 md:py-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-400 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-sm md:text-base flex items-center gap-2"
+              >
+                <span>🔄</span>
+                <span className="hidden sm:inline">Reset</span>
               </button>
             </div>
-
-            <div className="grid gap-4">
-              {data.microHabits
-                .filter((h) => h.active)
-                .map((habit) => (
-                  <HabitCard
-                    key={habit.id}
-                    habit={habit}
-                    onToggleDay={toggleHabitDay}
-                  />
-                ))}
-            </div>
-
-            {data.microHabits.filter((h) => h.active).length === 0 && (
-              <div className="bg-dark-card border border-white/5 rounded-2xl p-12 text-center">
-                <span className="text-6xl mb-4 block">🎯</span>
-                <h3 className="text-xl font-bold text-white mb-2">
-                  No active habits yet
-                </h3>
-                <p className="text-gray-400 mb-6">
-                  Start building better nutrition habits today!
-                </p>
-                <button
-                  onClick={() => setShowHabitModal(true)}
-                  className="px-6 py-3 bg-primary hover:bg-primary/80 text-white rounded-xl font-medium transition-all duration-300"
-                >
-                  Create Your First Habit
-                </button>
-              </div>
-            )}
           </div>
-        )}
 
-        {/* CHALLENGES TAB */}
-        {activeTab === "challenges" && (
-          <div className="space-y-6">
-            <div>
-              <h2 className="text-2xl font-bold text-white mb-1">
-                🏆 Nutrition Challenges
-              </h2>
-              <p className="text-gray-400 text-sm">
-                Join challenges and compete with friends
+          {/* Top Stats Bar */}
+          <div className="grid grid-cols-3 gap-3 px-4 md:px-6 pb-4">
+            {/* Current Weight */}
+            <div className="p-3 rounded-xl bg-linear-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-xl">⚖️</span>
+                <span className="text-xs text-gray-400">Weight</span>
+              </div>
+              <p className="text-lg font-bold text-white">
+                {data.currentWeight.toFixed(1)} kg
+              </p>
+              <p className="text-xs text-gray-400">
+                Goal: {data.goalWeight.toFixed(1)} kg
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
-              {data.challenges.map((challenge) => (
-                <ChallengeCard
-                  key={challenge.id}
-                  challenge={challenge}
-                  onJoin={() => joinChallenge(challenge.id)}
-                  onProgress={(inc) =>
-                    updateChallengeProgress(challenge.id, inc)
-                  }
-                />
+            {/* Avatar Health */}
+            <div className="p-3 rounded-xl bg-linear-to-br from-green-500/10 to-green-600/10 border border-green-500/20">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-xl">💚</span>
+                <span className="text-xs text-gray-400">Health Score</span>
+              </div>
+              <p className="text-lg font-bold text-white">
+                {data.avatarHealth}/100
+              </p>
+              <p className="text-xs text-gray-400">Digital Twin</p>
+            </div>
+
+            {/* Weekly Patterns */}
+            <div className="p-3 rounded-xl bg-linear-to-br from-orange-500/10 to-orange-600/10 border border-orange-500/20">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-xl">📊</span>
+                <span className="text-xs text-gray-400">Pattern</span>
+              </div>
+              <p className="text-lg font-bold text-white">
+                {data.weeklyPattern.fastFood.logged +
+                  data.weeklyPattern.sugaryDrinks.logged +
+                  data.weeklyPattern.lateNight.logged}
+              </p>
+              <p className="text-xs text-gray-400">Logged this week</p>
+            </div>
+          </div>
+
+          {/* Tab Navigation */}
+          <div className="flex gap-2 px-4 md:px-6 pb-4">
+            <button
+              onClick={() => setActiveTab("overview")}
+              className={`flex-1 md:flex-none px-6 py-2.5 rounded-xl font-medium transition-all duration-300 ${
+                activeTab === "overview"
+                  ? "bg-linear-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
+                  : "bg-white/5 border border-transparent text-gray-400 hover:text-white hover:bg-white/10"
+              }`}
+            >
+              Overview
+            </button>
+            <button
+              onClick={() => setActiveTab("habits")}
+              className={`flex-1 md:flex-none px-6 py-2.5 rounded-xl font-medium transition-all duration-300 ${
+                activeTab === "habits"
+                  ? "bg-linear-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
+                  : "bg-white/5 border border-transparent text-gray-400 hover:text-white hover:bg-white/10"
+              }`}
+            >
+              Micro-Habits
+            </button>
+            <button
+              onClick={() => setActiveTab("challenges")}
+              className={`flex-1 md:flex-none px-6 py-2.5 rounded-xl font-medium transition-all duration-300 ${
+                activeTab === "challenges"
+                  ? "bg-linear-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
+                  : "bg-white/5 border border-transparent text-gray-400 hover:text-white hover:bg-white/10"
+              }`}
+            >
+              Challenges
+            </button>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="p-4 md:p-6">
+          {/* Allergies Badge */}
+          {data.allergies.length > 0 && (
+            <div className="bg-dark-card border border-white/5 rounded-2xl p-4 flex flex-wrap gap-2 items-center">
+              <span className="text-sm text-gray-400 font-medium">
+                ⚠️ Allergies:
+              </span>
+              {data.allergies.map((allergy, idx) => (
+                <span
+                  key={idx}
+                  className="px-3 py-1 bg-red-500/20 border border-red-500/40 rounded-full text-red-400 text-sm font-medium"
+                >
+                  🚫 {allergy}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {/* Pro Tips */}
+          <div className="bg-dark-card border border-white/5 rounded-2xl p-4 md:p-6">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-xl">💡</span>
+              <h3 className="text-lg font-bold text-white">Pro Tips</h3>
+            </div>
+            <div className="space-y-2">
+              {generateProTips().map((tip, idx) => (
+                <div
+                  key={idx}
+                  className={`p-3 rounded-xl border animate-fade-in ${
+                    tip.color === "red"
+                      ? "bg-red-500/10 border-red-500/30"
+                      : tip.color === "yellow"
+                      ? "bg-yellow-500/10 border-yellow-500/30"
+                      : tip.color === "purple"
+                      ? "bg-purple-500/10 border-purple-500/30"
+                      : "bg-blue-500/10 border-blue-500/30"
+                  }`}
+                >
+                  <div className="flex items-start gap-3">
+                    <span className="text-2xl">{tip.icon}</span>
+                    <div className="flex-1">
+                      <h4
+                        className={`font-medium text-sm mb-1 ${
+                          tip.color === "red"
+                            ? "text-red-400"
+                            : tip.color === "yellow"
+                            ? "text-yellow-400"
+                            : tip.color === "purple"
+                            ? "text-purple-400"
+                            : "text-blue-400"
+                        }`}
+                      >
+                        {tip.title}
+                      </h4>
+                      <p className="text-gray-300 text-xs md:text-sm">
+                        {tip.message}
+                      </p>
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
-        )}
+
+          {/* OVERVIEW TAB */}
+          {activeTab === "overview" && (
+            <div className="space-y-6">
+              {/* Cross-Feature Insights */}
+              {data.crossFeatureInsights.length > 0 && (
+                <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
+                  <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                    🔗 Cross-Feature Intelligence
+                  </h2>
+                  <div className="space-y-3">
+                    {data.crossFeatureInsights.map((insight, idx) => (
+                      <div
+                        key={idx}
+                        className={`p-4 rounded-xl border animate-fade-in ${
+                          insight.type === "warning"
+                            ? "bg-red-500/10 border-red-500/30"
+                            : insight.type === "positive"
+                            ? "bg-green-500/10 border-green-500/30"
+                            : "bg-blue-500/10 border-blue-500/30"
+                        }`}
+                      >
+                        <div className="flex items-start gap-3">
+                          <span className="text-2xl">{insight.icon}</span>
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-1">
+                              <h3
+                                className={`font-medium ${
+                                  insight.type === "warning"
+                                    ? "text-red-400"
+                                    : insight.type === "positive"
+                                    ? "text-green-400"
+                                    : "text-blue-400"
+                                }`}
+                              >
+                                {insight.title}
+                              </h3>
+                              <span className="text-xs text-gray-500 uppercase">
+                                from {insight.source}
+                              </span>
+                            </div>
+                            <p className="text-gray-300 text-sm">
+                              {insight.message}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Food Photo Analysis (Phase 2/3) */}
+              <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                    📸 Meal Recognition
+                  </h2>
+                  <span className="px-3 py-1 bg-primary/20 border border-primary/40 rounded-full text-primary text-xs font-medium">
+                    AI Powered
+                  </span>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  {/* Upload Section */}
+                  <div className="border-2 border-dashed border-white/20 rounded-xl p-6 hover:border-primary/40 transition-all duration-300 cursor-pointer group">
+                    <div className="text-center">
+                      <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/20 rounded-full mb-3 group-hover:scale-110 transition-transform duration-300">
+                        <span className="text-3xl">📷</span>
+                      </div>
+                      <h3 className="text-white font-medium mb-1">
+                        Take Photo
+                      </h3>
+                      <p className="text-gray-400 text-xs mb-3">
+                        Snap a picture of your meal
+                      </p>
+                      <div className="flex items-center justify-center gap-2 text-xs text-gray-500">
+                        <span>•</span>
+                        <span>Instant nutrition analysis</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Recent Analysis */}
+                  <div className="bg-white/5 rounded-xl p-4">
+                    <div className="flex items-start gap-3 mb-3">
+                      <div className="w-16 h-16 bg-white/10 rounded-lg flex items-center justify-center">
+                        <span className="text-2xl">🍕</span>
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="text-white font-medium text-sm mb-1">
+                          Last Analysis
+                        </h4>
+                        <p className="text-gray-400 text-xs">
+                          Pizza detected - 850 cal
+                        </p>
+                        <p className="text-gray-500 text-xs mt-1">
+                          2 hours ago
+                        </p>
+                      </div>
+                    </div>
+                    <div className="pt-3 border-t border-white/10">
+                      <button className="w-full px-3 py-2 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-lg text-xs font-medium transition-all duration-300">
+                        View Full History
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Time & Place Patterns (Phase 2/3) */}
+              <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
+                <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                  🕐 Time & Place Patterns
+                </h2>
+
+                <div className="space-y-4">
+                  {/* Pattern Cards */}
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {/* Friday Pattern */}
+                    <div className="bg-linear-to-br from-orange-500/10 to-red-500/10 border border-orange-500/30 rounded-xl p-4">
+                      <div className="flex items-start gap-3">
+                        <span className="text-3xl">🍔</span>
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-1">
+                            <h3 className="text-orange-400 font-medium">
+                              Friday Pattern
+                            </h3>
+                            <span className="px-2 py-0.5 bg-orange-500/20 rounded text-orange-400 text-xs">
+                              Weekly
+                            </span>
+                          </div>
+                          <p className="text-gray-300 text-sm mb-2">
+                            You tend to eat 40% more on Fridays, especially fast
+                            food
+                          </p>
+                          <div className="flex items-center gap-2 text-xs text-gray-400">
+                            <span className="px-2 py-1 bg-white/5 rounded">
+                              📍 Usually near work
+                            </span>
+                            <span className="px-2 py-1 bg-white/5 rounded">
+                              🕐 6-8 PM
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="mt-3 pt-3 border-t border-orange-500/20">
+                        <p className="text-orange-400 text-xs font-medium">
+                          💡 Suggestion:
+                        </p>
+                        <p className="text-gray-400 text-xs mt-1">
+                          Have a high-protein snack at 5 PM to reduce cravings
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Stress Period Pattern */}
+                    <div className="bg-linear-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/30 rounded-xl p-4">
+                      <div className="flex items-start gap-3">
+                        <span className="text-3xl">☕</span>
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-1">
+                            <h3 className="text-purple-400 font-medium">
+                              Stress Period
+                            </h3>
+                            <span className="px-2 py-0.5 bg-purple-500/20 rounded text-purple-400 text-xs">
+                              Detected
+                            </span>
+                          </div>
+                          <p className="text-gray-300 text-sm mb-2">
+                            During busy weeks, coffee intake increases by 60%
+                          </p>
+                          <div className="flex items-center gap-2 text-xs text-gray-400">
+                            <span className="px-2 py-1 bg-white/5 rounded">
+                              📍 Office area
+                            </span>
+                            <span className="px-2 py-1 bg-white/5 rounded">
+                              🕐 Morning
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="mt-3 pt-3 border-t border-purple-500/20">
+                        <p className="text-purple-400 text-xs font-medium">
+                          💡 Suggestion:
+                        </p>
+                        <p className="text-gray-400 text-xs mt-1">
+                          Try green tea - same energy, less crash
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Location Insight */}
+                  <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4">
+                    <div className="flex items-start gap-3">
+                      <span className="text-2xl">📍</span>
+                      <div className="flex-1">
+                        <h3 className="text-blue-400 font-medium mb-2">
+                          Location Analysis
+                        </h3>
+                        <div className="grid grid-cols-3 gap-3 text-center">
+                          <div className="bg-white/5 rounded-lg p-3">
+                            <p className="text-2xl font-bold text-white">45%</p>
+                            <p className="text-xs text-gray-400 mt-1">
+                              Home meals
+                            </p>
+                          </div>
+                          <div className="bg-white/5 rounded-lg p-3">
+                            <p className="text-2xl font-bold text-white">35%</p>
+                            <p className="text-xs text-gray-400 mt-1">
+                              Work area
+                            </p>
+                          </div>
+                          <div className="bg-white/5 rounded-lg p-3">
+                            <p className="text-2xl font-bold text-white">20%</p>
+                            <p className="text-xs text-gray-400 mt-1">
+                              Restaurants
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Weekly Patterns */}
+              <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
+                <h2 className="text-xl font-bold text-white mb-6">
+                  📅 Weekly Patterns
+                </h2>
+
+                <div className="space-y-6">
+                  {/* Fast Food */}
+                  <PatternItem
+                    icon="🍔"
+                    label="Fast Food"
+                    logged={data.weeklyPattern.fastFood.logged}
+                    limit={data.weeklyPattern.fastFood.limit}
+                    onLog={() => logPattern("fastFood")}
+                    status={getPatternStatus(
+                      data.weeklyPattern.fastFood.logged,
+                      data.weeklyPattern.fastFood.limit
+                    )}
+                  />
+
+                  {/* Sugary Drinks */}
+                  <PatternItem
+                    icon="🥤"
+                    label="Sugary Drinks"
+                    logged={data.weeklyPattern.sugaryDrinks.logged}
+                    limit={data.weeklyPattern.sugaryDrinks.limit}
+                    onLog={() => logPattern("sugaryDrinks")}
+                    status={getPatternStatus(
+                      data.weeklyPattern.sugaryDrinks.logged,
+                      data.weeklyPattern.sugaryDrinks.limit
+                    )}
+                  />
+
+                  {/* Late Night */}
+                  <PatternItem
+                    icon="🌙"
+                    label="Late Night Eating"
+                    logged={data.weeklyPattern.lateNight.logged}
+                    limit={data.weeklyPattern.lateNight.limit}
+                    onLog={() => logPattern("lateNight")}
+                    status={getPatternStatus(
+                      data.weeklyPattern.lateNight.logged,
+                      data.weeklyPattern.lateNight.limit
+                    )}
+                  />
+                </div>
+              </div>
+
+              {/* Weight & Avatar */}
+              <div className="grid md:grid-cols-2 gap-6">
+                {/* Weight Projection */}
+                <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
+                  <h2 className="text-lg font-bold text-white mb-4">
+                    ⚖️ Weight Projection
+                  </h2>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-400">Current</span>
+                      <span className="text-2xl font-bold text-white">
+                        {data.currentWeight} kg
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-400">8-Week Projection</span>
+                      <span className="text-2xl font-bold text-primary">
+                        {projectedWeight.toFixed(1)} kg
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-400">Goal</span>
+                      <span className="text-2xl font-bold text-secondary">
+                        {data.goalWeight} kg
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Avatar Health */}
+                <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
+                  <h2 className="text-lg font-bold text-white mb-4">
+                    🎮 Avatar Health
+                  </h2>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-center gap-2">
+                      <span className="text-4xl font-bold text-white">
+                        {data.avatarHealth}
+                      </span>
+                      <span className="text-gray-400">/100</span>
+                    </div>
+                    <div className="h-4 bg-white/5 rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-linear-to-r from-green-500 to-primary transition-all duration-1000"
+                        style={{ width: `${data.avatarHealth}%` }}
+                      ></div>
+                    </div>
+                    <p className="text-center text-sm text-gray-400">
+                      {data.avatarHealth >= 80
+                        ? "🌟 Thriving!"
+                        : data.avatarHealth >= 60
+                        ? "💪 Doing well"
+                        : "⚠️ Needs attention"}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* MICRO-HABITS TAB */}
+          {activeTab === "habits" && (
+            <div className="space-y-6">
+              <div className="flex justify-between items-center">
+                <div>
+                  <h2 className="text-2xl font-bold text-white mb-1">
+                    🎯 Micro-Habits
+                  </h2>
+                  <p className="text-gray-400 text-sm">
+                    Small changes, big impact
+                  </p>
+                </div>
+                <button
+                  onClick={() => setShowHabitModal(true)}
+                  className="px-4 py-2 bg-primary hover:bg-primary/80 text-white rounded-xl font-medium transition-all duration-300 hover:scale-105"
+                >
+                  + Add Habit
+                </button>
+              </div>
+
+              <div className="grid gap-4">
+                {data.microHabits
+                  .filter((h) => h.active)
+                  .map((habit) => (
+                    <HabitCard
+                      key={habit.id}
+                      habit={habit}
+                      onToggleDay={toggleHabitDay}
+                    />
+                  ))}
+              </div>
+
+              {data.microHabits.filter((h) => h.active).length === 0 && (
+                <div className="bg-dark-card border border-white/5 rounded-2xl p-12 text-center">
+                  <span className="text-6xl mb-4 block">🎯</span>
+                  <h3 className="text-xl font-bold text-white mb-2">
+                    No active habits yet
+                  </h3>
+                  <p className="text-gray-400 mb-6">
+                    Start building better nutrition habits today!
+                  </p>
+                  <button
+                    onClick={() => setShowHabitModal(true)}
+                    className="px-6 py-3 bg-primary hover:bg-primary/80 text-white rounded-xl font-medium transition-all duration-300"
+                  >
+                    Create Your First Habit
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* CHALLENGES TAB */}
+          {activeTab === "challenges" && (
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-2xl font-bold text-white mb-1">
+                  🏆 Nutrition Challenges
+                </h2>
+                <p className="text-gray-400 text-sm">
+                  Join challenges and compete with friends
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                {data.challenges.map((challenge) => (
+                  <ChallengeCard
+                    key={challenge.id}
+                    challenge={challenge}
+                    onJoin={() => joinChallenge(challenge.id)}
+                    onProgress={(inc) =>
+                      updateChallengeProgress(challenge.id, inc)
+                    }
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Habit Modal */}
