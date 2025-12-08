@@ -180,7 +180,40 @@ export default function Sidebar({ isMobileOpen, onClose }: SidebarProps) {
             })}
           </nav>
 
-          <div className="absolute bottom-6 left-0 right-0 px-3">
+          <div className="absolute bottom-6 left-0 right-0 px-3 space-y-2">
+            {/* Docs Button */}
+            <button
+              onClick={() => handleNavigation("/docs")}
+              className="w-full hidden lg:flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 group hover:bg-blue-500/10 border border-transparent hover:border-blue-500/40 text-gray-400 hover:text-blue-400"
+            >
+              <svg
+                className="w-6 h-6 shrink-0"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                />
+              </svg>
+              <span
+                className={`
+                  font-medium whitespace-nowrap transition-all duration-300
+                  ${
+                    isHovered || isMobileOpen
+                      ? "opacity-100 translate-x-0"
+                      : "opacity-0 -translate-x-4 lg:hidden"
+                  }
+                `}
+              >
+                Docs
+              </span>
+            </button>
+
+            {/* Sign Out Button */}
             <button
               onClick={() => {
                 // Set session to false in localStorage
