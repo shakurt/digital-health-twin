@@ -242,7 +242,7 @@ export default function Nutrition() {
   };
 
   const calculateProjectedWeight = () => {
-    if (!data) return data?.currentWeight || 63;
+    if (!data) return 63;
     const avgCalories = data.weeklyCalories.reduce((a, b) => a + b, 0) / 7;
     const calorieDeficit =
       (data.idealRange.min + data.idealRange.max) / 2 - avgCalories;
