@@ -4,262 +4,472 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import AppLayout from "@/components/AppLayout";
 
-interface MindfulnessData {
-  weeklyPractice: boolean[]; // Sun-Sat, did meditation?
-  weeklyMinutes: number[]; // Sun-Sat, minutes practiced
-  weeklyMood: number[]; // Sun-Sat, mood 1-5
-  weeklyStress: number[]; // Sun-Sat, stress 1-10
-  streak: number; // consecutive days
-  mentalScore: number; // 0-100
-  avatarMentalHealth: number; // 0-100
-  lastUpdated: string;
+type TabKey = "mirror" | "patterns" | "twin" | "exercises";
+
+interface MentalPattern {
+  day: string;
+  mood:
+    | "energized"
+    | "calm"
+    | "stressed"
+    | "low-energy"
+    | "anxious"
+    | "neutral";
+  stressLevel: number; // 1-10
+  energyLevel: number; // 1-10
+  sleepHours: number;
+  heartRateAvg: number;
+  phoneUsageHours: number;
+  activityMinutes: number;
+  notes: string;
+  triggers: string[];
 }
+
+interface ConversationMessage {
+  id: string;
+  role: "user" | "twin";
+  message: string;
+  timestamp: string;
+  emotion?: string;
+}
+
+interface BreathingExercise {
+  id: string;
+  name: string;
+  description: string;
+  duration: number; // minutes
+  icon: string;
+  category: "stress" | "focus" | "sleep" | "anxiety" | "balance";
+  breathing_pattern: string;
+  benefits: string[];
+  completed: boolean;
+}
+
+interface MindInsight {
+  id: string;
+  type: "pattern" | "suggestion" | "warning";
+  title: string;
+  message: string;
+  relatedDay?: string;
+  icon: string;
+  actionable: boolean;
+}
+
+// Sample mental patterns data
+const mentalPatternsData: MentalPattern[] = [
+  {
+    day: "Monday",
+    mood: "calm",
+    stressLevel: 3,
+    energyLevel: 8,
+    sleepHours: 7.5,
+    heartRateAvg: 68,
+    phoneUsageHours: 4,
+    activityMinutes: 45,
+    notes: "Good morning routine, productive work session",
+    triggers: [],
+  },
+  {
+    day: "Tuesday",
+    mood: "stressed",
+    stressLevel: 8,
+    energyLevel: 5,
+    sleepHours: 6.2,
+    heartRateAvg: 82,
+    phoneUsageHours: 6.5,
+    activityMinutes: 20,
+    notes: "Busy afternoon meetings, rushed lunch",
+    triggers: ["meetings", "deadline", "low-sleep"],
+  },
+  {
+    day: "Wednesday",
+    mood: "calm",
+    stressLevel: 4,
+    energyLevel: 7,
+    sleepHours: 7.8,
+    heartRateAvg: 71,
+    phoneUsageHours: 3.5,
+    activityMinutes: 60,
+    notes: "Workout day, relaxed evening",
+    triggers: [],
+  },
+  {
+    day: "Thursday",
+    mood: "anxious",
+    stressLevel: 7,
+    energyLevel: 4,
+    sleepHours: 5.9,
+    heartRateAvg: 85,
+    phoneUsageHours: 8,
+    activityMinutes: 15,
+    notes: "Scrolled social media too much, ended work late",
+    triggers: ["social-media", "late-night", "no-exercise"],
+  },
+  {
+    day: "Friday",
+    mood: "neutral",
+    stressLevel: 5,
+    energyLevel: 6,
+    sleepHours: 7,
+    heartRateAvg: 75,
+    phoneUsageHours: 5,
+    activityMinutes: 35,
+    notes: "Mixed day - productive morning, low energy evening",
+    triggers: ["inconsistent-sleep"],
+  },
+  {
+    day: "Saturday",
+    mood: "energized",
+    stressLevel: 2,
+    energyLevel: 9,
+    sleepHours: 8.5,
+    heartRateAvg: 65,
+    phoneUsageHours: 2,
+    activityMinutes: 90,
+    notes: "Full rest day, outdoor activity, minimal screen time",
+    triggers: [],
+  },
+  {
+    day: "Sunday",
+    mood: "low-energy",
+    stressLevel: 6,
+    energyLevel: 3,
+    sleepHours: 7.2,
+    heartRateAvg: 72,
+    phoneUsageHours: 7,
+    activityMinutes: 10,
+    notes: "Weekend anxiety, planning next week tasks",
+    triggers: ["anxiety", "overthinking"],
+  },
+];
+
+const breathingExercises: BreathingExercise[] = [
+  {
+    id: "1",
+    name: "Making Peace with Today's Mistakes",
+    description:
+      "A calming 4-7-8 breathing exercise designed to release self-judgment and accept imperfection.",
+    duration: 5,
+    icon: "🕊️",
+    category: "stress",
+    breathing_pattern: "4 seconds in, 7 seconds hold, 8 seconds out",
+    benefits: [
+      "Reduces self-criticism",
+      "Promotes acceptance",
+      "Calms nervous system",
+    ],
+    completed: false,
+  },
+  {
+    id: "2",
+    name: "Grounding in the Present Moment",
+    description:
+      "Box breathing combined with 5-4-3-2-1 sensory awareness to anchor you to now.",
+    duration: 6,
+    icon: "🌍",
+    category: "anxiety",
+    breathing_pattern: "4 seconds equal hold-breathe cycle",
+    benefits: [
+      "Reduces anxiety",
+      "Increases present awareness",
+      "Calms racing thoughts",
+    ],
+    completed: false,
+  },
+  {
+    id: "3",
+    name: "The Stress Release Wave",
+    description:
+      "Progressive breathing to release tension accumulated during busy afternoons.",
+    duration: 7,
+    icon: "🌊",
+    category: "stress",
+    breathing_pattern: "Slow inhale, extended exhale focus",
+    benefits: [
+      "Releases accumulated tension",
+      "Perfect for afternoon slump",
+      "Reduces cortisol",
+    ],
+    completed: false,
+  },
+  {
+    id: "4",
+    name: "Finding Your Calm Harbor",
+    description:
+      "Guided visualization with rhythmic breathing to find your mental safe space.",
+    duration: 10,
+    icon: "⛵",
+    category: "sleep",
+    breathing_pattern: "Slow, rhythmic 5-5 pattern",
+    benefits: ["Prepares for sleep", "Deep relaxation", "Reduces racing mind"],
+    completed: false,
+  },
+  {
+    id: "5",
+    name: "Focus Activation Breath",
+    description:
+      "Energizing breath work to activate your parasympathetic nervous system for deep work.",
+    duration: 5,
+    icon: "🎯",
+    category: "focus",
+    breathing_pattern: "Quick inhale, slow exhale, minimum hold",
+    benefits: [
+      "Enhances focus",
+      "Increases alertness",
+      "Prepares for deep work",
+    ],
+    completed: false,
+  },
+  {
+    id: "6",
+    name: "Emotional Resilience Builder",
+    description:
+      "Strengthens your ability to handle stress through controlled breathing and mental rehearsal.",
+    duration: 8,
+    icon: "💪",
+    category: "balance",
+    breathing_pattern: "Bilateral breathing with visualization",
+    benefits: [
+      "Builds emotional strength",
+      "Improves stress resilience",
+      "Calms overwhelm",
+    ],
+    completed: false,
+  },
+];
+
+const mindInsights: MindInsight[] = [
+  {
+    id: "1",
+    type: "pattern",
+    title: "Tuesday Afternoon Stress Pattern",
+    message:
+      "Every Tuesday afternoon you experience peak stress (8/10). This correlates with back-to-back meetings and reduced physical activity. Try a 5-min breathing exercise beforehand.",
+    relatedDay: "Tuesday",
+    icon: "📊",
+    actionable: true,
+  },
+  {
+    id: "2",
+    type: "pattern",
+    title: "Sleep Impact on Energy",
+    message:
+      "When you sleep less than 6.5 hours, your energy drops to 3-4/10 the next day. You're 40% more likely to feel stressed.",
+    icon: "😴",
+    actionable: true,
+  },
+  {
+    id: "3",
+    type: "suggestion",
+    title: "High Phone Usage Correlation",
+    message:
+      "On Thursday you had 8 hours of phone usage (highest of week). Your stress increased to 7/10. Consider setting screen time limits during work hours.",
+    relatedDay: "Thursday",
+    icon: "📱",
+    actionable: true,
+  },
+  {
+    id: "4",
+    type: "pattern",
+    title: "Movement = Mood Boost",
+    message:
+      "Saturday had 90 minutes of activity and you felt energized (9/10). Even 45 minutes on Monday had positive effects. Exercise is your strongest mood regulator.",
+    icon: "🏃",
+    actionable: true,
+  },
+  {
+    id: "5",
+    type: "warning",
+    title: "Sunday Anxiety Pattern",
+    message:
+      "You typically experience anxiety on Sunday evenings. Planning next week tasks without grounding practices may be triggering overthinking.",
+    relatedDay: "Sunday",
+    icon: "⚠️",
+    actionable: true,
+  },
+];
 
 export default function Mindfulness() {
   const router = useRouter();
-  const [data, setData] = useState<MindfulnessData | null>(null);
-  const [showMoodModal, setShowMoodModal] = useState(false);
-  const [showPracticeModal, setShowPracticeModal] = useState(false);
-  const [selectedMood, setSelectedMood] = useState(3);
-  const [selectedStress, setSelectedStress] = useState(5);
-  const [practiceMinutes, setPracticeMinutes] = useState(10);
+  const [activeTab, setActiveTab] = useState<TabKey>("mirror");
+  const [showExerciseModal, setShowExerciseModal] = useState(false);
+  const [selectedExercise, setSelectedExercise] =
+    useState<BreathingExercise | null>(null);
+  const [showSettings, setShowSettings] = useState(false);
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [conversationHistory, setConversationHistory] = useState<
+    ConversationMessage[]
+  >([
+    {
+      id: "1",
+      role: "twin",
+      message:
+        "Hey! I&apos;ve been watching your patterns this week. I noticed something interesting about your stress levels on Tuesday afternoons. Want to talk about it?",
+      timestamp: new Date().toISOString(),
+      emotion: "curious",
+    },
+  ]);
+  const [userInput, setUserInput] = useState("");
 
-  const moodEmojis = ["😢", "😟", "😐", "🙂", "😊"];
-  const moodLabels = ["Very Bad", "Bad", "Neutral", "Good", "Great"];
-
-  // Initialize or load mindfulness data
+  // Prevent body scroll when modal is open
   useEffect(() => {
-    // Load from localStorage and check session
+    if (showExerciseModal || showSettings || showResetConfirm) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [showExerciseModal, showSettings, showResetConfirm]);
+
+  // Check session
+  useEffect(() => {
     const userData = localStorage.getItem("user");
     if (!userData) {
-      router.push("/");
+      router.push("/signin");
       return;
     }
-
     const user = JSON.parse(userData);
-    if (user.session !== true) {
-      router.push("/");
-      return;
+    if (!user.session) {
+      router.push("/signin");
     }
-
-    const initialData: MindfulnessData = {
-      weeklyPractice: [true, false, true, true, false, true, true],
-      weeklyMinutes: [10, 0, 15, 10, 0, 20, 15],
-      weeklyMood: [4, 3, 4, 4, 3, 5, 4],
-      weeklyStress: [5, 7, 5, 4, 6, 3, 4],
-      streak: 2,
-      mentalScore: 78,
-      avatarMentalHealth: 82,
-      lastUpdated: new Date().toISOString(),
-    };
-    setData(initialData);
   }, [router]);
 
-  // Calculate metrics
-  const calculateMetrics = () => {
-    if (!data) return null;
+  const handleStartExercise = (exercise: BreathingExercise) => {
+    setSelectedExercise(exercise);
+    setShowExerciseModal(true);
+  };
 
-    const practiceDays = data.weeklyPractice.filter(Boolean).length;
-    const totalMinutes = data.weeklyMinutes.reduce((a, b) => a + b, 0);
-    const avgMood = data.weeklyMood.reduce((a, b) => a + b, 0) / 7;
-    const avgStress = data.weeklyStress.reduce((a, b) => a + b, 0) / 7;
+  const handleCompleteExercise = () => {
+    if (selectedExercise) {
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 2000);
+      setShowExerciseModal(false);
+    }
+  };
 
-    return {
-      practiceDays,
-      totalMinutes,
-      avgMood: avgMood.toFixed(1),
-      avgStress: avgStress.toFixed(1),
+  const handleSendMessage = () => {
+    if (!userInput.trim()) return;
+
+    // Add user message
+    const newUserMessage: ConversationMessage = {
+      id: Date.now().toString(),
+      role: "user",
+      message: userInput,
+      timestamp: new Date().toISOString(),
     };
+
+    setConversationHistory((prev) => [...prev, newUserMessage]);
+
+    // Simulate twin response
+    setTimeout(() => {
+      const twinResponses = [
+        "That makes sense. I noticed you had similar feelings last Thursday when your phone usage went up. Have you thought about what triggers these feelings?",
+        "I hear you. Looking at your data, your energy levels tend to drop when you skip exercise. Maybe starting with just 20 minutes tomorrow could help shift things?",
+        "That's really insightful self-awareness. From your patterns, I can see that when you get enough sleep (8+ hours), your stress naturally drops by 40%. What if we worked on that first?",
+        "I've been analyzing your week. Tuesday afternoons are consistently your stress peak. It correlates with back-to-back meetings. What if we built in 5 minutes of breathing before those meetings?",
+        "I notice when you slow down and take time for yourself, your overall mood improves significantly. You're 70% more likely to feel calm after activities like the workout you did on Saturday.",
+      ];
+      const randomResponse =
+        twinResponses[Math.floor(Math.random() * twinResponses.length)];
+
+      const newTwinMessage: ConversationMessage = {
+        id: (Date.now() + 1).toString(),
+        role: "twin",
+        message: randomResponse,
+        timestamp: new Date().toISOString(),
+        emotion: "supportive",
+      };
+
+      setConversationHistory((prev) => [...prev, newTwinMessage]);
+    }, 800);
+
+    setUserInput("");
   };
 
-  // Log mood and stress
-  const handleLogMood = () => {
-    if (!data) return;
-
-    const today = new Date().getDay();
-    const newData = { ...data };
-    newData.weeklyMood[today] = selectedMood;
-    newData.weeklyStress[today] = selectedStress;
-
-    // Recalculate mental score
-    const avgMood = newData.weeklyMood.reduce((a, b) => a + b, 0) / 7;
-    const avgStress = newData.weeklyStress.reduce((a, b) => a + b, 0) / 7;
-    const practiceDays = newData.weeklyPractice.filter(Boolean).length;
-
-    newData.mentalScore = Math.round(
-      avgMood * 15 +
-        (10 - avgStress) * 8 +
-        practiceDays * 3 +
-        newData.streak * 2
-    );
-    newData.avatarMentalHealth = Math.min(100, newData.mentalScore + 5);
-
-    newData.lastUpdated = new Date().toISOString();
-
-    setData(newData);
-
-    // Update localStorage with mindfulness data
-    const userData = localStorage.getItem("user");
-    if (userData) {
-      const user = JSON.parse(userData);
-      const updatedUser = {
-        ...user,
-        mindfulnessData: newData,
-      };
-      localStorage.setItem("user", JSON.stringify(updatedUser));
-    }
-
-    setShowMoodModal(false);
+  const handleResetMindfulnessData = () => {
+    setShowResetConfirm(false);
     setShowSuccess(true);
     setTimeout(() => setShowSuccess(false), 2000);
   };
 
-  // Log practice
-  const handleLogPractice = () => {
-    if (!data) return;
+  const handleUpdateMindfulnessSettings = (
+    newAnswers: Record<string, string>
+  ) => {
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    const updatedUser = {
+      ...user,
+      optionalAnswers: {
+        ...user.optionalAnswers,
+        mindfulness: newAnswers,
+      },
+    };
+    localStorage.setItem("user", JSON.stringify(updatedUser));
 
-    const today = new Date().getDay();
-    const newData = { ...data };
-    const wasPracticing = newData.weeklyPractice[today];
-
-    newData.weeklyPractice[today] = true;
-    newData.weeklyMinutes[today] =
-      (newData.weeklyMinutes[today] || 0) + practiceMinutes;
-
-    // Update streak
-    if (!wasPracticing) {
-      const yesterday = (today + 6) % 7;
-      if (newData.weeklyPractice[yesterday]) {
-        newData.streak += 1;
-      } else {
-        newData.streak = 1;
-      }
-    }
-
-    // Recalculate mental score
-    const avgMood = newData.weeklyMood.reduce((a, b) => a + b, 0) / 7;
-    const avgStress = newData.weeklyStress.reduce((a, b) => a + b, 0) / 7;
-    const practiceDays = newData.weeklyPractice.filter(Boolean).length;
-
-    newData.mentalScore = Math.round(
-      avgMood * 15 +
-        (10 - avgStress) * 8 +
-        practiceDays * 3 +
-        newData.streak * 2
-    );
-    newData.avatarMentalHealth = Math.min(100, newData.mentalScore + 5);
-
-    newData.lastUpdated = new Date().toISOString();
-
-    setData(newData);
-
-    // Update localStorage with mindfulness data
-    const userData2 = localStorage.getItem("user");
-    if (userData2) {
-      const user2 = JSON.parse(userData2);
-      const updatedUser2 = {
-        ...user2,
-        mindfulnessData: newData,
-      };
-      localStorage.setItem("user", JSON.stringify(updatedUser2));
-    }
-
-    setShowPracticeModal(false);
+    setShowSettings(false);
     setShowSuccess(true);
     setTimeout(() => setShowSuccess(false), 2000);
   };
 
-  // Generate insights
-  const generateInsights = () => {
-    if (!data) return [];
-
-    const insights = [];
-    const metrics = calculateMetrics();
-    if (!metrics) return [];
-
-    // Stress warning
-    if (parseFloat(metrics.avgStress) >= 7) {
-      insights.push({
-        type: "warning",
-        icon: "⚠️",
-        title: "High Stress Detected",
-        message: `Your average stress level is ${metrics.avgStress}/10. This may affect your sleep quality and eating habits. Try 10 minutes of meditation today.`,
-      });
+  const getMoodColor = (mood: MentalPattern["mood"]): string => {
+    switch (mood) {
+      case "energized":
+        return "from-amber-500/20 to-amber-600/20 border-amber-500/40";
+      case "calm":
+        return "from-emerald-500/20 to-emerald-600/20 border-emerald-500/40";
+      case "stressed":
+        return "from-red-500/20 to-red-600/20 border-red-500/40";
+      case "low-energy":
+        return "from-blue-500/20 to-blue-600/20 border-blue-500/40";
+      case "anxious":
+        return "from-purple-500/20 to-purple-600/20 border-purple-500/40";
+      case "neutral":
+        return "from-gray-500/20 to-gray-600/20 border-gray-500/40";
+      default:
+        return "from-gray-500/20 to-gray-600/20 border-gray-500/40";
     }
-
-    // Low practice warning
-    if (metrics.practiceDays < 3) {
-      insights.push({
-        type: "warning",
-        icon: "⚠️",
-        title: "Low Mindfulness Practice",
-        message:
-          "You've only practiced mindfulness 2 days this week. Regular practice reduces stress by up to 30%.",
-      });
-    }
-
-    // Streak milestone
-    if (data.streak >= 7) {
-      insights.push({
-        type: "success",
-        icon: "🎉",
-        title: `${data.streak}-Day Streak!`,
-        message: `Amazing! You've practiced mindfulness for ${data.streak} consecutive days. This boosts your avatar's mental health by +5.`,
-      });
-    }
-
-    // Positive feedback
-    if (data.mentalScore >= 85) {
-      insights.push({
-        type: "success",
-        icon: "🌟",
-        title: "Excellent Mental Health!",
-        message:
-          "Your mindfulness practice is paying off. Keep this balance for optimal well-being.",
-      });
-    }
-
-    // Mood pattern
-    const moodTrend = data.weeklyMood.slice(-3).reduce((a, b) => a + b, 0) / 3;
-    if (moodTrend < 3) {
-      insights.push({
-        type: "warning",
-        icon: "⚠️",
-        title: "Low Mood Pattern",
-        message:
-          "Your mood has been lower than usual lately. Consider talking to someone or increasing mindfulness practice.",
-      });
-    }
-
-    // Suggestions
-    if (metrics.practiceDays < 5) {
-      insights.push({
-        type: "suggestion",
-        icon: "💡",
-        title: "Build a Daily Habit",
-        message:
-          "Try practicing at the same time each day - morning meditation sets a positive tone for the entire day.",
-      });
-    }
-
-    return insights;
   };
 
-  if (!data) {
-    return (
-      <div className="min-h-screen bg-dark-bg flex items-center justify-center">
-        <div className="text-center">
-          <div className="inline-block w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mb-4"></div>
-          <p className="text-gray-400">Loading mindfulness data...</p>
-        </div>
-      </div>
-    );
-  }
+  const getMoodEmoji = (mood: MentalPattern["mood"]): string => {
+    switch (mood) {
+      case "energized":
+        return "⚡";
+      case "calm":
+        return "😌";
+      case "stressed":
+        return "😰";
+      case "low-energy":
+        return "😔";
+      case "anxious":
+        return "😟";
+      case "neutral":
+        return "😐";
+      default:
+        return "😐";
+    }
+  };
 
-  const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  const metrics = calculateMetrics();
-  const insights = generateInsights();
+  const getCategoryColor = (
+    category: BreathingExercise["category"]
+  ): string => {
+    switch (category) {
+      case "stress":
+        return "from-red-500/10 to-red-600/10 border-red-500/20";
+      case "focus":
+        return "from-blue-500/10 to-blue-600/10 border-blue-500/20";
+      case "sleep":
+        return "from-indigo-500/10 to-indigo-600/10 border-indigo-500/20";
+      case "anxiety":
+        return "from-purple-500/10 to-purple-600/10 border-purple-500/20";
+      case "balance":
+        return "from-emerald-500/10 to-emerald-600/10 border-emerald-500/20";
+      default:
+        return "from-gray-500/10 to-gray-600/10 border-gray-500/20";
+    }
+  };
 
   return (
     <AppLayout>
@@ -267,526 +477,941 @@ export default function Mindfulness() {
       {showSuccess && (
         <div className="fixed top-24 right-6 z-50 bg-green-500/90 backdrop-blur-lg text-white px-6 py-4 rounded-2xl shadow-lg animate-fade-in flex items-center gap-3">
           <span className="text-2xl">✅</span>
-          <span className="font-medium">Logged successfully!</span>
+          <span className="font-medium">Updated successfully!</span>
         </div>
       )}
 
-      {/* Mood Modal */}
-      {showMoodModal && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-dark-card border border-white/10 rounded-2xl p-6 max-w-md w-full animate-fade-in-up">
-            <h3 className="text-xl font-bold text-white mb-6">
-              Log Today's Mood & Stress
-            </h3>
+      <div className="min-h-screen pb-20">
+        {/* Sticky Header */}
+        <div className="sticky top-0 z-30 bg-dark/95 backdrop-blur-xl border-b border-white/5">
+          <div className="flex items-center justify-between p-4 md:p-6">
+            <div>
+              <h1 className="text-2xl md:text-4xl font-bold gradient-text-animated">
+                Mindfulness Dashboard
+              </h1>
+              <p className="text-sm text-gray-400 mt-1">
+                Your mental pattern map and digital twin companion
+              </p>
+            </div>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setShowSettings(true)}
+                className="px-4 py-2 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-xl font-medium transition-all duration-300 hover:scale-105 flex items-center gap-2"
+              >
+                <span>⚙️</span>
+                <span className="hidden sm:inline">Settings</span>
+              </button>
+              <button
+                onClick={() => setShowResetConfirm(true)}
+                className="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-400 rounded-xl font-medium transition-all duration-300 hover:scale-105 flex items-center gap-2"
+              >
+                <span>🔄</span>
+                <span className="hidden sm:inline">Reset</span>
+              </button>
+            </div>
+          </div>
 
+          {/* Top Stats Bar */}
+          <div className="grid grid-cols-3 gap-3 px-4 md:px-6 pb-4">
+            {/* Weekly Average Stress */}
+            <div className="p-3 rounded-xl bg-linear-to-br from-red-500/10 to-red-600/10 border border-red-500/20">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-xl">😰</span>
+                <span className="text-xs text-gray-400">Avg Stress</span>
+              </div>
+              <p className="text-lg font-bold text-white">
+                {(
+                  mentalPatternsData.reduce((a, b) => a + b.stressLevel, 0) /
+                  mentalPatternsData.length
+                ).toFixed(1)}
+                /10
+              </p>
+              <p className="text-xs text-gray-400">This week</p>
+            </div>
+
+            {/* Weekly Average Energy */}
+            <div className="p-3 rounded-xl bg-linear-to-br from-amber-500/10 to-amber-600/10 border border-amber-500/20">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-xl">⚡</span>
+                <span className="text-xs text-gray-400">Avg Energy</span>
+              </div>
+              <p className="text-lg font-bold text-white">
+                {(
+                  mentalPatternsData.reduce((a, b) => a + b.energyLevel, 0) /
+                  mentalPatternsData.length
+                ).toFixed(1)}
+                /10
+              </p>
+              <p className="text-xs text-gray-400">This week</p>
+            </div>
+
+            {/* Best Day */}
+            <div className="p-3 rounded-xl bg-linear-to-br from-emerald-500/10 to-emerald-600/10 border border-emerald-500/20">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-xl">🌟</span>
+                <span className="text-xs text-gray-400">Best Day</span>
+              </div>
+              <p className="text-lg font-bold text-white">Saturday</p>
+              <p className="text-xs text-gray-400">Energized & Calm</p>
+            </div>
+          </div>
+
+          {/* Tab Navigation */}
+          <div className="flex gap-2 px-4 md:px-6 pb-4 overflow-x-auto">
+            <button
+              onClick={() => setActiveTab("mirror")}
+              className={`flex-1 md:flex-none px-6 py-2.5 rounded-xl font-medium transition-all duration-300 whitespace-nowrap ${
+                activeTab === "mirror"
+                  ? "bg-linear-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
+                  : "bg-white/5 border border-transparent text-gray-400 hover:text-white hover:bg-white/10"
+              }`}
+            >
+              Mind Mirror
+            </button>
+            <button
+              onClick={() => setActiveTab("patterns")}
+              className={`flex-1 md:flex-none px-6 py-2.5 rounded-xl font-medium transition-all duration-300 whitespace-nowrap ${
+                activeTab === "patterns"
+                  ? "bg-linear-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
+                  : "bg-white/5 border border-transparent text-gray-400 hover:text-white hover:bg-white/10"
+              }`}
+            >
+              Pattern Map
+            </button>
+            <button
+              onClick={() => setActiveTab("twin")}
+              className={`flex-1 md:flex-none px-6 py-2.5 rounded-xl font-medium transition-all duration-300 whitespace-nowrap ${
+                activeTab === "twin"
+                  ? "bg-linear-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
+                  : "bg-white/5 border border-transparent text-gray-400 hover:text-white hover:bg-white/10"
+              }`}
+            >
+              Digital Twin
+            </button>
+            <button
+              onClick={() => setActiveTab("exercises")}
+              className={`flex-1 md:flex-none px-6 py-2.5 rounded-xl font-medium transition-all duration-300 whitespace-nowrap ${
+                activeTab === "exercises"
+                  ? "bg-linear-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
+                  : "bg-white/5 border border-transparent text-gray-400 hover:text-white hover:bg-white/10"
+              }`}
+            >
+              Exercises
+            </button>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="p-4 md:p-6">
+          {/* MIND MIRROR TAB */}
+          {activeTab === "mirror" && (
             <div className="space-y-6">
-              {/* Mood Selector */}
-              <div>
-                <label className="text-gray-300 text-sm mb-3 block">
-                  How do you feel today?
-                </label>
-                <div className="flex justify-between gap-2">
-                  {moodEmojis.map((emoji, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setSelectedMood(index + 1)}
-                      className={`flex-1 flex flex-col items-center gap-2 p-3 rounded-xl border-2 transition-all ${
-                        selectedMood === index + 1
-                          ? "border-primary bg-primary/20 scale-110"
-                          : "border-white/10 hover:border-primary/40"
+              {/* Weekly Overview */}
+              <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-purple-500/20 to-purple-600/20 flex items-center justify-center text-2xl">
+                    🪞
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-white">
+                      Mind Mirror
+                    </h2>
+                    <p className="text-sm text-gray-400">
+                      See your mental state across the week
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-7 gap-2">
+                  {mentalPatternsData.map((pattern, idx) => (
+                    <div
+                      key={idx}
+                      className={`p-3 rounded-xl border bg-linear-to-br ${getMoodColor(
+                        pattern.mood
+                      )} hover:scale-105 transition-all duration-300`}
+                    >
+                      <div className="text-center">
+                        <p className="text-2xl mb-1">
+                          {getMoodEmoji(pattern.mood)}
+                        </p>
+                        <p className="text-xs font-bold text-white mb-1">
+                          {pattern.day.slice(0, 3)}
+                        </p>
+                        <div className="flex justify-center gap-1">
+                          <span className="text-xs px-2 py-0.5 rounded bg-white/10 text-white">
+                            {pattern.stressLevel}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-6 p-4 rounded-xl bg-white/5 border border-white/10">
+                  <p className="text-sm text-gray-300">
+                    <span className="font-semibold">How to read:</span> Each day
+                    shows your mood, stress level (number), and emotional state.
+                    Click any day to see detailed insights and suggested
+                    interventions for that day&apos;s mental patterns.
+                  </p>
+                </div>
+              </div>
+
+              {/* Key Insights */}
+              <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-blue-500/20 to-blue-600/20 flex items-center justify-center text-2xl">
+                    💡
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-white">
+                      Your Mental Insights
+                    </h2>
+                    <p className="text-sm text-gray-400">
+                      Patterns detected from your data this week
+                    </p>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  {mindInsights.slice(0, 3).map((insight) => (
+                    <div
+                      key={insight.id}
+                      className="p-4 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300"
+                    >
+                      <div className="flex items-start gap-3">
+                        <span className="text-2xl shrink-0">
+                          {insight.icon}
+                        </span>
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-white mb-1">
+                            {insight.title}
+                          </h3>
+                          <p className="text-sm text-gray-400 mb-2">
+                            {insight.message}
+                          </p>
+                          {insight.actionable && (
+                            <button className="text-xs px-3 py-1 rounded-lg bg-primary/20 text-primary border border-primary/40 hover:bg-primary/30 transition">
+                              Explore This Pattern
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* PATTERN MAP TAB */}
+          {activeTab === "patterns" && (
+            <div className="space-y-6">
+              {/* Stress vs Energy Chart */}
+              <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-pink-500/20 to-pink-600/20 flex items-center justify-center text-2xl">
+                    🗺️
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-white">
+                      Mental Pattern Map
+                    </h2>
+                    <p className="text-sm text-gray-400">
+                      Your stress, energy, and activity correlation
+                    </p>
+                  </div>
+                </div>
+
+                {/* Grid View */}
+                <div className="space-y-4">
+                  {mentalPatternsData.map((pattern, idx) => (
+                    <div
+                      key={idx}
+                      className="p-4 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300"
+                    >
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-3">
+                            <h3 className="font-bold text-white text-lg">
+                              {pattern.day}
+                            </h3>
+                            <span className="text-2xl">
+                              {getMoodEmoji(pattern.mood)}
+                            </span>
+                            <span className="text-xs px-2 py-1 rounded-full bg-white/10 text-white font-medium capitalize">
+                              {pattern.mood.replace("-", " ")}
+                            </span>
+                          </div>
+
+                          {/* Pattern details */}
+                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3">
+                            <div className="p-2 rounded-lg bg-red-500/20 border border-red-500/30">
+                              <p className="text-xs text-gray-400">
+                                Stress Level
+                              </p>
+                              <p className="text-lg font-bold text-red-200">
+                                {pattern.stressLevel}
+                              </p>
+                            </div>
+                            <div className="p-2 rounded-lg bg-amber-500/20 border border-amber-500/30">
+                              <p className="text-xs text-gray-400">Energy</p>
+                              <p className="text-lg font-bold text-amber-200">
+                                {pattern.energyLevel}
+                              </p>
+                            </div>
+                            <div className="p-2 rounded-lg bg-blue-500/20 border border-blue-500/30">
+                              <p className="text-xs text-gray-400">Sleep</p>
+                              <p className="text-lg font-bold text-blue-200">
+                                {pattern.sleepHours}h
+                              </p>
+                            </div>
+                            <div className="p-2 rounded-lg bg-emerald-500/20 border border-emerald-500/30">
+                              <p className="text-xs text-gray-400">Activity</p>
+                              <p className="text-lg font-bold text-emerald-200">
+                                {pattern.activityMinutes}m
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* Notes */}
+                          <p className="text-sm text-gray-300 mb-2">
+                            <span className="font-semibold">Notes:</span>{" "}
+                            {pattern.notes}
+                          </p>
+
+                          {/* Triggers */}
+                          {pattern.triggers.length > 0 && (
+                            <div className="flex flex-wrap gap-1">
+                              {pattern.triggers.map((trigger, tidx) => (
+                                <span
+                                  key={tidx}
+                                  className="text-xs px-2 py-1 rounded-full bg-red-500/20 text-red-200 border border-red-500/30"
+                                >
+                                  🚩 {trigger}
+                                </span>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Pattern Summary */}
+                <div className="mt-6 p-4 rounded-xl bg-primary/10 border border-primary/30">
+                  <h3 className="font-semibold text-white mb-3">
+                    📊 Pattern Summary
+                  </h3>
+                  <div className="space-y-2 text-sm text-gray-300">
+                    <p>
+                      • <span className="font-semibold">Busiest Day:</span>{" "}
+                      Tuesday - high stress, low activity. Consider a 5-min
+                      breathing exercise before meetings.
+                    </p>
+                    <p>
+                      • <span className="font-semibold">Best Day:</span>{" "}
+                      Saturday - high activity, low stress. Replicate this on
+                      weekdays if possible.
+                    </p>
+                    <p>
+                      • <span className="font-semibold">Sleep Insight:</span>{" "}
+                      Your energy correlates strongly with sleep. Prioritize 7-8
+                      hours nightly.
+                    </p>
+                    <p>
+                      • <span className="font-semibold">Activity Impact:</span>{" "}
+                      Days with 60+ minutes of activity show 50% lower stress
+                      levels.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* All Insights */}
+              <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
+                <h2 className="text-2xl font-bold text-white mb-6">
+                  All Detected Patterns
+                </h2>
+                <div className="space-y-3">
+                  {mindInsights.map((insight) => (
+                    <div
+                      key={insight.id}
+                      className={`p-4 rounded-xl border ${
+                        insight.type === "warning"
+                          ? "bg-red-500/10 border-red-500/30"
+                          : insight.type === "pattern"
+                          ? "bg-blue-500/10 border-blue-500/30"
+                          : "bg-green-500/10 border-green-500/30"
                       }`}
                     >
-                      <span className="text-3xl">{emoji}</span>
-                      <span className="text-xs text-gray-400">
-                        {moodLabels[index]}
-                      </span>
+                      <div className="flex items-start gap-3">
+                        <span className="text-2xl shrink-0">
+                          {insight.icon}
+                        </span>
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-white mb-1">
+                            {insight.title}
+                          </h3>
+                          <p className="text-sm text-gray-300">
+                            {insight.message}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* DIGITAL TWIN TAB */}
+          {activeTab === "twin" && (
+            <div className="space-y-6">
+              {/* Twin Intro */}
+              <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-indigo-500/20 to-indigo-600/20 flex items-center justify-center text-2xl">
+                    🤖
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-white">
+                      Conversation with Your Digital Twin
+                    </h2>
+                    <p className="text-sm text-gray-400">
+                      Real-time mental health insights and personalized guidance
+                    </p>
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-xl bg-indigo-500/10 border border-indigo-500/30 mb-6">
+                  <p className="text-sm text-indigo-100">
+                    💡 <span className="font-semibold">About Your Twin:</span>{" "}
+                    Your digital twin learns from your patterns - sleep,
+                    exercise, emotional responses, stress triggers, and recovery
+                    times. It provides contextual advice based on what actually
+                    works for YOU, not generic meditation tips. Share your
+                    thoughts, feelings, and experiences.
+                  </p>
+                </div>
+
+                {/* Conversation Area */}
+                <div className="h-96 bg-white/5 border border-white/10 rounded-xl p-4 flex flex-col mb-4">
+                  {/* Messages */}
+                  <div className="flex-1 overflow-y-auto space-y-4 mb-4">
+                    {conversationHistory.map((msg) => (
+                      <div
+                        key={msg.id}
+                        className={`flex ${
+                          msg.role === "user" ? "justify-end" : "justify-start"
+                        }`}
+                      >
+                        <div
+                          className={`max-w-xs px-4 py-2 rounded-lg ${
+                            msg.role === "user"
+                              ? "bg-primary/20 text-white border border-primary/40"
+                              : "bg-white/10 text-gray-200 border border-white/20"
+                          }`}
+                        >
+                          <p className="text-sm">{msg.message}</p>
+                          <p
+                            className={`text-xs mt-1 ${
+                              msg.role === "user"
+                                ? "text-primary/70"
+                                : "text-gray-400"
+                            }`}
+                          >
+                            {new Date(msg.timestamp).toLocaleTimeString()}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Input */}
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={userInput}
+                      onChange={(e) => setUserInput(e.target.value)}
+                      onKeyPress={(e) =>
+                        e.key === "Enter" && handleSendMessage()
+                      }
+                      placeholder="Tell me what's on your mind..."
+                      className="flex-1 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-primary/50"
+                    />
+                    <button
+                      onClick={handleSendMessage}
+                      className="px-4 py-2 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-lg font-medium transition-all duration-300"
+                    >
+                      Send
                     </button>
+                  </div>
+                </div>
+
+                {/* Twin Insights */}
+                <div className="grid md:grid-cols-2 gap-3">
+                  <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30">
+                    <p className="text-xs font-semibold text-emerald-100 mb-1">
+                      ✅ What&apos;s Working for You
+                    </p>
+                    <p className="text-sm text-emerald-100/80">
+                      Saturday routines: high activity + low screen time = peak
+                      energy & calmness
+                    </p>
+                  </div>
+                  <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30">
+                    <p className="text-xs font-semibold text-amber-100 mb-1">
+                      ⚠️ Pattern to Watch
+                    </p>
+                    <p className="text-sm text-amber-100/80">
+                      Sunday evenings trigger overthinking. Try grounding
+                      exercises before bed.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* EXERCISES TAB */}
+          {activeTab === "exercises" && (
+            <div className="space-y-6">
+              {/* Exercise Library */}
+              <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-emerald-500/20 to-emerald-600/20 flex items-center justify-center text-2xl">
+                    🌬️
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-white">
+                      Meaningful Mental Exercises
+                    </h2>
+                    <p className="text-sm text-gray-400">
+                      Breathing techniques with purposeful names
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  {breathingExercises.map((exercise) => (
+                    <div
+                      key={exercise.id}
+                      className={`p-4 rounded-xl border bg-linear-to-br ${getCategoryColor(
+                        exercise.category
+                      )} hover:scale-105 transition-all duration-300 cursor-pointer group`}
+                      onClick={() => handleStartExercise(exercise)}
+                    >
+                      <div className="flex items-start gap-3 mb-2">
+                        <span className="text-3xl">{exercise.icon}</span>
+                        <div>
+                          <h3 className="font-bold text-white text-sm mb-1">
+                            {exercise.name}
+                          </h3>
+                          <p className="text-xs text-gray-400 capitalize">
+                            {exercise.category} • {exercise.duration} min
+                          </p>
+                        </div>
+                      </div>
+
+                      <p className="text-xs text-gray-300 mb-3">
+                        {exercise.description}
+                      </p>
+
+                      <div className="mb-3">
+                        <p className="text-xs font-semibold text-gray-400 mb-1">
+                          Breathing Pattern:
+                        </p>
+                        <p className="text-xs text-gray-300">
+                          {exercise.breathing_pattern}
+                        </p>
+                      </div>
+
+                      <div className="flex flex-wrap gap-1 mb-3">
+                        {exercise.benefits.map((benefit, idx) => (
+                          <span
+                            key={idx}
+                            className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-white"
+                          >
+                            {benefit}
+                          </span>
+                        ))}
+                      </div>
+
+                      <button className="w-full px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-medium transition group-hover:bg-primary/30 group-hover:text-primary">
+                        Start Exercise
+                      </button>
+                    </div>
                   ))}
                 </div>
               </div>
 
-              {/* Stress Slider */}
-              <div>
-                <label className="text-gray-300 text-sm mb-2 block">
-                  Stress Level
-                </label>
-                <div className="flex items-center gap-4">
-                  <span className="text-sm text-gray-400">Low</span>
-                  <input
-                    type="range"
-                    min="1"
-                    max="10"
-                    value={selectedStress}
-                    onChange={(e) =>
-                      setSelectedStress(parseInt(e.target.value))
-                    }
-                    className="flex-1"
-                  />
-                  <span className="text-sm text-gray-400">High</span>
+              {/* Exercise Stats */}
+              <div className="grid md:grid-cols-3 gap-4">
+                <div className="bg-dark-card border border-white/5 rounded-2xl p-4">
+                  <p className="text-xs text-gray-400 mb-1">Total Completed</p>
+                  <p className="text-3xl font-bold text-white">12</p>
+                  <p className="text-xs text-gray-500 mt-1">This month</p>
                 </div>
-                <div className="text-center mt-2">
-                  <span className="text-2xl font-bold text-white">
-                    {selectedStress}/10
-                  </span>
+                <div className="bg-dark-card border border-white/5 rounded-2xl p-4">
+                  <p className="text-xs text-gray-400 mb-1">
+                    Minutes Practiced
+                  </p>
+                  <p className="text-3xl font-bold text-white">237</p>
+                  <p className="text-xs text-gray-500 mt-1">
+                    Total time invested
+                  </p>
+                </div>
+                <div className="bg-dark-card border border-white/5 rounded-2xl p-4">
+                  <p className="text-xs text-gray-400 mb-1">
+                    Favorite Exercise
+                  </p>
+                  <p className="text-lg font-bold text-white">🌊</p>
+                  <p className="text-xs text-gray-500 mt-1">
+                    Stress Release Wave
+                  </p>
                 </div>
               </div>
+            </div>
+          )}
+        </div>
+      </div>
 
-              {/* Buttons */}
-              <div className="flex gap-3 mt-6">
-                <button
-                  onClick={() => setShowMoodModal(false)}
-                  className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white hover:bg-white/10 transition-all"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleLogMood}
-                  className="flex-1 px-4 py-3 bg-gradient-animated rounded-xl text-white font-semibold hover:scale-105 transition-transform"
-                >
-                  Log Mood
-                </button>
+      {/* Exercise Modal */}
+      {showExerciseModal && selectedExercise && (
+        <ExerciseModal
+          exercise={selectedExercise}
+          onClose={() => setShowExerciseModal(false)}
+          onComplete={handleCompleteExercise}
+        />
+      )}
+
+      {/* Reset Confirmation Modal */}
+      {showResetConfirm && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-dark-card border border-white/10 rounded-2xl max-w-md w-full p-6">
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center mx-auto mb-4">
+                <span className="text-4xl">⚠️</span>
               </div>
+              <h2 className="text-2xl font-bold text-white mb-2">
+                Reset Mindfulness Data?
+              </h2>
+              <p className="text-gray-400">
+                This will reset all your mindfulness data and conversations.
+                This action cannot be undone.
+              </p>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowResetConfirm(false)}
+                className="flex-1 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg font-medium transition-all duration-300"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleResetMindfulnessData}
+                className="flex-1 px-4 py-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-400 rounded-lg font-medium transition-all duration-300"
+              >
+                Reset Data
+              </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* Practice Modal */}
-      {showPracticeModal && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-dark-card border border-white/10 rounded-2xl p-6 max-w-md w-full animate-fade-in-up">
-            <h3 className="text-xl font-bold text-white mb-6">
-              Log Mindfulness Practice
-            </h3>
+      {/* Settings Modal */}
+      {showSettings && (
+        <MindfulnessSettingsModal
+          onClose={() => setShowSettings(false)}
+          onSave={handleUpdateMindfulnessSettings}
+        />
+      )}
+    </AppLayout>
+  );
+}
 
-            <div className="space-y-6">
-              {/* Quick Practice Buttons */}
-              <div className="grid grid-cols-3 gap-3">
-                {[5, 10, 15].map((min) => (
+// ============= EXERCISE MODAL =============
+
+function ExerciseModal({
+  exercise,
+  onClose,
+  onComplete,
+}: {
+  exercise: BreathingExercise;
+  onClose: () => void;
+  onComplete: () => void;
+}) {
+  const [timeLeft, setTimeLeft] = useState(exercise.duration * 60);
+  const [isRunning, setIsRunning] = useState(false);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+
+    if (isRunning && timeLeft > 0) {
+      interval = setInterval(() => {
+        setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
+      }, 1000);
+    }
+
+    return () => clearInterval(interval);
+  }, [isRunning, timeLeft]);
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
+  };
+
+  const progress =
+    ((exercise.duration * 60 - timeLeft) / (exercise.duration * 60)) * 100;
+
+  return (
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-dark-card border border-white/10 rounded-2xl max-w-2xl w-full p-8 max-h-[90vh] overflow-y-auto">
+        <div className="text-center mb-8">
+          <div className="w-20 h-20 rounded-full bg-linear-to-br from-emerald-500/30 to-emerald-600/30 flex items-center justify-center mx-auto mb-4 text-5xl">
+            {exercise.icon}
+          </div>
+          <h2 className="text-3xl font-bold text-white mb-2">
+            {exercise.name}
+          </h2>
+          <p className="text-gray-400">{exercise.description}</p>
+        </div>
+
+        {/* Exercise Details */}
+        <div className="grid md:grid-cols-2 gap-4 mb-8">
+          <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+            <p className="text-xs text-gray-400 mb-2">Breathing Pattern</p>
+            <p className="text-lg font-semibold text-white">
+              {exercise.breathing_pattern}
+            </p>
+          </div>
+          <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+            <p className="text-xs text-gray-400 mb-2">Duration</p>
+            <p className="text-lg font-semibold text-white">
+              {exercise.duration} minutes
+            </p>
+          </div>
+        </div>
+
+        {/* Benefits */}
+        <div className="mb-8">
+          <p className="text-sm font-semibold text-white mb-3">Benefits:</p>
+          <div className="space-y-2">
+            {exercise.benefits.map((benefit, idx) => (
+              <div key={idx} className="flex items-center gap-2">
+                <span className="text-primary">✓</span>
+                <span className="text-gray-300">{benefit}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Timer */}
+        <div className="mb-8">
+          <div className="text-center mb-6">
+            <p className="text-6xl font-bold text-transparent bg-linear-to-r from-primary to-secondary bg-clip-text mb-2">
+              {formatTime(timeLeft)}
+            </p>
+            <p className="text-gray-400">
+              {isRunning ? "Keep breathing..." : "Ready to start?"}
+            </p>
+          </div>
+
+          {/* Progress Bar */}
+          <div className="h-2 bg-white/5 rounded-full overflow-hidden mb-6">
+            <div
+              className="h-full bg-linear-to-r from-primary to-secondary transition-all duration-1000"
+              style={{ width: `${progress}%` }}
+            ></div>
+          </div>
+        </div>
+
+        {/* Controls */}
+        <div className="flex gap-3 mb-6">
+          <button
+            onClick={() => setIsRunning(!isRunning)}
+            className="flex-1 px-6 py-3 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-lg font-bold transition-all duration-300"
+          >
+            {isRunning ? "⏸ Pause" : "▶ Start"}
+          </button>
+          <button
+            onClick={() => setTimeLeft(exercise.duration * 60)}
+            className="flex-1 px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg font-bold transition-all duration-300"
+          >
+            Reset
+          </button>
+        </div>
+
+        {/* Complete Button */}
+        <div className="flex gap-3">
+          <button
+            onClick={onClose}
+            className="flex-1 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg font-medium transition-all duration-300"
+          >
+            Close
+          </button>
+          <button
+            onClick={onComplete}
+            className="flex-1 px-4 py-2 bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-emerald-400 rounded-lg font-medium transition-all duration-300"
+          >
+            ✓ Mark Complete
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ============= MINDFULNESS SETTINGS MODAL =============
+
+function MindfulnessSettingsModal({
+  onClose,
+  onSave,
+}: {
+  onClose: () => void;
+  onSave: (answers: Record<string, string>) => void;
+}) {
+  const [answers, setAnswers] = useState<Record<string, string>>(() => {
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    return user.optionalAnswers?.mindfulness || {};
+  });
+
+  const questions = [
+    {
+      key: "stressLevel",
+      label: "How would you rate your typical daily stress level?",
+      options: [
+        { value: "low", label: "Low (1-3/10)" },
+        { value: "moderate", label: "Moderate (4-6/10)" },
+        { value: "high", label: "High (7-8/10)" },
+        { value: "very-high", label: "Very High (9-10/10)" },
+      ],
+    },
+    {
+      key: "primaryStressors",
+      label: "What are your main sources of stress?",
+      options: [
+        { value: "work", label: "Work / Career" },
+        { value: "relationships", label: "Relationships" },
+        { value: "health", label: "Health concerns" },
+        { value: "finances", label: "Financial pressure" },
+        { value: "other", label: "Other" },
+      ],
+    },
+    {
+      key: "meditationExperience",
+      label: "Do you have experience with meditation?",
+      options: [
+        { value: "none", label: "No experience" },
+        { value: "beginner", label: "Beginner (tried a few times)" },
+        { value: "intermediate", label: "Intermediate (regular practice)" },
+        { value: "advanced", label: "Advanced (daily practice)" },
+      ],
+    },
+    {
+      key: "preferredTime",
+      label: "When do you prefer to practice mindfulness?",
+      options: [
+        { value: "morning", label: "Morning (before work)" },
+        { value: "midday", label: "Midday (lunch break)" },
+        { value: "evening", label: "Evening (after work)" },
+        { value: "before-bed", label: "Before bed" },
+        { value: "anytime", label: "Anytime is fine" },
+      ],
+    },
+    {
+      key: "preferredDuration",
+      label: "How long can you typically dedicate to practice?",
+      options: [
+        { value: "5min", label: "5 minutes or less" },
+        { value: "5-15min", label: "5-15 minutes" },
+        { value: "15-30min", label: "15-30 minutes" },
+        { value: "30+min", label: "30+ minutes" },
+      ],
+    },
+    {
+      key: "mainGoal",
+      label: "What is your primary goal for mindfulness?",
+      options: [
+        { value: "stress-relief", label: "Stress relief" },
+        { value: "better-sleep", label: "Better sleep" },
+        { value: "focus", label: "Improve focus" },
+        { value: "emotional", label: "Emotional balance" },
+        { value: "general", label: "General wellbeing" },
+      ],
+    },
+  ];
+
+  const handleAnswer = (key: string, value: string) => {
+    setAnswers((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleSave = () => {
+    onSave(answers);
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-dark-card border border-white/10 rounded-2xl max-w-3xl w-full max-h-[85vh] overflow-y-auto">
+        <div className="p-4 sm:p-6 border-b border-white/5 flex items-center justify-between sticky top-0 bg-dark-card z-10">
+          <div>
+            <h2 className="text-2xl font-bold text-white">
+              Mindfulness Settings
+            </h2>
+            <p className="text-sm text-gray-400 mt-1">
+              Personalize your mindfulness experience
+            </p>
+          </div>
+          <button
+            onClick={onClose}
+            className="w-10 h-10 rounded-lg bg-white/5 hover:bg-white/10 text-white transition-all duration-300"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div className="p-4 sm:p-6 space-y-6">
+          {questions.map((question) => (
+            <div key={question.key} className="space-y-3">
+              <h3 className="text-white font-medium">{question.label}</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {question.options.map((option) => (
                   <button
-                    key={min}
-                    onClick={() => setPracticeMinutes(min)}
-                    className={`p-4 rounded-xl border-2 transition-all ${
-                      practiceMinutes === min
-                        ? "border-primary bg-primary/20"
-                        : "border-white/10 hover:border-primary/40"
+                    key={option.value}
+                    onClick={() => handleAnswer(question.key, option.value)}
+                    className={`p-3 rounded-xl border text-left transition-all duration-300 ${
+                      answers[question.key] === option.value
+                        ? "bg-primary/20 border-primary/40 text-white"
+                        : "bg-white/5 border-white/10 text-gray-400 hover:bg-white/10 hover:text-white"
                     }`}
                   >
-                    <p className="text-2xl font-bold text-white">{min}</p>
-                    <p className="text-xs text-gray-400">min</p>
+                    {option.label}
                   </button>
                 ))}
               </div>
-
-              {/* Custom Minutes */}
-              <div>
-                <label className="text-gray-300 text-sm mb-2 block">
-                  Or enter custom minutes
-                </label>
-                <input
-                  type="number"
-                  min="1"
-                  max="120"
-                  value={practiceMinutes}
-                  onChange={(e) => setPracticeMinutes(parseInt(e.target.value))}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-primary/40 focus:outline-none"
-                />
-              </div>
-
-              {/* Buttons */}
-              <div className="flex gap-3 mt-6">
-                <button
-                  onClick={() => setShowPracticeModal(false)}
-                  className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white hover:bg-white/10 transition-all"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleLogPractice}
-                  className="flex-1 px-4 py-3 bg-gradient-animated rounded-xl text-white font-semibold hover:scale-105 transition-transform"
-                >
-                  Log Practice
-                </button>
-              </div>
             </div>
-          </div>
-        </div>
-      )}
-
-      <div className="max-w-7xl mx-auto space-y-6">
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold text-white mb-2">Mindfulness</h1>
-            <p className="text-gray-400">
-              Track your mental wellness and practice
-            </p>
-          </div>
-          <div className="flex gap-3">
-            <button
-              onClick={() => setShowMoodModal(true)}
-              className="px-6 py-3 bg-secondary/20 border border-secondary/40 rounded-xl text-white font-semibold hover:scale-105 transition-transform"
-            >
-              Log Mood
-            </button>
-            <button
-              onClick={() => setShowPracticeModal(true)}
-              className="px-6 py-3 bg-gradient-animated rounded-xl text-white font-semibold hover:scale-105 transition-transform"
-            >
-              + Log Practice
-            </button>
-          </div>
+          ))}
         </div>
 
-        {/* Mental Score Card */}
-        <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-          <h2 className="text-xl font-bold text-white mb-6">
-            Mental Wellness Score
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Score Gauge */}
-            <div className="flex flex-col items-center justify-center">
-              <div className="relative w-48 h-48">
-                <svg className="transform -rotate-90" width="192" height="192">
-                  <circle
-                    cx="96"
-                    cy="96"
-                    r="80"
-                    stroke="currentColor"
-                    strokeWidth="12"
-                    fill="none"
-                    className="text-white/5"
-                  />
-                  <circle
-                    cx="96"
-                    cy="96"
-                    r="80"
-                    stroke="url(#mentalGradient)"
-                    strokeWidth="12"
-                    fill="none"
-                    strokeDasharray={`${
-                      (data.mentalScore / 100) * 502.4
-                    } 502.4`}
-                    className="transition-all duration-1000"
-                    strokeLinecap="round"
-                  />
-                  <defs>
-                    <linearGradient
-                      id="mentalGradient"
-                      x1="0%"
-                      y1="0%"
-                      x2="100%"
-                      y2="100%"
-                    >
-                      <stop offset="0%" stopColor="#8b5cf6" />
-                      <stop offset="100%" stopColor="#06b6d4" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <span className="text-5xl font-bold text-white">
-                    {data.mentalScore}
-                  </span>
-                  <span className="text-gray-400 text-sm">/100</span>
-                </div>
-              </div>
-              <p
-                className={`mt-4 text-lg font-medium ${
-                  data.mentalScore >= 80
-                    ? "text-green-400"
-                    : data.mentalScore >= 60
-                    ? "text-yellow-400"
-                    : "text-red-400"
-                }`}
-              >
-                {data.mentalScore >= 80
-                  ? "Excellent Mental Health"
-                  : data.mentalScore >= 60
-                  ? "Good Mental Health"
-                  : "Needs Attention"}
-              </p>
-            </div>
-
-            {/* Stats */}
-            <div className="space-y-4">
-              <div className="p-4 bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/30 rounded-xl">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-gray-300 text-sm">
-                    🔥 Current Streak
-                  </span>
-                  <span className="text-white font-bold text-2xl">
-                    {data.streak} days
-                  </span>
-                </div>
-                {data.streak >= 7 && (
-                  <p className="text-primary text-xs">
-                    🎉 Weekly streak bonus: +5 avatar health!
-                  </p>
-                )}
-              </div>
-
-              <div className="p-4 bg-white/5 rounded-xl">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-gray-400 text-sm">
-                    Practice Days This Week
-                  </span>
-                  <span className="text-white font-bold">
-                    {metrics?.practiceDays}/7
-                  </span>
-                </div>
-                <div className="h-2 bg-white/5 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-accent transition-all duration-500"
-                    style={{
-                      width: `${((metrics?.practiceDays || 0) / 7) * 100}%`,
-                    }}
-                  ></div>
-                </div>
-              </div>
-
-              <div className="p-4 bg-white/5 rounded-xl">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-gray-400 text-sm">Total Minutes</span>
-                  <span className="text-white font-bold">
-                    {metrics?.totalMinutes} min
-                  </span>
-                </div>
-                <p className="text-gray-400 text-xs">Goal: 100 min/week</p>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div className="p-4 bg-white/5 rounded-xl text-center">
-                  <p className="text-gray-400 text-xs mb-1">Avg Mood</p>
-                  <p className="text-3xl">
-                    {
-                      moodEmojis[
-                        Math.round(parseFloat(metrics?.avgMood || "3")) - 1
-                      ]
-                    }
-                  </p>
-                  <p className="text-white text-sm font-medium">
-                    {metrics?.avgMood}/5
-                  </p>
-                </div>
-                <div className="p-4 bg-white/5 rounded-xl text-center">
-                  <p className="text-gray-400 text-xs mb-1">Avg Stress</p>
-                  <p className="text-3xl">
-                    {parseFloat(metrics?.avgStress || "5") >= 7
-                      ? "😰"
-                      : parseFloat(metrics?.avgStress || "5") >= 4
-                      ? "😐"
-                      : "😌"}
-                  </p>
-                  <p className="text-white text-sm font-medium">
-                    {metrics?.avgStress}/10
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Weekly Practice Chart */}
-        <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-          <h2 className="text-xl font-bold text-white mb-6">Weekly Practice</h2>
-
-          <div className="grid grid-cols-7 gap-2 mb-6">
-            {daysOfWeek.map((day, index) => (
-              <div key={index} className="text-center">
-                <p className="text-xs text-gray-400 mb-2">{day}</p>
-                <div
-                  className={`aspect-square rounded-xl flex flex-col items-center justify-center ${
-                    data.weeklyPractice[index]
-                      ? "bg-linear-to-br from-primary to-secondary"
-                      : "bg-white/5"
-                  }`}
-                >
-                  <span className="text-2xl">
-                    {data.weeklyPractice[index] ? "✓" : "-"}
-                  </span>
-                  {data.weeklyMinutes[index] > 0 && (
-                    <p className="text-xs text-white mt-1">
-                      {data.weeklyMinutes[index]}m
-                    </p>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Mood & Stress Trends */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <h3 className="text-white font-medium mb-3">Mood Trend</h3>
-              <div className="flex items-end justify-between gap-1 h-32">
-                {data.weeklyMood.map((mood, index) => (
-                  <div
-                    key={index}
-                    className="flex-1 flex flex-col items-center gap-1"
-                  >
-                    <div
-                      className="relative w-full bg-white/5 rounded-lg overflow-hidden"
-                      style={{ height: "100px" }}
-                    >
-                      <div
-                        className="absolute bottom-0 w-full bg-linear-to-t from-green-500 to-green-400 rounded-lg transition-all duration-500"
-                        style={{ height: `${(mood / 5) * 100}%` }}
-                      ></div>
-                    </div>
-                    <p className="text-xs text-gray-400">
-                      {daysOfWeek[index].charAt(0)}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-white font-medium mb-3">Stress Trend</h3>
-              <div className="flex items-end justify-between gap-1 h-32">
-                {data.weeklyStress.map((stress, index) => (
-                  <div
-                    key={index}
-                    className="flex-1 flex flex-col items-center gap-1"
-                  >
-                    <div
-                      className="relative w-full bg-white/5 rounded-lg overflow-hidden"
-                      style={{ height: "100px" }}
-                    >
-                      <div
-                        className={`absolute bottom-0 w-full rounded-lg transition-all duration-500 ${
-                          stress >= 7
-                            ? "bg-linear-to-t from-red-500 to-red-400"
-                            : stress >= 4
-                            ? "bg-linear-to-t from-yellow-500 to-yellow-400"
-                            : "bg-linear-to-t from-green-500 to-green-400"
-                        }`}
-                        style={{ height: `${(stress / 10) * 100}%` }}
-                      ></div>
-                    </div>
-                    <p className="text-xs text-gray-400">
-                      {daysOfWeek[index].charAt(0)}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Avatar Mental Health */}
-        <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-          <h2 className="text-xl font-bold text-white mb-6">
-            Avatar Mental Health
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="text-center space-y-4">
-              <div className="inline-flex items-center justify-center w-32 h-32 rounded-full bg-gradient-to-br from-secondary/20 to-accent/20 border-4 border-secondary/40">
-                <span className="text-6xl">🧘</span>
-              </div>
-
-              <div>
-                <p className="text-gray-400 text-sm mb-2">
-                  Mental Health Score
-                </p>
-                <div className="flex items-center justify-center gap-2">
-                  <span className="text-3xl font-bold text-white">
-                    {data.avatarMentalHealth}
-                  </span>
-                  <span className="text-gray-400">/100</span>
-                </div>
-                <div className="h-3 bg-white/5 rounded-full overflow-hidden max-w-xs mx-auto mt-2">
-                  <div
-                    className="h-full bg-linear-to-r from-secondary to-accent transition-all duration-1000"
-                    style={{ width: `${data.avatarMentalHealth}%` }}
-                  ></div>
-                </div>
-              </div>
-
-              <p
-                className={`text-sm font-medium ${
-                  data.avatarMentalHealth >= 80
-                    ? "text-green-400"
-                    : "text-yellow-400"
-                }`}
-              >
-                {data.avatarMentalHealth >= 80
-                  ? "🌟 Your avatar is mentally balanced and focused!"
-                  : "⚠️ Your avatar needs more mindfulness practice"}
-              </p>
-            </div>
-
-            <div className="space-y-4">
-              <div className="p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl">
-                <p className="text-blue-400 text-sm font-medium mb-2">
-                  💡 Impact Prediction
-                </p>
-                <p className="text-gray-300 text-sm">
-                  {data.streak >= 7
-                    ? "Maintain your 7+ day streak to keep your avatar's mental health above 85 for the next month!"
-                    : metrics && metrics.practiceDays < 3
-                    ? "If you practice less than 3 days/week, your avatar's mental health may drop by 10 points in 2 weeks."
-                    : "Practice mindfulness 5+ days/week to boost your avatar's mental health by 8 points!"}
-                </p>
-              </div>
-
-              <div className="p-4 bg-white/5 rounded-xl">
-                <p className="text-white text-sm font-medium mb-2">
-                  🔗 Connected Effects
-                </p>
-                <ul className="text-gray-400 text-xs space-y-1">
-                  <li>• High stress affects sleep quality (-10% recovery)</li>
-                  <li>• Low mood may increase unhealthy food cravings</li>
-                  <li>• Regular practice improves overall avatar health</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Digital Twin Insights */}
-        <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-          <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-            🤖 Your Digital Twin Says
-          </h2>
-
-          <div className="space-y-4">
-            {insights.map((insight, index) => (
-              <div
-                key={index}
-                className={`p-4 rounded-xl border animate-fade-in ${
-                  insight.type === "warning"
-                    ? "bg-red-500/10 border-red-500/30"
-                    : insight.type === "success"
-                    ? "bg-green-500/10 border-green-500/30"
-                    : "bg-blue-500/10 border-blue-500/30"
-                }`}
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className="flex items-start gap-3">
-                  <span className="text-2xl">{insight.icon}</span>
-                  <div className="flex-1">
-                    <h3
-                      className={`font-medium mb-1 ${
-                        insight.type === "warning"
-                          ? "text-red-400"
-                          : insight.type === "success"
-                          ? "text-green-400"
-                          : "text-blue-400"
-                      }`}
-                    >
-                      {insight.title}
-                    </h3>
-                    <p className="text-gray-300 text-sm">{insight.message}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+        <div className="p-4 sm:p-6 border-t border-white/5 flex gap-3 sticky bottom-0 bg-dark-card">
+          <button
+            onClick={onClose}
+            className="flex-1 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg font-medium transition-all duration-300"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={handleSave}
+            className="flex-1 px-4 py-2 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-lg font-medium transition-all duration-300"
+          >
+            Save Changes
+          </button>
         </div>
       </div>
-    </AppLayout>
+    </div>
   );
 }
