@@ -8,9 +8,9 @@ interface NavbarProps {
 }
 
 export default function Navbar({ onMenuClick }: NavbarProps) {
-  const [user] = useState<{ username: string } | null>(() => {
+  const [user] = useState<{ username: string; sex?: string } | null>(() => {
     if (typeof window !== "undefined") {
-      const userData = sessionStorage.getItem("user");
+      const userData = localStorage.getItem("user");
       if (userData) {
         return JSON.parse(userData);
       }
@@ -18,20 +18,30 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
     return null;
   });
 
+  // Get avatar based on sex
+  const getAvatar = () => {
+    if (user?.sex === "male") return "👨";
+    if (user?.sex === "female") return "👩";
+    return "🧑";
+  };
+
   return (
     <nav className="fixed top-0 left-0 right-0 h-16 bg-dark-card/80 backdrop-blur-lg border-b border-white/5 z-40">
       <div className="h-full px-4 flex items-center justify-between">
         {/* Left Side - Profile & Friends */}
         <div className="flex items-center gap-3">
           {/* Profile Button */}
-          <button className="flex items-center gap-3 px-4 py-2 rounded-xl bg-linear-to-r from-primary/10 to-secondary/10 border border-primary/20 hover:border-primary/40 transition-all duration-300 group">
-            <div className="w-8 h-8 rounded-full bg-linear-to-br from-primary to-secondary flex items-center justify-center text-sm font-bold">
-              {user?.username?.charAt(0).toUpperCase() || "U"}
+          <Link
+            href="/profile"
+            className="flex items-center gap-3 px-4 py-2 rounded-xl bg-linear-to-r from-primary/10 to-secondary/10 border border-primary/20 hover:border-primary/40 transition-all duration-300 group"
+          >
+            <div className="w-8 h-8 rounded-full bg-linear-to-br from-primary to-secondary flex items-center justify-center text-lg">
+              {getAvatar()}
             </div>
             <span className="text-sm font-medium text-gray-200 hidden sm:block">
               {user?.username || "User"}
             </span>
-          </button>
+          </Link>
 
           {/* Friends Button */}
           <Link
