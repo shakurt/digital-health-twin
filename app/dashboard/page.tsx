@@ -3,11 +3,19 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import AppLayout from "@/components/AppLayout";
+import { DashboardAvatar } from "@/components/HealthAvatar";
+import { UserHealthData } from "@/components/AvatarCalculations";
 
 interface UserData {
   username: string;
   email: string;
   session?: boolean;
+  height?: string;
+  weight?: string;
+  sleepData?: any;
+  activityData?: any;
+  nutritionData?: any;
+  mindfulnessData?: any;
   [key: string]: unknown;
 }
 
@@ -40,12 +48,40 @@ export default function Dashboard() {
     );
   }
 
+  // Prepare user health data for avatar
+  const getUserHealthData = (): UserHealthData => {
+    return {
+      height: user.height,
+      weight: user.weight,
+      sleepData: user.sleepData,
+      activityData: user.activityData,
+      nutritionData: user.nutritionData,
+      mindfulnessData: user.mindfulnessData,
+    };
+  };
+
   return (
     <AppLayout>
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold text-white mb-8">
-          Welcome back, {user.username}!
-        </h1>
+        {/* Header with Avatar and Welcome */}
+        <div className="flex flex-col md:flex-row md:items-center gap-6 mb-8">
+          <div className="flex-1">
+            <h1 className="text-3xl font-bold text-white mb-2">
+              Welcome back, {user.username}!
+            </h1>
+            <p className="text-gray-400">
+              Here's your health overview for today
+            </p>
+          </div>
+
+          <div className="md:w-80">
+            <DashboardAvatar
+              userData={getUserHealthData()}
+              gender={user.sex as "male" | "female" | "neutral"}
+              onClick={() => router.push("/profile")}
+            />
+          </div>
+        </div>
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">

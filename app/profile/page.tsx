@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import AppLayout from "@/components/AppLayout";
+import HealthAvatar from "@/components/HealthAvatar";
+import { UserHealthData } from "@/components/AvatarCalculations";
 
 interface UserData {
   username: string;
@@ -14,6 +16,10 @@ interface UserData {
   job?: string;
   goal?: string;
   activityLevel?: string;
+  sleepData?: any;
+  activityData?: any;
+  nutritionData?: any;
+  mindfulnessData?: any;
   optionalAnswers?: {
     sleep?: any;
     nutrition?: any;
@@ -79,14 +85,23 @@ export default function Profile() {
     };
   }, [showEditModal, showPrivacyModal]);
 
-  const getAvatar = () => {
-    if (user?.sex === "male") return "👨";
-    if (user?.sex === "female") return "👩";
-    return "🧑";
+  // Prepare user health data for avatar
+  const getUserHealthData = (): UserHealthData => {
+    if (!user) return {};
+
+    return {
+      height: user.height,
+      weight: user.weight,
+      age: user.birthdate ? getAge() : undefined,
+      sleepData: user.sleepData,
+      activityData: user.activityData,
+      nutritionData: user.nutritionData,
+      mindfulnessData: user.mindfulnessData,
+    };
   };
 
   const getAge = () => {
-    if (!user?.birthdate) return "N/A";
+    if (!user?.birthdate) return undefined;
     const birthDate = new Date(user.birthdate);
     const today = new Date();
     let age = today.getFullYear() - birthDate.getFullYear();
@@ -190,26 +205,17 @@ export default function Profile() {
           {/* Profile Info Overlay */}
           <div className="px-4 md:px-6 -mt-16">
             <div className="flex flex-col md:flex-row items-center md:items-end gap-4 mb-6">
-              {/* Avatar */}
+              {/* Health Avatar */}
               <div className="relative">
-                <div className="w-32 h-32 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-6xl border-4 border-dark shadow-xl">
-                  {getAvatar()}
-                </div>
-                <button className="absolute bottom-0 right-0 w-10 h-10 rounded-full bg-primary hover:bg-secondary transition-colors flex items-center justify-center shadow-lg border-2 border-dark">
-                  <svg
-                    className="w-5 h-5 text-white"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                    />
-                  </svg>
-                </button>
+                <HealthAvatar
+                  userData={getUserHealthData()}
+                  gender={user.sex as "male" | "female" | "neutral"}
+                  size={128}
+                  context="profile"
+                  showStatus={true}
+                  showHealthScore={true}
+                  showInsights={true}
+                />
               </div>
 
               {/* User Info */}

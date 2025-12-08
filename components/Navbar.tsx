@@ -2,13 +2,24 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { MiniAvatar } from "./HealthAvatar";
+import { UserHealthData } from "./AvatarCalculations";
 
 interface NavbarProps {
   onMenuClick: () => void;
 }
 
 export default function Navbar({ onMenuClick }: NavbarProps) {
-  const [user] = useState<{ username: string; sex?: string } | null>(() => {
+  const [user] = useState<{
+    username: string;
+    sex?: string;
+    height?: string;
+    weight?: string;
+    sleepData?: any;
+    activityData?: any;
+    nutritionData?: any;
+    mindfulnessData?: any;
+  } | null>(() => {
     if (typeof window !== "undefined") {
       const userData = localStorage.getItem("user");
       if (userData) {
@@ -18,11 +29,17 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
     return null;
   });
 
-  // Get avatar based on sex
-  const getAvatar = () => {
-    if (user?.sex === "male") return "👨";
-    if (user?.sex === "female") return "👩";
-    return "🧑";
+  // Prepare user health data for avatar
+  const getUserHealthData = (): UserHealthData => {
+    if (!user) return {};
+    return {
+      height: user.height,
+      weight: user.weight,
+      sleepData: user.sleepData,
+      activityData: user.activityData,
+      nutritionData: user.nutritionData,
+      mindfulnessData: user.mindfulnessData,
+    };
   };
 
   return (
@@ -30,14 +47,21 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
       <div className="h-full px-4 flex items-center justify-between">
         {/* Left Side - Profile & Friends */}
         <div className="flex items-center gap-3">
-          {/* Profile Button */}
+          {/* Profile Button with Health Avatar */}
           <Link
             href="/profile"
-            className="flex items-center gap-3 px-4 py-2 rounded-xl bg-linear-to-r from-primary/10 to-secondary/10 border border-primary/20 hover:border-primary/40 transition-all duration-300 group"
+            className="flex items-center gap-3 px-2 py-1 hover:bg-white/5 rounded-xl transition-all duration-300 group"
           >
-            <div className="w-8 h-8 rounded-full bg-linear-to-br from-primary to-secondary flex items-center justify-center text-lg">
-              {getAvatar()}
-            </div>
+            {user ? (
+              <MiniAvatar
+                userData={getUserHealthData()}
+                gender={user.sex as "male" | "female" | "neutral"}
+              />
+            ) : (
+              <div className="w-8 h-8 rounded-full bg-linear-to-br from-primary to-secondary flex items-center justify-center text-lg">
+                🧑
+              </div>
+            )}
             <span className="text-sm font-medium text-gray-200 hidden sm:block">
               {user?.username || "User"}
             </span>
@@ -86,12 +110,52 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
               />
             </svg>
           </Link>
+
+          {/* Leaderboard Button (Mobile & Tablet) */}
+          <Link
+            href={"/leaderboard"}
+            className="lg:hidden px-2 py-1.5 rounded-xl bg-dark-bg border border-white/5 hover:border-yellow-500/40 transition-all duration-300 group flex items-center justify-center"
+          >
+            <span className="text-lg group-hover:scale-110 transition-transform">
+              🏆
+            </span>
+          </Link>
+
+          {/* Sign Out Button (Mobile & Tablet) */}
+          <button
+            onClick={() => {
+              if (typeof window !== "undefined") {
+                const userData = localStorage.getItem("user");
+                if (userData) {
+                  const user = JSON.parse(userData);
+                  user.session = false;
+                  localStorage.setItem("user", JSON.stringify(user));
+                }
+                window.location.href = "/signin";
+              }
+            }}
+            className="lg:hidden p-2.5 rounded-xl bg-dark-bg border border-white/5 hover:border-red-500/40 transition-all duration-300 group"
+          >
+            <svg
+              className="w-5 h-5 text-gray-400 group-hover:text-red-400 transition-colors"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+              />
+            </svg>
+          </button>
         </div>
 
-        {/* Center/Right - Leaderboard Button */}
+        {/* Center/Right - Leaderboard Button (Desktop Only) */}
         <Link
           href={"/leaderboard"}
-          className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl bg-linear-to-r from-yellow-500/10 to-orange-500/10 border border-yellow-500/30 hover:border-yellow-500/50 transition-all duration-300 group"
+          className="hidden lg:flex items-center gap-2 px-4 py-2 rounded-xl bg-linear-to-r from-yellow-500/10 to-orange-500/10 border border-yellow-500/30 hover:border-yellow-500/50 transition-all duration-300 group"
         >
           <span className="text-xl">🏆</span>
           <span className="text-sm font-semibold text-yellow-400 group-hover:text-yellow-300 transition-colors">

@@ -192,7 +192,7 @@ export default function Sidebar({ isMobileOpen, onClose }: SidebarProps) {
                 }
                 router.push("/signin");
               }}
-              className="w-full flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 group hover:bg-red-500/10 border border-transparent hover:border-red-500/40 text-gray-400 hover:text-red-400"
+              className="w-full hidden lg:flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 group hover:bg-red-500/10 border border-transparent hover:border-red-500/40 text-gray-400 hover:text-red-400"
             >
               <svg
                 className="w-6 h-6 shrink-0"
