@@ -663,6 +663,304 @@ export default function Nutrition() {
               </div>
             )}
 
+            {/* Food Photo Analysis (Phase 2/3) */}
+            <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                  📸 Meal Recognition
+                </h2>
+                <span className="px-3 py-1 bg-primary/20 border border-primary/40 rounded-full text-primary text-xs font-medium">
+                  AI Powered
+                </span>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                {/* Upload Section */}
+                <div className="border-2 border-dashed border-white/20 rounded-xl p-6 hover:border-primary/40 transition-all duration-300 cursor-pointer group">
+                  <div className="text-center">
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/20 rounded-full mb-3 group-hover:scale-110 transition-transform duration-300">
+                      <span className="text-3xl">📷</span>
+                    </div>
+                    <h3 className="text-white font-medium mb-1">Take Photo</h3>
+                    <p className="text-gray-400 text-xs mb-3">
+                      Snap a picture of your meal
+                    </p>
+                    <div className="flex items-center justify-center gap-2 text-xs text-gray-500">
+                      <span>•</span>
+                      <span>Instant nutrition analysis</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Recent Analysis */}
+                <div className="bg-white/5 rounded-xl p-4">
+                  <div className="flex items-start gap-3 mb-3">
+                    <div className="w-16 h-16 bg-white/10 rounded-lg flex items-center justify-center">
+                      <span className="text-2xl">🍕</span>
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="text-white font-medium text-sm mb-1">
+                        Last Analysis
+                      </h4>
+                      <p className="text-gray-400 text-xs">
+                        Pizza detected - 850 cal
+                      </p>
+                      <p className="text-gray-500 text-xs mt-1">2 hours ago</p>
+                    </div>
+                  </div>
+                  <div className="pt-3 border-t border-white/10">
+                    <button className="w-full px-3 py-2 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-lg text-xs font-medium transition-all duration-300">
+                      View Full History
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Time & Place Patterns (Phase 2/3) */}
+            <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
+              <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                🕐 Time & Place Patterns
+              </h2>
+
+              <div className="space-y-4">
+                {/* Pattern Cards */}
+                <div className="grid md:grid-cols-2 gap-4">
+                  {/* Friday Pattern */}
+                  <div className="bg-gradient-to-br from-orange-500/10 to-red-500/10 border border-orange-500/30 rounded-xl p-4">
+                    <div className="flex items-start gap-3">
+                      <span className="text-3xl">🍔</span>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h3 className="text-orange-400 font-medium">
+                            Friday Pattern
+                          </h3>
+                          <span className="px-2 py-0.5 bg-orange-500/20 rounded text-orange-400 text-xs">
+                            Weekly
+                          </span>
+                        </div>
+                        <p className="text-gray-300 text-sm mb-2">
+                          You tend to eat 40% more on Fridays, especially fast
+                          food
+                        </p>
+                        <div className="flex items-center gap-2 text-xs text-gray-400">
+                          <span className="px-2 py-1 bg-white/5 rounded">
+                            📍 Usually near work
+                          </span>
+                          <span className="px-2 py-1 bg-white/5 rounded">
+                            🕐 6-8 PM
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mt-3 pt-3 border-t border-orange-500/20">
+                      <p className="text-orange-400 text-xs font-medium">
+                        💡 Suggestion:
+                      </p>
+                      <p className="text-gray-400 text-xs mt-1">
+                        Have a high-protein snack at 5 PM to reduce cravings
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Stress Period Pattern */}
+                  <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/30 rounded-xl p-4">
+                    <div className="flex items-start gap-3">
+                      <span className="text-3xl">☕</span>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h3 className="text-purple-400 font-medium">
+                            Stress Period
+                          </h3>
+                          <span className="px-2 py-0.5 bg-purple-500/20 rounded text-purple-400 text-xs">
+                            Detected
+                          </span>
+                        </div>
+                        <p className="text-gray-300 text-sm mb-2">
+                          During busy weeks, coffee intake increases by 60%
+                        </p>
+                        <div className="flex items-center gap-2 text-xs text-gray-400">
+                          <span className="px-2 py-1 bg-white/5 rounded">
+                            📍 Office area
+                          </span>
+                          <span className="px-2 py-1 bg-white/5 rounded">
+                            🕐 Morning
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mt-3 pt-3 border-t border-purple-500/20">
+                      <p className="text-purple-400 text-xs font-medium">
+                        💡 Suggestion:
+                      </p>
+                      <p className="text-gray-400 text-xs mt-1">
+                        Try green tea - same energy, less crash
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Location Insight */}
+                <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4">
+                  <div className="flex items-start gap-3">
+                    <span className="text-2xl">📍</span>
+                    <div className="flex-1">
+                      <h3 className="text-blue-400 font-medium mb-2">
+                        Location Analysis
+                      </h3>
+                      <div className="grid grid-cols-3 gap-3 text-center">
+                        <div className="bg-white/5 rounded-lg p-3">
+                          <p className="text-2xl font-bold text-white">45%</p>
+                          <p className="text-xs text-gray-400 mt-1">
+                            Home meals
+                          </p>
+                        </div>
+                        <div className="bg-white/5 rounded-lg p-3">
+                          <p className="text-2xl font-bold text-white">35%</p>
+                          <p className="text-xs text-gray-400 mt-1">
+                            Work area
+                          </p>
+                        </div>
+                        <div className="bg-white/5 rounded-lg p-3">
+                          <p className="text-2xl font-bold text-white">20%</p>
+                          <p className="text-xs text-gray-400 mt-1">
+                            Restaurants
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Privacy & Data Control (Phase 2/3) */}
+            <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="text-2xl">🔒</span>
+                <h2 className="text-xl font-bold text-white">
+                  Privacy & Data Control
+                </h2>
+              </div>
+
+              <div className="space-y-4">
+                {/* Privacy Status */}
+                <div className="flex items-center justify-between p-4 bg-green-500/10 border border-green-500/30 rounded-xl">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-green-500/20 rounded-full flex items-center justify-center">
+                      <span className="text-lg">✓</span>
+                    </div>
+                    <div>
+                      <h3 className="text-green-400 font-medium">
+                        Data Protected
+                      </h3>
+                      <p className="text-gray-400 text-xs">
+                        All data encrypted and stored locally
+                      </p>
+                    </div>
+                  </div>
+                  <span className="px-3 py-1 bg-green-500/20 rounded-full text-green-400 text-xs font-medium">
+                    Active
+                  </span>
+                </div>
+
+                {/* Data Control Options */}
+                <div className="grid md:grid-cols-2 gap-3">
+                  <button className="flex items-center gap-3 p-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all duration-300 text-left group">
+                    <span className="text-2xl group-hover:scale-110 transition-transform duration-300">
+                      📥
+                    </span>
+                    <div>
+                      <h4 className="text-white font-medium text-sm">
+                        Export Data
+                      </h4>
+                      <p className="text-gray-400 text-xs">
+                        Download all your nutrition data
+                      </p>
+                    </div>
+                  </button>
+
+                  <button className="flex items-center gap-3 p-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all duration-300 text-left group">
+                    <span className="text-2xl group-hover:scale-110 transition-transform duration-300">
+                      👁️
+                    </span>
+                    <div>
+                      <h4 className="text-white font-medium text-sm">
+                        Data Sharing
+                      </h4>
+                      <p className="text-gray-400 text-xs">
+                        Control who can see your data
+                      </p>
+                    </div>
+                  </button>
+
+                  <button className="flex items-center gap-3 p-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all duration-300 text-left group">
+                    <span className="text-2xl group-hover:scale-110 transition-transform duration-300">
+                      🗑️
+                    </span>
+                    <div>
+                      <h4 className="text-white font-medium text-sm">
+                        Delete Data
+                      </h4>
+                      <p className="text-gray-400 text-xs">
+                        Permanently remove your information
+                      </p>
+                    </div>
+                  </button>
+
+                  <button className="flex items-center gap-3 p-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all duration-300 text-left group">
+                    <span className="text-2xl group-hover:scale-110 transition-transform duration-300">
+                      📋
+                    </span>
+                    <div>
+                      <h4 className="text-white font-medium text-sm">
+                        Privacy Policy
+                      </h4>
+                      <p className="text-gray-400 text-xs">
+                        View how we protect your data
+                      </p>
+                    </div>
+                  </button>
+                </div>
+
+                {/* Data Usage Info */}
+                <div className="p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl">
+                  <h4 className="text-blue-400 font-medium text-sm mb-2">
+                    How Your Data is Used
+                  </h4>
+                  <ul className="space-y-2 text-xs text-gray-300">
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-400 mt-0.5">•</span>
+                      <span>
+                        Stored locally on your device - no cloud uploads without
+                        permission
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-400 mt-0.5">•</span>
+                      <span>
+                        Used only to personalize your nutrition insights and
+                        recommendations
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-400 mt-0.5">•</span>
+                      <span>
+                        Never shared with third parties unless you explicitly
+                        consent
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-400 mt-0.5">•</span>
+                      <span>
+                        You can export or delete your data at any time
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
             {/* Weekly Patterns */}
             <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
               <h2 className="text-xl font-bold text-white mb-6">
