@@ -170,15 +170,17 @@ export default function Dashboard() {
           {/* Sleep Card */}
           <Link
             href="/sleep"
-            className="bg-dark-card border border-white/5 rounded-2xl p-6 hover:border-blue-500/40 transition-all duration-300 group"
+            className="bg-dark-card border border-white/5 rounded-2xl p-4 sm:p-6 hover:border-blue-500/40 transition-all duration-300 group"
           >
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-gray-400 text-sm font-medium">Sleep</h3>
-              <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <span className="text-2xl">😴</span>
+              <h3 className="text-gray-400 text-xs sm:text-sm font-medium">
+                Sleep
+              </h3>
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-blue-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <span className="text-xl sm:text-2xl">😴</span>
               </div>
             </div>
-            <p className="text-3xl font-bold text-white mb-2">
+            <p className="text-2xl sm:text-3xl font-bold text-white mb-2">
               {stats.sleepHours.toFixed(1)}h
             </p>
             <div className="flex items-center gap-2">
@@ -188,33 +190,35 @@ export default function Dashboard() {
                     key={star}
                     className={
                       star <= Math.round(stats.sleepQuality)
-                        ? "text-yellow-400"
-                        : "text-gray-600"
+                        ? "text-yellow-400 text-xs sm:text-sm"
+                        : "text-gray-600 text-xs sm:text-sm"
                     }
                   >
                     ⭐
                   </span>
                 ))}
               </div>
-              <p className="text-sm text-gray-400">Quality</p>
+              <p className="text-xs sm:text-sm text-gray-400">Quality</p>
             </div>
           </Link>
 
           {/* Activity Card */}
           <Link
             href="/activity"
-            className="bg-dark-card border border-white/5 rounded-2xl p-6 hover:border-green-500/40 transition-all duration-300 group"
+            className="bg-dark-card border border-white/5 rounded-2xl p-4 sm:p-6 hover:border-green-500/40 transition-all duration-300 group"
           >
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-gray-400 text-sm font-medium">Activity</h3>
-              <div className="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <span className="text-2xl">🏃</span>
+              <h3 className="text-gray-400 text-xs sm:text-sm font-medium">
+                Activity
+              </h3>
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-green-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <span className="text-xl sm:text-2xl">🏃</span>
               </div>
             </div>
-            <p className="text-3xl font-bold text-white mb-2">
+            <p className="text-2xl sm:text-3xl font-bold text-white mb-2">
               {stats.steps.toLocaleString()}
             </p>
-            <p className="text-sm text-gray-400">
+            <p className="text-xs sm:text-sm text-gray-400">
               steps · {stats.activeMinutes} min active
             </p>
           </Link>
@@ -222,35 +226,41 @@ export default function Dashboard() {
           {/* Nutrition Card */}
           <Link
             href="/nutrition"
-            className="bg-dark-card border border-white/5 rounded-2xl p-6 hover:border-orange-500/40 transition-all duration-300 group"
+            className="bg-dark-card border border-white/5 rounded-2xl p-4 sm:p-6 hover:border-orange-500/40 transition-all duration-300 group"
           >
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-gray-400 text-sm font-medium">Nutrition</h3>
-              <div className="w-10 h-10 rounded-lg bg-orange-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <span className="text-2xl">🍎</span>
+              <h3 className="text-gray-400 text-xs sm:text-sm font-medium">
+                Activity
+              </h3>
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-orange-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <span className="text-xl sm:text-2xl">🍎</span>
               </div>
             </div>
-            <p className="text-3xl font-bold text-white mb-2">
+            <p className="text-2xl sm:text-3xl font-bold text-white mb-2">
               {stats.calories}
             </p>
-            <p className="text-sm text-gray-400">calories · Goal: 2,200</p>
+            <p className="text-xs sm:text-sm text-gray-400">
+              calories · Goal: 2,200
+            </p>
           </Link>
 
           {/* Mindfulness Card */}
           <Link
             href="/mindfulness"
-            className="bg-dark-card border border-white/5 rounded-2xl p-6 hover:border-purple-500/40 transition-all duration-300 group"
+            className="bg-dark-card border border-white/5 rounded-2xl p-4 sm:p-6 hover:border-purple-500/40 transition-all duration-300 group"
           >
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-gray-400 text-sm font-medium">Mindfulness</h3>
-              <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <span className="text-2xl">🧘</span>
+              <h3 className="text-gray-400 text-xs sm:text-sm font-medium">
+                Mindfulness
+              </h3>
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-purple-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <span className="text-xl sm:text-2xl">🧘</span>
               </div>
             </div>
-            <p className="text-3xl font-bold text-white mb-2">
+            <p className="text-2xl sm:text-3xl font-bold text-white mb-2">
               {stats.avgStress.toFixed(1)}/10
             </p>
-            <p className="text-sm text-gray-400">
+            <p className="text-xs sm:text-sm text-gray-400">
               avg stress ·{" "}
               {stats.avgStress < 5
                 ? "Good"
@@ -262,19 +272,19 @@ export default function Dashboard() {
         </div>
 
         {/* Weekly Progress Overview */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
           {/* Sleep Trend */}
-          <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-            <div className="flex items-center justify-between mb-6">
+          <div className="bg-dark-card border border-white/5 rounded-2xl p-4 sm:p-6">
+            <div className="flex items-center justify-between mb-4 sm:mb-6">
               <div>
-                <h3 className="text-xl font-bold text-white mb-1">
+                <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-1">
                   Sleep Trend
                 </h3>
-                <p className="text-sm text-gray-400">Last 7 days</p>
+                <p className="text-xs sm:text-sm text-gray-400">Last 7 days</p>
               </div>
               <Link
                 href="/sleep"
-                className="text-sm text-primary hover:text-primary/80 font-medium"
+                className="text-xs sm:text-sm text-primary hover:text-primary/80 font-medium"
               >
                 View Details →
               </Link>

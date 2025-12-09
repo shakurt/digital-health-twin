@@ -478,90 +478,102 @@ export default function Nutrition() {
     <AppLayout>
       {/* Success Toast */}
       {showSuccess && (
-        <div className="fixed top-24 right-6 z-50 bg-green-500/90 backdrop-blur-lg text-white px-6 py-4 rounded-2xl shadow-lg animate-fade-in flex items-center gap-3">
-          <span className="text-2xl">✅</span>
-          <span className="font-medium">Logged successfully!</span>
+        <div className="fixed top-20 sm:top-24 right-4 sm:right-6 z-50 bg-green-500/90 backdrop-blur-lg text-white px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl shadow-lg animate-fade-in flex items-center gap-2 sm:gap-3">
+          <span className="text-lg sm:text-2xl">✅</span>
+          <span className="font-medium text-sm sm:text-base">
+            Logged successfully!
+          </span>
         </div>
       )}
 
       <div className="min-h-screen pb-20">
         {/* Sticky Header */}
         <div className="sticky top-0 z-30 bg-dark/95 backdrop-blur-xl border-b border-white/5">
-          <div className="flex items-center justify-between p-4 md:p-6">
+          <div className="flex items-center justify-between p-3 sm:p-4 md:p-6">
             <div>
-              <h1 className="text-2xl md:text-4xl font-bold gradient-text-animated">
+              <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold gradient-text-animated">
                 Nutrition Hub
               </h1>
-              <p className="text-sm text-gray-400 mt-1">
+              <p className="text-xs sm:text-sm text-gray-400 mt-1">
                 Track patterns, build habits, join challenges
               </p>
             </div>
             <div className="flex gap-2">
               <button
                 onClick={() => setShowOnboardingModal(true)}
-                className="px-3 py-2 md:px-4 md:py-2 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-lg font-medium transition-all duration-300 hover:scale-105 text-sm md:text-base flex items-center gap-2"
+                className="px-2 py-1.5 sm:px-3 sm:py-2 md:px-4 md:py-2 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-lg font-medium transition-all duration-300 hover:scale-105 text-xs sm:text-sm md:text-base flex items-center gap-1 sm:gap-2"
               >
-                <span>⚙️</span>
+                <span className="text-sm sm:text-base">⚙️</span>
                 <span className="hidden sm:inline">Settings</span>
               </button>
               <button
                 onClick={() => setShowResetConfirm(true)}
-                className="px-3 py-2 md:px-4 md:py-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-400 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-sm md:text-base flex items-center gap-2"
+                className="px-2 py-1.5 sm:px-3 sm:py-2 md:px-4 md:py-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-400 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-xs sm:text-sm md:text-base flex items-center gap-1 sm:gap-2"
               >
-                <span>🔄</span>
+                <span className="text-sm sm:text-base">🔄</span>
                 <span className="hidden sm:inline">Reset</span>
               </button>
             </div>
           </div>
 
           {/* Top Stats Bar */}
-          <div className="grid grid-cols-3 gap-3 px-4 md:px-6 pb-4">
+          <div className="grid grid-cols-3 gap-2 sm:gap-3 px-3 sm:px-4 md:px-6 pb-3 sm:pb-4">
             {/* Current Weight */}
-            <div className="p-3 rounded-xl bg-linear-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-xl">⚖️</span>
-                <span className="text-xs text-gray-400">Weight</span>
+            <div className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-linear-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20">
+              <div className="flex items-center gap-1 sm:gap-2 mb-1">
+                <span className="text-base sm:text-lg md:text-xl">⚖️</span>
+                <span className="text-[10px] sm:text-xs text-gray-400">
+                  Weight
+                </span>
               </div>
-              <p className="text-lg font-bold text-white">
+              <p className="text-sm sm:text-base md:text-lg font-bold text-white">
                 {data.currentWeight.toFixed(1)} kg
               </p>
-              <p className="text-xs text-gray-400">
+              <p className="text-[10px] sm:text-xs text-gray-400">
                 Goal: {data.goalWeight.toFixed(1)} kg
               </p>
             </div>
 
             {/* Avatar Health */}
-            <div className="p-3 rounded-xl bg-linear-to-br from-green-500/10 to-green-600/10 border border-green-500/20">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-xl">💚</span>
-                <span className="text-xs text-gray-400">Health Score</span>
+            <div className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-linear-to-br from-green-500/10 to-green-600/10 border border-green-500/20">
+              <div className="flex items-center gap-1 sm:gap-2 mb-1">
+                <span className="text-base sm:text-lg md:text-xl">💚</span>
+                <span className="text-[10px] sm:text-xs text-gray-400">
+                  Health Score
+                </span>
               </div>
-              <p className="text-lg font-bold text-white">
+              <p className="text-sm sm:text-base md:text-lg font-bold text-white">
                 {data.avatarHealth}/100
               </p>
-              <p className="text-xs text-gray-400">Digital Twin</p>
+              <p className="text-[10px] sm:text-xs text-gray-400">
+                Digital Twin
+              </p>
             </div>
 
             {/* Weekly Patterns */}
-            <div className="p-3 rounded-xl bg-linear-to-br from-orange-500/10 to-orange-600/10 border border-orange-500/20">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-xl">📊</span>
-                <span className="text-xs text-gray-400">Pattern</span>
+            <div className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-linear-to-br from-orange-500/10 to-orange-600/10 border border-orange-500/20">
+              <div className="flex items-center gap-1 sm:gap-2 mb-1">
+                <span className="text-base sm:text-lg md:text-xl">📊</span>
+                <span className="text-[10px] sm:text-xs text-gray-400">
+                  Pattern
+                </span>
               </div>
-              <p className="text-lg font-bold text-white">
+              <p className="text-sm sm:text-base md:text-lg font-bold text-white">
                 {data.weeklyPattern.fastFood.logged +
                   data.weeklyPattern.sugaryDrinks.logged +
                   data.weeklyPattern.lateNight.logged}
               </p>
-              <p className="text-xs text-gray-400">Logged this week</p>
+              <p className="text-[10px] sm:text-xs text-gray-400">
+                Logged this week
+              </p>
             </div>
           </div>
 
           {/* Tab Navigation */}
-          <div className="flex gap-2 px-4 md:px-6 pb-4">
+          <div className="flex gap-1.5 sm:gap-2 px-3 sm:px-4 md:px-6 pb-3 sm:pb-4">
             <button
               onClick={() => setActiveTab("overview")}
-              className={`flex-1 md:flex-none px-6 py-2.5 rounded-xl font-medium transition-all duration-300 ${
+              className={`flex-1 md:flex-none px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-medium text-xs sm:text-sm md:text-base transition-all duration-300 ${
                 activeTab === "overview"
                   ? "bg-linear-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
                   : "bg-white/5 border border-transparent text-gray-400 hover:text-white hover:bg-white/10"
@@ -571,7 +583,7 @@ export default function Nutrition() {
             </button>
             <button
               onClick={() => setActiveTab("habits")}
-              className={`flex-1 md:flex-none px-6 py-2.5 rounded-xl font-medium transition-all duration-300 ${
+              className={`flex-1 md:flex-none px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-medium text-xs sm:text-sm md:text-base transition-all duration-300 ${
                 activeTab === "habits"
                   ? "bg-linear-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
                   : "bg-white/5 border border-transparent text-gray-400 hover:text-white hover:bg-white/10"
@@ -581,7 +593,7 @@ export default function Nutrition() {
             </button>
             <button
               onClick={() => setActiveTab("challenges")}
-              className={`flex-1 md:flex-none px-6 py-2.5 rounded-xl font-medium transition-all duration-300 ${
+              className={`flex-1 md:flex-none px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-medium text-xs sm:text-sm md:text-base transition-all duration-300 ${
                 activeTab === "challenges"
                   ? "bg-linear-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
                   : "bg-white/5 border border-transparent text-gray-400 hover:text-white hover:bg-white/10"
@@ -593,17 +605,17 @@ export default function Nutrition() {
         </div>
 
         {/* Main Content */}
-        <div className="p-4 md:p-6">
+        <div className="p-3 sm:p-4 md:p-6 space-y-4 sm:space-y-6">
           {/* Allergies Badge */}
           {data.allergies.length > 0 && (
-            <div className="bg-dark-card border border-white/5 rounded-2xl p-4 flex flex-wrap gap-2 items-center">
-              <span className="text-sm text-gray-400 font-medium">
+            <div className="bg-dark-card border border-white/5 rounded-xl sm:rounded-2xl p-3 sm:p-4 flex flex-wrap gap-2 items-center">
+              <span className="text-xs sm:text-sm text-gray-400 font-medium">
                 ⚠️ Allergies:
               </span>
               {data.allergies.map((allergy, idx) => (
                 <span
                   key={idx}
-                  className="px-3 py-1 bg-red-500/20 border border-red-500/40 rounded-full text-red-400 text-sm font-medium"
+                  className="px-2 sm:px-3 py-0.5 sm:py-1 bg-red-500/20 border border-red-500/40 rounded-full text-red-400 text-xs sm:text-sm font-medium"
                 >
                   🚫 {allergy}
                 </span>
@@ -612,16 +624,18 @@ export default function Nutrition() {
           )}
 
           {/* Pro Tips */}
-          <div className="bg-dark-card border border-white/5 rounded-2xl p-4 md:p-6">
+          <div className="bg-dark-card border border-white/5 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6">
             <div className="flex items-center gap-2 mb-3">
-              <span className="text-xl">💡</span>
-              <h3 className="text-lg font-bold text-white">Pro Tips</h3>
+              <span className="text-base sm:text-lg md:text-xl">💡</span>
+              <h3 className="text-sm sm:text-base md:text-lg font-bold text-white">
+                Pro Tips
+              </h3>
             </div>
             <div className="space-y-2">
               {generateProTips().map((tip, idx) => (
                 <div
                   key={idx}
-                  className={`p-3 rounded-xl border animate-fade-in ${
+                  className={`p-2 sm:p-3 rounded-lg sm:rounded-xl border animate-fade-in ${
                     tip.color === "red"
                       ? "bg-red-500/10 border-red-500/30"
                       : tip.color === "yellow"
@@ -647,7 +661,7 @@ export default function Nutrition() {
                       >
                         {tip.title}
                       </h4>
-                      <p className="text-gray-300 text-xs md:text-sm">
+                      <p className="text-gray-300 text-[10px] sm:text-xs md:text-sm">
                         {tip.message}
                       </p>
                     </div>
@@ -659,18 +673,18 @@ export default function Nutrition() {
 
           {/* OVERVIEW TAB */}
           {activeTab === "overview" && (
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {/* Cross-Feature Insights */}
               {data.crossFeatureInsights.length > 0 && (
-                <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-                  <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                <div className="bg-dark-card border border-white/5 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6">
+                  <h2 className="text-base sm:text-lg md:text-xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-2">
                     🔗 Cross-Feature Intelligence
                   </h2>
-                  <div className="space-y-3">
+                  <div className="space-y-2 sm:space-y-3">
                     {data.crossFeatureInsights.map((insight, idx) => (
                       <div
                         key={idx}
-                        className={`p-4 rounded-xl border animate-fade-in ${
+                        className={`p-3 sm:p-4 rounded-lg sm:rounded-xl border animate-fade-in ${
                           insight.type === "warning"
                             ? "bg-red-500/10 border-red-500/30"
                             : insight.type === "positive"
@@ -678,12 +692,14 @@ export default function Nutrition() {
                             : "bg-blue-500/10 border-blue-500/30"
                         }`}
                       >
-                        <div className="flex items-start gap-3">
-                          <span className="text-2xl">{insight.icon}</span>
+                        <div className="flex items-start gap-2 sm:gap-3">
+                          <span className="text-lg sm:text-xl md:text-2xl">
+                            {insight.icon}
+                          </span>
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-1">
                               <h3
-                                className={`font-medium ${
+                                className={`font-medium text-xs sm:text-sm md:text-base ${
                                   insight.type === "warning"
                                     ? "text-red-400"
                                     : insight.type === "positive"
@@ -693,11 +709,11 @@ export default function Nutrition() {
                               >
                                 {insight.title}
                               </h3>
-                              <span className="text-xs text-gray-500 uppercase">
+                              <span className="text-[10px] sm:text-xs text-gray-500 uppercase">
                                 from {insight.source}
                               </span>
                             </div>
-                            <p className="text-gray-300 text-sm">
+                            <p className="text-gray-300 text-xs sm:text-sm">
                               {insight.message}
                             </p>
                           </div>
@@ -709,30 +725,30 @@ export default function Nutrition() {
               )}
 
               {/* Food Photo Analysis (Phase 2/3) */}
-              <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-xl font-bold text-white flex items-center gap-2">
+              <div className="bg-dark-card border border-white/5 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6">
+                <div className="flex items-center justify-between mb-3 sm:mb-4">
+                  <h2 className="text-base sm:text-lg md:text-xl font-bold text-white flex items-center gap-2">
                     📸 Meal Recognition
                   </h2>
-                  <span className="px-3 py-1 bg-primary/20 border border-primary/40 rounded-full text-primary text-xs font-medium">
+                  <span className="px-2 sm:px-3 py-0.5 sm:py-1 bg-primary/20 border border-primary/40 rounded-full text-primary text-[10px] sm:text-xs font-medium">
                     AI Powered
                   </span>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-2 gap-3 sm:gap-4">
                   {/* Upload Section */}
-                  <div className="border-2 border-dashed border-white/20 rounded-xl p-6 hover:border-primary/40 transition-all duration-300 cursor-pointer group">
+                  <div className="border-2 border-dashed border-white/20 rounded-lg sm:rounded-xl p-4 sm:p-6 hover:border-primary/40 transition-all duration-300 cursor-pointer group">
                     <div className="text-center">
-                      <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/20 rounded-full mb-3 group-hover:scale-110 transition-transform duration-300">
-                        <span className="text-3xl">📷</span>
+                      <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-primary/20 rounded-full mb-2 sm:mb-3 group-hover:scale-110 transition-transform duration-300">
+                        <span className="text-2xl sm:text-3xl">📷</span>
                       </div>
-                      <h3 className="text-white font-medium mb-1">
+                      <h3 className="text-white font-medium mb-1 text-sm sm:text-base">
                         Take Photo
                       </h3>
-                      <p className="text-gray-400 text-xs mb-3">
+                      <p className="text-gray-400 text-[10px] sm:text-xs mb-2 sm:mb-3">
                         Snap a picture of your meal
                       </p>
-                      <div className="flex items-center justify-center gap-2 text-xs text-gray-500">
+                      <div className="flex items-center justify-center gap-2 text-[10px] sm:text-xs text-gray-500">
                         <span>•</span>
                         <span>Instant nutrition analysis</span>
                       </div>
@@ -740,25 +756,25 @@ export default function Nutrition() {
                   </div>
 
                   {/* Recent Analysis */}
-                  <div className="bg-white/5 rounded-xl p-4">
-                    <div className="flex items-start gap-3 mb-3">
-                      <div className="w-16 h-16 bg-white/10 rounded-lg flex items-center justify-center">
-                        <span className="text-2xl">🍕</span>
+                  <div className="bg-white/5 rounded-lg sm:rounded-xl p-3 sm:p-4">
+                    <div className="flex items-start gap-2 sm:gap-3 mb-2 sm:mb-3">
+                      <div className="w-12 h-12 sm:w-16 sm:h-16 bg-white/10 rounded-lg flex items-center justify-center">
+                        <span className="text-xl sm:text-2xl">🍕</span>
                       </div>
                       <div className="flex-1">
-                        <h4 className="text-white font-medium text-sm mb-1">
+                        <h4 className="text-white font-medium text-xs sm:text-sm mb-1">
                           Last Analysis
                         </h4>
-                        <p className="text-gray-400 text-xs">
+                        <p className="text-gray-400 text-[10px] sm:text-xs">
                           Pizza detected - 850 cal
                         </p>
-                        <p className="text-gray-500 text-xs mt-1">
+                        <p className="text-gray-500 text-[10px] sm:text-xs mt-1">
                           2 hours ago
                         </p>
                       </div>
                     </div>
-                    <div className="pt-3 border-t border-white/10">
-                      <button className="w-full px-3 py-2 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-lg text-xs font-medium transition-all duration-300">
+                    <div className="pt-2 sm:pt-3 border-t border-white/10">
+                      <button className="w-full px-3 py-2 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-lg text-[10px] sm:text-xs font-medium transition-all duration-300">
                         View Full History
                       </button>
                     </div>
@@ -767,82 +783,82 @@ export default function Nutrition() {
               </div>
 
               {/* Time & Place Patterns (Phase 2/3) */}
-              <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-                <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+              <div className="bg-dark-card border border-white/5 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6">
+                <h2 className="text-base sm:text-lg md:text-xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-2">
                   🕐 Time & Place Patterns
                 </h2>
 
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   {/* Pattern Cards */}
-                  <div className="grid md:grid-cols-2 gap-4">
+                  <div className="grid md:grid-cols-2 gap-3 sm:gap-4">
                     {/* Friday Pattern */}
-                    <div className="bg-linear-to-br from-orange-500/10 to-red-500/10 border border-orange-500/30 rounded-xl p-4">
-                      <div className="flex items-start gap-3">
-                        <span className="text-3xl">🍔</span>
+                    <div className="bg-linear-to-br from-orange-500/10 to-red-500/10 border border-orange-500/30 rounded-lg sm:rounded-xl p-3 sm:p-4">
+                      <div className="flex items-start gap-2 sm:gap-3">
+                        <span className="text-2xl sm:text-3xl">🍔</span>
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-1">
-                            <h3 className="text-orange-400 font-medium">
+                            <h3 className="text-orange-400 font-medium text-sm sm:text-base">
                               Friday Pattern
                             </h3>
-                            <span className="px-2 py-0.5 bg-orange-500/20 rounded text-orange-400 text-xs">
+                            <span className="px-1.5 sm:px-2 py-0.5 bg-orange-500/20 rounded text-orange-400 text-[10px] sm:text-xs">
                               Weekly
                             </span>
                           </div>
-                          <p className="text-gray-300 text-sm mb-2">
+                          <p className="text-gray-300 text-xs sm:text-sm mb-2">
                             You tend to eat 40% more on Fridays, especially fast
                             food
                           </p>
-                          <div className="flex items-center gap-2 text-xs text-gray-400">
-                            <span className="px-2 py-1 bg-white/5 rounded">
+                          <div className="flex items-center gap-1 sm:gap-2 text-[10px] sm:text-xs text-gray-400 flex-wrap">
+                            <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-white/5 rounded">
                               📍 Usually near work
                             </span>
-                            <span className="px-2 py-1 bg-white/5 rounded">
+                            <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-white/5 rounded">
                               🕐 6-8 PM
                             </span>
                           </div>
                         </div>
                       </div>
-                      <div className="mt-3 pt-3 border-t border-orange-500/20">
-                        <p className="text-orange-400 text-xs font-medium">
+                      <div className="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-orange-500/20">
+                        <p className="text-orange-400 text-[10px] sm:text-xs font-medium">
                           💡 Suggestion:
                         </p>
-                        <p className="text-gray-400 text-xs mt-1">
+                        <p className="text-gray-400 text-[10px] sm:text-xs mt-1">
                           Have a high-protein snack at 5 PM to reduce cravings
                         </p>
                       </div>
                     </div>
 
                     {/* Stress Period Pattern */}
-                    <div className="bg-linear-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/30 rounded-xl p-4">
-                      <div className="flex items-start gap-3">
-                        <span className="text-3xl">☕</span>
+                    <div className="bg-linear-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/30 rounded-lg sm:rounded-xl p-3 sm:p-4">
+                      <div className="flex items-start gap-2 sm:gap-3">
+                        <span className="text-2xl sm:text-3xl">☕</span>
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-1">
-                            <h3 className="text-purple-400 font-medium">
+                            <h3 className="text-purple-400 font-medium text-sm sm:text-base">
                               Stress Period
                             </h3>
-                            <span className="px-2 py-0.5 bg-purple-500/20 rounded text-purple-400 text-xs">
+                            <span className="px-1.5 sm:px-2 py-0.5 bg-purple-500/20 rounded text-purple-400 text-[10px] sm:text-xs">
                               Detected
                             </span>
                           </div>
-                          <p className="text-gray-300 text-sm mb-2">
+                          <p className="text-gray-300 text-xs sm:text-sm mb-2">
                             During busy weeks, coffee intake increases by 60%
                           </p>
-                          <div className="flex items-center gap-2 text-xs text-gray-400">
-                            <span className="px-2 py-1 bg-white/5 rounded">
+                          <div className="flex items-center gap-1 sm:gap-2 text-[10px] sm:text-xs text-gray-400 flex-wrap">
+                            <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-white/5 rounded">
                               📍 Office area
                             </span>
-                            <span className="px-2 py-1 bg-white/5 rounded">
+                            <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-white/5 rounded">
                               🕐 Morning
                             </span>
                           </div>
                         </div>
                       </div>
-                      <div className="mt-3 pt-3 border-t border-purple-500/20">
-                        <p className="text-purple-400 text-xs font-medium">
+                      <div className="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-purple-500/20">
+                        <p className="text-purple-400 text-[10px] sm:text-xs font-medium">
                           💡 Suggestion:
                         </p>
-                        <p className="text-gray-400 text-xs mt-1">
+                        <p className="text-gray-400 text-[10px] sm:text-xs mt-1">
                           Try green tea - same energy, less crash
                         </p>
                       </div>
@@ -850,29 +866,35 @@ export default function Nutrition() {
                   </div>
 
                   {/* Location Insight */}
-                  <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4">
-                    <div className="flex items-start gap-3">
-                      <span className="text-2xl">📍</span>
+                  <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg sm:rounded-xl p-3 sm:p-4">
+                    <div className="flex items-start gap-2 sm:gap-3">
+                      <span className="text-xl sm:text-2xl">📍</span>
                       <div className="flex-1">
-                        <h3 className="text-blue-400 font-medium mb-2">
+                        <h3 className="text-blue-400 font-medium mb-2 text-sm sm:text-base">
                           Location Analysis
                         </h3>
-                        <div className="grid grid-cols-3 gap-3 text-center">
-                          <div className="bg-white/5 rounded-lg p-3">
-                            <p className="text-2xl font-bold text-white">45%</p>
-                            <p className="text-xs text-gray-400 mt-1">
+                        <div className="grid grid-cols-3 gap-2 sm:gap-3 text-center">
+                          <div className="bg-white/5 rounded-lg p-2 sm:p-3">
+                            <p className="text-lg sm:text-xl md:text-2xl font-bold text-white">
+                              45%
+                            </p>
+                            <p className="text-[10px] sm:text-xs text-gray-400 mt-1">
                               Home meals
                             </p>
                           </div>
-                          <div className="bg-white/5 rounded-lg p-3">
-                            <p className="text-2xl font-bold text-white">35%</p>
-                            <p className="text-xs text-gray-400 mt-1">
+                          <div className="bg-white/5 rounded-lg p-2 sm:p-3">
+                            <p className="text-lg sm:text-xl md:text-2xl font-bold text-white">
+                              35%
+                            </p>
+                            <p className="text-[10px] sm:text-xs text-gray-400 mt-1">
                               Work area
                             </p>
                           </div>
-                          <div className="bg-white/5 rounded-lg p-3">
-                            <p className="text-2xl font-bold text-white">20%</p>
-                            <p className="text-xs text-gray-400 mt-1">
+                          <div className="bg-white/5 rounded-lg p-2 sm:p-3">
+                            <p className="text-lg sm:text-xl md:text-2xl font-bold text-white">
+                              20%
+                            </p>
+                            <p className="text-[10px] sm:text-xs text-gray-400 mt-1">
                               Restaurants
                             </p>
                           </div>
@@ -884,12 +906,12 @@ export default function Nutrition() {
               </div>
 
               {/* Weekly Patterns */}
-              <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-                <h2 className="text-xl font-bold text-white mb-6">
+              <div className="bg-dark-card border border-white/5 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6">
+                <h2 className="text-base sm:text-lg md:text-xl font-bold text-white mb-4 sm:mb-6">
                   📅 Weekly Patterns
                 </h2>
 
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   {/* Fast Food */}
                   <PatternItem
                     icon="🍔"
@@ -932,28 +954,34 @@ export default function Nutrition() {
               </div>
 
               {/* Weight & Avatar */}
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
                 {/* Weight Projection */}
-                <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-                  <h2 className="text-lg font-bold text-white mb-4">
+                <div className="bg-dark-card border border-white/5 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6">
+                  <h2 className="text-sm sm:text-base md:text-lg font-bold text-white mb-3 sm:mb-4">
                     ⚖️ Weight Projection
                   </h2>
-                  <div className="space-y-4">
+                  <div className="space-y-3 sm:space-y-4">
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-400">Current</span>
-                      <span className="text-2xl font-bold text-white">
+                      <span className="text-xs sm:text-sm text-gray-400">
+                        Current
+                      </span>
+                      <span className="text-lg sm:text-xl md:text-2xl font-bold text-white">
                         {data.currentWeight} kg
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-400">8-Week Projection</span>
-                      <span className="text-2xl font-bold text-primary">
+                      <span className="text-xs sm:text-sm text-gray-400">
+                        8-Week Projection
+                      </span>
+                      <span className="text-lg sm:text-xl md:text-2xl font-bold text-primary">
                         {projectedWeight.toFixed(1)} kg
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-400">Goal</span>
-                      <span className="text-2xl font-bold text-secondary">
+                      <span className="text-xs sm:text-sm text-gray-400">
+                        Goal
+                      </span>
+                      <span className="text-lg sm:text-xl md:text-2xl font-bold text-secondary">
                         {data.goalWeight} kg
                       </span>
                     </div>
@@ -961,16 +989,18 @@ export default function Nutrition() {
                 </div>
 
                 {/* Avatar Health */}
-                <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-                  <h2 className="text-lg font-bold text-white mb-4">
+                <div className="bg-dark-card border border-white/5 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6">
+                  <h2 className="text-sm sm:text-base md:text-lg font-bold text-white mb-3 sm:mb-4">
                     🎮 Avatar Health
                   </h2>
-                  <div className="space-y-4">
+                  <div className="space-y-3 sm:space-y-4">
                     <div className="flex items-center justify-center gap-2">
-                      <span className="text-4xl font-bold text-white">
+                      <span className="text-3xl sm:text-4xl font-bold text-white">
                         {data.avatarHealth}
                       </span>
-                      <span className="text-gray-400">/100</span>
+                      <span className="text-sm sm:text-base text-gray-400">
+                        /100
+                      </span>
                     </div>
                     <div className="h-4 bg-white/5 rounded-full overflow-hidden">
                       <div
@@ -993,48 +1023,52 @@ export default function Nutrition() {
 
           {/* MICRO-HABITS TAB */}
           {activeTab === "habits" && (
-            <div className="space-y-6">
-              <div className="flex justify-between items-center">
+            <div className="space-y-4 sm:space-y-6">
+              <div className="flex justify-between items-center gap-3">
                 <div>
-                  <h2 className="text-2xl font-bold text-white mb-1">
+                  <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-1">
                     🎯 Micro-Habits
                   </h2>
-                  <p className="text-gray-400 text-sm">
+                  <p className="text-gray-400 text-xs sm:text-sm">
                     Small changes, big impact
                   </p>
                 </div>
                 <button
                   onClick={() => setShowHabitModal(true)}
-                  className="px-4 py-2 bg-primary hover:bg-primary/80 text-white rounded-xl font-medium transition-all duration-300 hover:scale-105"
+                  className="px-3 sm:px-4 py-1.5 sm:py-2 bg-primary hover:bg-primary/80 text-white rounded-lg sm:rounded-xl font-medium text-xs sm:text-sm md:text-base transition-all duration-300 hover:scale-105 whitespace-nowrap"
                 >
-                  + Add Habit
+                  + Add
                 </button>
               </div>
 
-              <div className="grid gap-4">
-                {data.microHabits
-                  .filter((h) => h.active)
-                  .map((habit) => (
-                    <HabitCard
-                      key={habit.id}
-                      habit={habit}
-                      onToggleDay={toggleHabitDay}
-                    />
-                  ))}
+              <div className="flex justify-center">
+                <div className="w-full max-w-2xl grid gap-4">
+                  {data.microHabits
+                    .filter((h) => h.active)
+                    .map((habit) => (
+                      <HabitCard
+                        key={habit.id}
+                        habit={habit}
+                        onToggleDay={toggleHabitDay}
+                      />
+                    ))}
+                </div>
               </div>
 
               {data.microHabits.filter((h) => h.active).length === 0 && (
-                <div className="bg-dark-card border border-white/5 rounded-2xl p-12 text-center">
-                  <span className="text-6xl mb-4 block">🎯</span>
-                  <h3 className="text-xl font-bold text-white mb-2">
+                <div className="bg-dark-card border border-white/5 rounded-xl sm:rounded-2xl p-8 sm:p-12 text-center">
+                  <span className="text-4xl sm:text-5xl md:text-6xl mb-3 sm:mb-4 block">
+                    🎯
+                  </span>
+                  <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
                     No active habits yet
                   </h3>
-                  <p className="text-gray-400 mb-6">
+                  <p className="text-xs sm:text-sm text-gray-400 mb-4 sm:mb-6">
                     Start building better nutrition habits today!
                   </p>
                   <button
                     onClick={() => setShowHabitModal(true)}
-                    className="px-6 py-3 bg-primary hover:bg-primary/80 text-white rounded-xl font-medium transition-all duration-300"
+                    className="px-4 sm:px-6 py-2 sm:py-3 bg-primary hover:bg-primary/80 text-white rounded-lg sm:rounded-xl font-medium text-sm sm:text-base transition-all duration-300"
                   >
                     Create Your First Habit
                   </button>
@@ -1045,17 +1079,17 @@ export default function Nutrition() {
 
           {/* CHALLENGES TAB */}
           {activeTab === "challenges" && (
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               <div>
-                <h2 className="text-2xl font-bold text-white mb-1">
+                <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-1">
                   🏆 Nutrition Challenges
                 </h2>
-                <p className="text-gray-400 text-sm">
+                <p className="text-gray-400 text-xs sm:text-sm">
                   Join challenges and compete with friends
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
                 {data.challenges.map((challenge) => (
                   <ChallengeCard
                     key={challenge.id}
@@ -1083,28 +1117,30 @@ export default function Nutrition() {
       {/* Reset Confirmation Modal */}
       {showResetConfirm && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-dark-card border border-white/10 rounded-2xl max-w-md w-full p-6">
-            <div className="text-center mb-6">
-              <span className="text-6xl mb-4 block">⚠️</span>
-              <h2 className="text-2xl font-bold text-white mb-2">
+          <div className="bg-dark-card border border-white/10 rounded-xl sm:rounded-2xl max-w-md w-full p-4 sm:p-6">
+            <div className="text-center mb-4 sm:mb-6">
+              <span className="text-4xl sm:text-5xl md:text-6xl mb-3 sm:mb-4 block">
+                ⚠️
+              </span>
+              <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">
                 Reset Nutrition Data?
               </h2>
-              <p className="text-gray-400 text-sm">
+              <p className="text-gray-400 text-xs sm:text-sm">
                 This will reset all tracking data (patterns, habits, challenges)
                 but keep your onboarding preferences.
               </p>
             </div>
 
-            <div className="flex gap-3">
+            <div className="flex gap-2 sm:gap-3">
               <button
                 onClick={() => setShowResetConfirm(false)}
-                className="flex-1 px-4 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-xl font-medium transition-all duration-300"
+                className="flex-1 px-3 sm:px-4 py-2 sm:py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg sm:rounded-xl font-medium text-sm sm:text-base transition-all duration-300"
               >
                 Cancel
               </button>
               <button
                 onClick={handleResetNutritionData}
-                className="flex-1 px-4 py-3 bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-400 rounded-xl font-medium transition-all duration-300"
+                className="flex-1 px-3 sm:px-4 py-2 sm:py-3 bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-400 rounded-lg sm:rounded-xl font-medium text-sm sm:text-base transition-all duration-300"
               >
                 Reset Data
               </button>
@@ -1143,21 +1179,23 @@ function PatternItem({
 }) {
   return (
     <div className="space-y-2">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <span className="text-2xl">{icon}</span>
-          <span className="text-white font-medium">{label}</span>
+          <span className="text-xl sm:text-2xl">{icon}</span>
+          <span className="text-white font-medium text-sm sm:text-base">
+            {label}
+          </span>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2">
-            <span className="text-white font-bold">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1 sm:gap-2">
+            <span className="text-white font-bold text-sm sm:text-base">
               {logged}/{limit}
             </span>
-            <span className="text-lg">{status.emoji}</span>
+            <span className="text-base sm:text-lg">{status.emoji}</span>
           </div>
           <button
             onClick={onLog}
-            className="px-4 py-2 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-lg font-medium transition-all duration-300 hover:scale-105"
+            className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-lg font-medium text-xs sm:text-sm transition-all duration-300 hover:scale-105 whitespace-nowrap"
           >
             Log +1
           </button>
@@ -1190,19 +1228,17 @@ function HabitCard({
   const progress = (habit.completedDays.length / habit.targetDays) * 100;
 
   return (
-    <div className="bg-dark-card border border-white/5 rounded-2xl p-6 hover:border-primary/30 transition-all duration-300">
-      <div className="flex items-start gap-4">
-        <span className="text-4xl">{habit.icon}</span>
-        <div className="flex-1">
-          <div className="flex items-start justify-between mb-2">
-            <div>
-              <h3 className="text-lg font-bold text-white mb-1">
-                {habit.title}
-              </h3>
-              <p className="text-sm text-gray-400">{habit.description}</p>
-            </div>
+    <div className="bg-dark-card border border-white/5 rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:border-primary/30 transition-all duration-300">
+      <div className="flex flex-col items-center text-center">
+        <span className="text-4xl sm:text-5xl mb-3">{habit.icon}</span>
+
+        <div className="w-full">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <h3 className="text-base sm:text-lg font-bold text-white">
+              {habit.title}
+            </h3>
             <span
-              className={`px-3 py-1 rounded-full text-xs font-medium ${
+              className={`px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-medium whitespace-nowrap ${
                 habit.category === "reduce"
                   ? "bg-red-500/20 text-red-400"
                   : habit.category === "add"
@@ -1213,13 +1249,16 @@ function HabitCard({
               {habit.category}
             </span>
           </div>
+          <p className="text-xs sm:text-sm text-gray-400 mb-4">
+            {habit.description}
+          </p>
 
-          <div className="space-y-3 mt-4">
+          <div className="space-y-2 sm:space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-400">
+              <span className="text-xs sm:text-sm text-gray-400">
                 {habit.completedDays.length}/{habit.targetDays} days this week
               </span>
-              <span className="text-sm font-bold text-primary">
+              <span className="text-xs sm:text-sm font-bold text-primary">
                 {progress.toFixed(0)}%
               </span>
             </div>
@@ -1231,14 +1270,14 @@ function HabitCard({
               ></div>
             </div>
 
-            <div className="flex gap-2 justify-between mt-4">
+            <div className="flex gap-1 sm:gap-2 justify-center mt-3 sm:mt-4">
               {daysOfWeek.map((day, idx) => {
                 const isCompleted = habit.completedDays.includes(idx);
                 return (
                   <button
                     key={idx}
                     onClick={() => onToggleDay(habit.id, idx)}
-                    className={`w-10 h-10 rounded-lg font-medium transition-all duration-300 ${
+                    className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg font-medium text-xs sm:text-sm transition-all duration-300 ${
                       isCompleted
                         ? "bg-primary text-white scale-110"
                         : "bg-white/5 text-gray-400 hover:bg-white/10"
@@ -1272,17 +1311,19 @@ function ChallengeCard({
   );
 
   return (
-    <div className="bg-dark-card border border-white/5 rounded-2xl p-6 hover:border-primary/30 transition-all duration-300">
-      <div className="flex items-start gap-4 mb-4">
-        <span className="text-4xl">{challenge.icon}</span>
-        <div className="flex-1">
-          <h3 className="text-lg font-bold text-white mb-1">
+    <div className="bg-dark-card border border-white/5 rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:border-primary/30 transition-all duration-300">
+      <div className="flex items-start gap-3 sm:gap-4 mb-3 sm:mb-4">
+        <span className="text-3xl sm:text-4xl">{challenge.icon}</span>
+        <div className="flex-1 min-w-0">
+          <h3 className="text-base sm:text-lg font-bold text-white mb-1">
             {challenge.title}
           </h3>
-          <p className="text-sm text-gray-400 mb-2">{challenge.description}</p>
-          <div className="flex items-center gap-2">
+          <p className="text-xs sm:text-sm text-gray-400 mb-2">
+            {challenge.description}
+          </p>
+          <div className="flex items-center gap-2 flex-wrap">
             <span
-              className={`px-2 py-1 rounded-full text-xs font-medium ${
+              className={`px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-medium ${
                 challenge.type === "solo"
                   ? "bg-blue-500/20 text-blue-400"
                   : "bg-purple-500/20 text-purple-400"
@@ -1290,15 +1331,17 @@ function ChallengeCard({
             >
               {challenge.type}
             </span>
-            <span className="text-xs text-gray-500">{daysLeft} days left</span>
+            <span className="text-[10px] sm:text-xs text-gray-500">
+              {daysLeft} days left
+            </span>
           </div>
         </div>
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-2 sm:space-y-3">
         <div className="flex items-center justify-between">
-          <span className="text-sm text-gray-400">Progress</span>
-          <span className="text-sm font-bold text-primary">
+          <span className="text-xs sm:text-sm text-gray-400">Progress</span>
+          <span className="text-xs sm:text-sm font-bold text-primary">
             {challenge.progress}/{challenge.target}
           </span>
         </div>
@@ -1328,7 +1371,7 @@ function ChallengeCard({
 
         <button
           onClick={() => onProgress(1)}
-          className="w-full px-4 py-2 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-lg font-medium transition-all duration-300 hover:scale-105"
+          className="w-full px-3 sm:px-4 py-1.5 sm:py-2 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-lg font-medium text-xs sm:text-sm transition-all duration-300 hover:scale-105"
         >
           Log Progress +1
         </button>
@@ -1383,36 +1426,38 @@ function HabitModal({
 
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-dark-card border border-white/10 rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto">
-        <div className="p-6 border-b border-white/5 flex items-center justify-between sticky top-0 bg-dark-card">
-          <h2 className="text-2xl font-bold text-white">
+      <div className="bg-dark-card border border-white/10 rounded-xl sm:rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+        <div className="p-4 sm:p-6 border-b border-white/5 flex items-center justify-between sticky top-0 bg-dark-card z-10">
+          <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white">
             Choose a Micro-Habit
           </h2>
           <button
             onClick={onClose}
-            className="w-10 h-10 rounded-lg bg-white/5 hover:bg-white/10 text-white transition-all duration-300"
+            className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-white/5 hover:bg-white/10 text-white transition-all duration-300 text-sm sm:text-base"
           >
             ✕
           </button>
         </div>
 
-        <div className="p-6 grid gap-4">
+        <div className="p-4 sm:p-6 grid gap-3 sm:gap-4">
           {presetHabits.map((habit, idx) => (
             <button
               key={idx}
               onClick={() => onAdd(habit)}
-              className="p-4 bg-white/5 hover:bg-white/10 border border-white/5 hover:border-primary/40 rounded-xl text-left transition-all duration-300 hover:scale-102"
+              className="p-3 sm:p-4 bg-white/5 hover:bg-white/10 border border-white/5 hover:border-primary/40 rounded-lg sm:rounded-xl text-left transition-all duration-300 hover:scale-102"
             >
-              <div className="flex items-center gap-4">
-                <span className="text-4xl">{habit.icon}</span>
-                <div className="flex-1">
-                  <h3 className="text-lg font-bold text-white mb-1">
+              <div className="flex items-center gap-3 sm:gap-4">
+                <span className="text-3xl sm:text-4xl">{habit.icon}</span>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-base sm:text-lg font-bold text-white mb-1">
                     {habit.title}
                   </h3>
-                  <p className="text-sm text-gray-400">{habit.description}</p>
+                  <p className="text-xs sm:text-sm text-gray-400">
+                    {habit.description}
+                  </p>
                 </div>
                 <span
-                  className={`px-3 py-1 rounded-full text-xs font-medium ${
+                  className={`px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-medium whitespace-nowrap ${
                     habit.category === "reduce"
                       ? "bg-red-500/20 text-red-400"
                       : habit.category === "add"

@@ -124,8 +124,10 @@ export default function Docs() {
               </svg>
             </div>
             <div>
-              <h1 className="text-4xl font-bold text-white">Documentation</h1>
-              <p className="text-gray-400 text-lg mt-1">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">
+                Documentation
+              </h1>
+              <p className="text-gray-400 text-sm sm:text-base md:text-lg mt-1">
                 Comprehensive guides for your health journey
               </p>
             </div>
@@ -149,18 +151,20 @@ export default function Docs() {
               <div className="relative p-8">
                 {/* Icon */}
                 <div
-                  className={`w-20 h-20 rounded-2xl ${module.iconBg} border border-white/10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}
+                  className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl ${module.iconBg} border border-white/10 flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}
                 >
-                  <span className="text-5xl">{module.icon}</span>
+                  <span className="text-3xl sm:text-4xl md:text-5xl">
+                    {module.icon}
+                  </span>
                 </div>
 
                 {/* Title */}
-                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r group-hover:from-white group-hover:to-gray-300 transition-all duration-300">
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2 sm:mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r group-hover:from-white group-hover:to-gray-300 transition-all duration-300">
                   {module.name}
                 </h3>
 
                 {/* Description */}
-                <p className="text-gray-400 leading-relaxed mb-6 group-hover:text-gray-300 transition-colors duration-300">
+                <p className="text-sm sm:text-base text-gray-400 leading-relaxed mb-4 sm:mb-6 group-hover:text-gray-300 transition-colors duration-300">
                   {module.description}
                 </p>
 

@@ -377,12 +377,12 @@ export default function AvatarDocs() {
             Back to Docs
           </button>
 
-          <div className="flex items-center gap-4 mb-4">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500/20 via-pink-500/20 to-blue-500/20 border border-purple-500/30 flex items-center justify-center">
-              <span className="text-4xl">🎭</span>
+          <div className="flex items-center gap-3 sm:gap-4 mb-4">
+            <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-linear-to-br from-purple-500/20 via-pink-500/20 to-blue-500/20 border border-purple-500/30 flex items-center justify-center">
+              <span className="text-2xl sm:text-3xl md:text-4xl">🎭</span>
             </div>
             <div>
-              <h1 className="text-4xl font-bold text-white">
+              <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white">
                 Avatar & Metaverse Documentation
               </h1>
               <p className="text-gray-400 text-lg mt-1">
@@ -392,36 +392,36 @@ export default function AvatarDocs() {
           </div>
         </div>
 
-        <div className="flex gap-2 mb-8 border-b border-white/10">
+        <div className="flex gap-1 sm:gap-2 mb-8 border-b border-white/10 overflow-x-auto">
           <button
             onClick={() => setActiveTab("onboarding")}
-            className={`px-6 py-3 font-semibold transition-all duration-300 border-b-2 ${
+            className={`px-3 sm:px-6 py-3 font-semibold text-xs sm:text-base whitespace-nowrap transition-all duration-300 border-b-2 ${
               activeTab === "onboarding"
                 ? "text-white border-primary"
                 : "text-gray-400 border-transparent hover:text-gray-300"
             }`}
           >
-            📋 Onboarding Questions
+            📋 Onboarding
           </button>
           <button
             onClick={() => setActiveTab("implemented")}
-            className={`px-6 py-3 font-semibold transition-all duration-300 border-b-2 ${
+            className={`px-3 sm:px-6 py-3 font-semibold text-xs sm:text-base whitespace-nowrap transition-all duration-300 border-b-2 ${
               activeTab === "implemented"
                 ? "text-white border-green-500"
                 : "text-gray-400 border-transparent hover:text-gray-300"
             }`}
           >
-            ✅ Current Features
+            ✅ Current
           </button>
           <button
             onClick={() => setActiveTab("future")}
-            className={`px-6 py-3 font-semibold transition-all duration-300 border-b-2 ${
+            className={`px-3 sm:px-6 py-3 font-semibold text-xs sm:text-base whitespace-nowrap transition-all duration-300 border-b-2 ${
               activeTab === "future"
                 ? "text-white border-purple-500"
                 : "text-gray-400 border-transparent hover:text-gray-300"
             }`}
           >
-            🚀 Future Features
+            🚀 Future
           </button>
         </div>
 

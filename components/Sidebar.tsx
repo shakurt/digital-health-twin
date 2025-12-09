@@ -56,6 +56,12 @@ export default function Sidebar({ isMobileOpen, onClose }: SidebarProps) {
       path: "/mindfulness",
       icon: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z",
     },
+    {
+      name: "Docs",
+      path: "/docs",
+      icon: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z",
+      mobileOnly: true,
+    },
   ];
 
   const handleNavigation = (path: string) => {
@@ -81,27 +87,27 @@ export default function Sidebar({ isMobileOpen, onClose }: SidebarProps) {
           fixed top-0 left-0 bottom-0 z-50
           bg-dark-card/95 backdrop-blur-lg border-r border-white/5
           transition-transform duration-300 ease-in-out
-          w-[45%]
+          w-[55%] max-w-60
           ${isMobileOpen ? "translate-x-0" : "-translate-x-full"}
-          lg:top-16 lg:w-20 lg:translate-x-0 lg:transition-all
+          lg:top-16 lg:w-20 lg:translate-x-0 lg:transition-all lg:max-w-none
           ${!isMobileOpen && isHovered ? "lg:w-64" : ""}
         `}
       >
         {/* Mobile Header - Always rendered to prevent layout shift during animation */}
         <div
-          className={`lg:hidden flex items-center justify-between p-4 border-b border-white/5 transition-opacity duration-300 ${
+          className={`lg:hidden flex items-center justify-between p-3 border-b border-white/5 transition-opacity duration-300 ${
             isMobileOpen ? "opacity-100" : "opacity-0"
           }`}
         >
-          <h1 className="text-lg font-bold gradient-text-animated">
+          <h1 className="text-base font-bold gradient-text-animated">
             HealthTwin
           </h1>
           <button
             onClick={onClose}
-            className="p-2 rounded-lg hover:bg-white/10 transition-colors"
+            className="p-1.5 rounded-lg hover:bg-white/10 transition-colors"
           >
             <svg
-              className="w-6 h-6 text-gray-400"
+              className="w-5 h-5 text-gray-400"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -116,8 +122,8 @@ export default function Sidebar({ isMobileOpen, onClose }: SidebarProps) {
           </button>
         </div>
 
-        <div className="h-full overflow-y-auto py-6">
-          <nav className="space-y-2 px-3">
+        <div className="h-full overflow-y-auto py-4 lg:py-6">
+          <nav className="space-y-1.5 lg:space-y-2 px-2 lg:px-3">
             {menuItems.map((item) => {
               const isActive = pathname === item.path;
               return (
@@ -125,8 +131,9 @@ export default function Sidebar({ isMobileOpen, onClose }: SidebarProps) {
                   key={item.path}
                   onClick={() => handleNavigation(item.path)}
                   className={`
-                    w-full flex items-center gap-4 px-4 py-3 rounded-xl
+                    w-full flex items-center gap-3 lg:gap-4 px-3 lg:px-4 py-2.5 lg:py-3 rounded-xl
                     transition-all duration-300 group relative overflow-hidden
+                    ${item.mobileOnly ? "lg:hidden" : ""}
                     ${
                       isActive
                         ? "bg-linear-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
@@ -145,7 +152,7 @@ export default function Sidebar({ isMobileOpen, onClose }: SidebarProps) {
                     `}
                   >
                     <svg
-                      className="w-6 h-6"
+                      className="w-5 h-5 lg:w-6 lg:h-6"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -161,7 +168,7 @@ export default function Sidebar({ isMobileOpen, onClose }: SidebarProps) {
 
                   <span
                     className={`
-                      font-medium whitespace-nowrap transition-all duration-300
+                      text-sm font-medium whitespace-nowrap transition-all duration-300
                       ${
                         isHovered || isMobileOpen
                           ? "opacity-100 translate-x-0"
@@ -178,13 +185,45 @@ export default function Sidebar({ isMobileOpen, onClose }: SidebarProps) {
                 </button>
               );
             })}
+
+            {/* Sign Out Button - Mobile/Tablet Only */}
+            <button
+              onClick={() => {
+                // Set session to false in localStorage
+                const userData = localStorage.getItem("user");
+                if (userData) {
+                  const user = JSON.parse(userData);
+                  user.session = false;
+                  localStorage.setItem("user", JSON.stringify(user));
+                }
+                router.push("/signin");
+              }}
+              className="w-full lg:hidden flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 group hover:bg-red-500/10 border border-transparent hover:border-red-500/40 text-gray-400 hover:text-red-400"
+            >
+              <svg
+                className="w-5 h-5 shrink-0"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                />
+              </svg>
+              <span className="text-sm font-medium whitespace-nowrap">
+                Sign Out
+              </span>
+            </button>
           </nav>
 
-          <div className="absolute bottom-6 left-0 right-0 px-3 space-y-2">
-            {/* Docs Button */}
+          <div className="absolute bottom-6 left-0 right-0 px-3 space-y-2 hidden lg:block">
+            {/* Docs Button - Desktop Only */}
             <button
               onClick={() => handleNavigation("/docs")}
-              className="w-full hidden lg:flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 group hover:bg-blue-500/10 border border-transparent hover:border-blue-500/40 text-gray-400 hover:text-blue-400"
+              className="w-full flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 group hover:bg-blue-500/10 border border-transparent hover:border-blue-500/40 text-gray-400 hover:text-blue-400"
             >
               <svg
                 className="w-6 h-6 shrink-0"
@@ -213,7 +252,7 @@ export default function Sidebar({ isMobileOpen, onClose }: SidebarProps) {
               </span>
             </button>
 
-            {/* Sign Out Button */}
+            {/* Sign Out Button - Desktop Only */}
             <button
               onClick={() => {
                 // Set session to false in localStorage
@@ -225,7 +264,7 @@ export default function Sidebar({ isMobileOpen, onClose }: SidebarProps) {
                 }
                 router.push("/signin");
               }}
-              className="w-full hidden lg:flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 group hover:bg-red-500/10 border border-transparent hover:border-red-500/40 text-gray-400 hover:text-red-400"
+              className="w-full flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 group hover:bg-red-500/10 border border-transparent hover:border-red-500/40 text-gray-400 hover:text-red-400"
             >
               <svg
                 className="w-6 h-6 shrink-0"
