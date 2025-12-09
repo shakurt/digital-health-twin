@@ -318,11 +318,11 @@ export default function Leaderboard() {
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-white mb-2 flex items-center justify-center gap-3">
-            <span className="text-5xl">🏆</span>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2 flex items-center justify-center gap-3">
+            <span className="text-3xl sm:text-4xl md:text-5xl">🏆</span>
             Global Leaderboard
           </h1>
-          <p className="text-gray-400">
+          <p className="text-xs sm:text-sm text-gray-400">
             Compete with the community and climb the ranks
           </p>
         </div>
@@ -336,23 +336,25 @@ export default function Leaderboard() {
                   {currentUserData.avatar}
                 </div>
                 <div>
-                  <p className="text-gray-400 text-sm mb-1">Your Rank</p>
+                  <p className="text-gray-400 text-xs sm:text-sm mb-1">
+                    Your Rank
+                  </p>
                   <div className="flex items-center gap-3">
-                    <span className="text-4xl font-bold text-white">
+                    <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">
                       #{currentUserData.rank}
                     </span>
                     {currentUserData.trend === "up" && (
-                      <span className="flex items-center gap-1 text-green-400 text-sm font-medium">
+                      <span className="flex items-center gap-1 text-green-400 text-xs sm:text-sm font-medium">
                         ↑ {currentUserData.rankChange}
                       </span>
                     )}
                     {currentUserData.trend === "down" && (
-                      <span className="flex items-center gap-1 text-red-400 text-sm font-medium">
+                      <span className="flex items-center gap-1 text-red-400 text-xs sm:text-sm font-medium">
                         ↓ {Math.abs(currentUserData.rankChange)}
                       </span>
                     )}
                   </div>
-                  <p className="text-white font-medium">
+                  <p className="text-sm sm:text-base text-white font-medium">
                     {currentUserData.username}
                   </p>
                 </div>
@@ -360,28 +362,36 @@ export default function Leaderboard() {
 
               <div className="grid grid-cols-4 gap-6">
                 <div className="text-center">
-                  <p className="text-3xl font-bold text-white">
+                  <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
                     {currentUserData.healthScore}
                   </p>
-                  <p className="text-gray-400 text-xs mt-1">Health Score</p>
+                  <p className="text-gray-400 text-[10px] sm:text-xs mt-1">
+                    Health Score
+                  </p>
                 </div>
                 <div className="text-center">
-                  <p className="text-3xl font-bold text-yellow-400">
+                  <p className="text-xl sm:text-2xl md:text-3xl font-bold text-yellow-400">
                     {currentUserData.totalPoints.toLocaleString()}
                   </p>
-                  <p className="text-gray-400 text-xs mt-1">Total XP</p>
+                  <p className="text-gray-400 text-[10px] sm:text-xs mt-1">
+                    Total XP
+                  </p>
                 </div>
                 <div className="text-center">
-                  <p className="text-3xl font-bold text-accent">
+                  <p className="text-xl sm:text-2xl md:text-3xl font-bold text-accent">
                     {currentUserData.streak}
                   </p>
-                  <p className="text-gray-400 text-xs mt-1">Day Streak</p>
+                  <p className="text-gray-400 text-[10px] sm:text-xs mt-1">
+                    Day Streak
+                  </p>
                 </div>
                 <div className="text-center">
-                  <p className="text-3xl font-bold text-primary">
+                  <p className="text-xl sm:text-2xl md:text-3xl font-bold text-primary">
                     {currentUserData.level}
                   </p>
-                  <p className="text-gray-400 text-xs mt-1">Level</p>
+                  <p className="text-gray-400 text-[10px] sm:text-xs mt-1">
+                    Level
+                  </p>
                 </div>
               </div>
             </div>
@@ -393,11 +403,13 @@ export default function Leaderboard() {
           <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
             {/* Time Period */}
             <div>
-              <p className="text-gray-400 text-sm mb-2">Time Period</p>
+              <p className="text-gray-400 text-xs sm:text-sm mb-2">
+                Time Period
+              </p>
               <div className="flex gap-2">
                 <button
                   onClick={() => setSelectedPeriod("weekly")}
-                  className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${
+                  className={`px-4 py-2 rounded-lg font-medium text-xs sm:text-sm transition-all ${
                     selectedPeriod === "weekly"
                       ? "bg-primary text-white"
                       : "bg-white/5 text-gray-400 hover:bg-white/10"
@@ -407,7 +419,7 @@ export default function Leaderboard() {
                 </button>
                 <button
                   onClick={() => setSelectedPeriod("monthly")}
-                  className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${
+                  className={`px-4 py-2 rounded-lg font-medium text-xs sm:text-sm transition-all ${
                     selectedPeriod === "monthly"
                       ? "bg-primary text-white"
                       : "bg-white/5 text-gray-400 hover:bg-white/10"
@@ -417,7 +429,7 @@ export default function Leaderboard() {
                 </button>
                 <button
                   onClick={() => setSelectedPeriod("alltime")}
-                  className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${
+                  className={`px-4 py-2 rounded-lg font-medium text-xs sm:text-sm transition-all ${
                     selectedPeriod === "alltime"
                       ? "bg-primary text-white"
                       : "bg-white/5 text-gray-400 hover:bg-white/10"
@@ -429,12 +441,12 @@ export default function Leaderboard() {
             </div>
 
             {/* Category */}
-            <div>
-              <p className="text-gray-400 text-sm mb-2">Category</p>
-              <div className="flex gap-2">
+            <div className="w-full">
+              <p className="text-gray-400 text-xs sm:text-sm mb-2">Category</p>
+              <div className="flex flex-wrap gap-2">
                 <button
                   onClick={() => setSelectedCategory("overall")}
-                  className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${
+                  className={`flex-1 min-w-[100px] px-3 sm:px-4 py-2 rounded-lg font-medium text-xs sm:text-sm transition-all ${
                     selectedCategory === "overall"
                       ? "bg-secondary text-white"
                       : "bg-white/5 text-gray-400 hover:bg-white/10"
@@ -444,7 +456,7 @@ export default function Leaderboard() {
                 </button>
                 <button
                   onClick={() => setSelectedCategory("steps")}
-                  className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${
+                  className={`flex-1 min-w-[100px] px-3 sm:px-4 py-2 rounded-lg font-medium text-xs sm:text-sm transition-all ${
                     selectedCategory === "steps"
                       ? "bg-secondary text-white"
                       : "bg-white/5 text-gray-400 hover:bg-white/10"
@@ -454,7 +466,7 @@ export default function Leaderboard() {
                 </button>
                 <button
                   onClick={() => setSelectedCategory("mindfulness")}
-                  className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${
+                  className={`flex-1 min-w-[100px] px-3 sm:px-4 py-2 rounded-lg font-medium text-xs sm:text-sm transition-all ${
                     selectedCategory === "mindfulness"
                       ? "bg-secondary text-white"
                       : "bg-white/5 text-gray-400 hover:bg-white/10"
@@ -464,7 +476,7 @@ export default function Leaderboard() {
                 </button>
                 <button
                   onClick={() => setSelectedCategory("nutrition")}
-                  className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${
+                  className={`flex-1 min-w-[100px] px-3 sm:px-4 py-2 rounded-lg font-medium text-xs sm:text-sm transition-all ${
                     selectedCategory === "nutrition"
                       ? "bg-secondary text-white"
                       : "bg-white/5 text-gray-400 hover:bg-white/10"
@@ -489,10 +501,10 @@ export default function Leaderboard() {
               <div className="w-24 h-24 rounded-full bg-linear-to-br from-gray-400 to-gray-500 flex items-center justify-center text-4xl ring-4 ring-gray-400/30 mb-4">
                 {leaderboardData[1].avatar}
               </div>
-              <h3 className="text-xl font-bold text-white mb-1">
+              <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-1">
                 {leaderboardData[1].username}
               </h3>
-              <p className="text-gray-400 text-sm mb-3">
+              <p className="text-gray-400 text-xs sm:text-sm mb-3">
                 Level {leaderboardData[1].level}
               </p>
               <div className="flex gap-1 mb-3">
@@ -503,10 +515,12 @@ export default function Leaderboard() {
                 ))}
               </div>
               <div className="w-full bg-white/5 rounded-xl p-3 text-center">
-                <p className="text-2xl font-bold text-white">
+                <p className="text-lg sm:text-xl md:text-2xl font-bold text-white">
                   {leaderboardData[1].totalPoints.toLocaleString()}
                 </p>
-                <p className="text-gray-400 text-xs">XP Points</p>
+                <p className="text-gray-400 text-[10px] sm:text-xs">
+                  XP Points
+                </p>
               </div>
             </div>
           )}
@@ -518,10 +532,10 @@ export default function Leaderboard() {
               <div className="w-28 h-28 rounded-full bg-linear-to-br from-yellow-400 to-orange-500 flex items-center justify-center text-5xl ring-4 ring-yellow-400/50 mb-4">
                 {leaderboardData[0].avatar}
               </div>
-              <h3 className="text-2xl font-bold text-white mb-1">
+              <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-1">
                 {leaderboardData[0].username}
               </h3>
-              <p className="text-yellow-400 text-sm font-medium mb-3">
+              <p className="text-yellow-400 text-xs sm:text-sm font-medium mb-3">
                 Level {leaderboardData[0].level} • Champion
               </p>
               <div className="flex gap-1 mb-4">
@@ -532,10 +546,10 @@ export default function Leaderboard() {
                 ))}
               </div>
               <div className="w-full bg-linear-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/30 rounded-xl p-4 text-center">
-                <p className="text-3xl font-bold text-yellow-400">
+                <p className="text-xl sm:text-2xl md:text-3xl font-bold text-yellow-400">
                   {leaderboardData[0].totalPoints.toLocaleString()}
                 </p>
-                <p className="text-gray-300 text-sm">XP Points</p>
+                <p className="text-gray-300 text-xs sm:text-sm">XP Points</p>
               </div>
             </div>
           )}
@@ -550,10 +564,10 @@ export default function Leaderboard() {
               <div className="w-24 h-24 rounded-full bg-linear-to-br from-amber-600 to-amber-700 flex items-center justify-center text-4xl ring-4 ring-amber-600/30 mb-4">
                 {leaderboardData[2].avatar}
               </div>
-              <h3 className="text-xl font-bold text-white mb-1">
+              <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-1">
                 {leaderboardData[2].username}
               </h3>
-              <p className="text-gray-400 text-sm mb-3">
+              <p className="text-gray-400 text-xs sm:text-sm mb-3">
                 Level {leaderboardData[2].level}
               </p>
               <div className="flex gap-1 mb-3">
@@ -564,10 +578,12 @@ export default function Leaderboard() {
                 ))}
               </div>
               <div className="w-full bg-white/5 rounded-xl p-3 text-center">
-                <p className="text-2xl font-bold text-white">
+                <p className="text-lg sm:text-xl md:text-2xl font-bold text-white">
                   {leaderboardData[2].totalPoints.toLocaleString()}
                 </p>
-                <p className="text-gray-400 text-xs">XP Points</p>
+                <p className="text-gray-400 text-[10px] sm:text-xs">
+                  XP Points
+                </p>
               </div>
             </div>
           )}
@@ -575,7 +591,9 @@ export default function Leaderboard() {
 
         {/* Full Leaderboard Table */}
         <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-          <h2 className="text-xl font-bold text-white mb-6">Full Rankings</h2>
+          <h2 className="text-lg sm:text-xl font-bold text-white mb-6">
+            Full Rankings
+          </h2>
 
           <div className="space-y-3">
             {leaderboardData.map((user, index) => (
@@ -592,11 +610,11 @@ export default function Leaderboard() {
                   {/* Rank */}
                   <div className="w-12 text-center">
                     {getMedalEmoji(user.rank) ? (
-                      <span className="text-3xl">
+                      <span className="text-2xl sm:text-3xl">
                         {getMedalEmoji(user.rank)}
                       </span>
                     ) : (
-                      <span className="text-2xl font-bold text-gray-400">
+                      <span className="text-xl sm:text-2xl font-bold text-gray-400">
                         #{user.rank}
                       </span>
                     )}
@@ -609,16 +627,16 @@ export default function Leaderboard() {
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
-                        <h3 className="text-white font-bold">
+                        <h3 className="text-sm sm:text-base text-white font-bold">
                           {user.username}
                         </h3>
                         {user.isCurrentUser && (
-                          <span className="px-2 py-0.5 bg-primary/20 border border-primary/40 rounded text-primary text-xs font-medium">
+                          <span className="px-2 py-0.5 bg-primary/20 border border-primary/40 rounded text-primary text-[10px] sm:text-xs font-medium">
                             You
                           </span>
                         )}
                       </div>
-                      <div className="flex items-center gap-3 text-xs text-gray-400">
+                      <div className="flex items-center gap-3 text-[10px] sm:text-xs text-gray-400">
                         <span>Level {user.level}</span>
                         <span>•</span>
                         <span className="flex items-center gap-1">
@@ -645,22 +663,26 @@ export default function Leaderboard() {
                   {/* Stats */}
                   <div className="hidden lg:grid grid-cols-3 gap-6 text-center">
                     <div>
-                      <p className="text-lg font-bold text-white">
+                      <p className="text-base sm:text-lg font-bold text-white">
                         {user.healthScore}
                       </p>
-                      <p className="text-xs text-gray-400">Health</p>
+                      <p className="text-[10px] sm:text-xs text-gray-400">
+                        Health
+                      </p>
                     </div>
                     <div>
-                      <p className="text-lg font-bold text-yellow-400">
+                      <p className="text-base sm:text-lg font-bold text-yellow-400">
                         {user.totalPoints.toLocaleString()}
                       </p>
-                      <p className="text-xs text-gray-400">XP</p>
+                      <p className="text-[10px] sm:text-xs text-gray-400">XP</p>
                     </div>
                     <div>
-                      <p className="text-lg font-bold text-accent">
+                      <p className="text-base sm:text-lg font-bold text-accent">
                         {Math.floor(user.weeklySteps / 1000)}k
                       </p>
-                      <p className="text-xs text-gray-400">Steps</p>
+                      <p className="text-[10px] sm:text-xs text-gray-400">
+                        Steps
+                      </p>
                     </div>
                   </div>
 
@@ -668,22 +690,28 @@ export default function Leaderboard() {
                   <div className="w-16 text-center">
                     {user.trend === "up" && (
                       <div className="flex flex-col items-center">
-                        <span className="text-green-400 text-xl">↑</span>
-                        <span className="text-green-400 text-xs font-medium">
+                        <span className="text-green-400 text-lg sm:text-xl">
+                          ↑
+                        </span>
+                        <span className="text-green-400 text-[10px] sm:text-xs font-medium">
                           +{user.rankChange}
                         </span>
                       </div>
                     )}
                     {user.trend === "down" && (
                       <div className="flex flex-col items-center">
-                        <span className="text-red-400 text-xl">↓</span>
-                        <span className="text-red-400 text-xs font-medium">
+                        <span className="text-red-400 text-lg sm:text-xl">
+                          ↓
+                        </span>
+                        <span className="text-red-400 text-[10px] sm:text-xs font-medium">
                           {user.rankChange}
                         </span>
                       </div>
                     )}
                     {user.trend === "same" && (
-                      <span className="text-gray-400 text-xl">─</span>
+                      <span className="text-gray-400 text-lg sm:text-xl">
+                        ─
+                      </span>
                     )}
                   </div>
                 </div>
@@ -694,7 +722,7 @@ export default function Leaderboard() {
 
         {/* Rare Achievements */}
         <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-          <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+          <h2 className="text-lg sm:text-xl font-bold text-white mb-6 flex items-center gap-2">
             <span>✨</span>
             Rare Achievements
           </h2>
@@ -711,12 +739,14 @@ export default function Leaderboard() {
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="flex items-start gap-3 mb-3">
-                  <span className="text-4xl">{achievement.icon}</span>
+                  <span className="text-3xl sm:text-4xl">
+                    {achievement.icon}
+                  </span>
                   <div className="flex-1">
-                    <h3 className="text-white font-bold mb-1">
+                    <h3 className="text-sm sm:text-base text-white font-bold mb-1">
                       {achievement.name}
                     </h3>
-                    <p className="text-gray-400 text-xs">
+                    <p className="text-gray-400 text-[10px] sm:text-xs">
                       {achievement.description}
                     </p>
                   </div>
@@ -724,7 +754,7 @@ export default function Leaderboard() {
 
                 <div className="flex items-center justify-between">
                   <span
-                    className={`px-2 py-1 rounded-lg text-xs font-bold capitalize ${
+                    className={`px-2 py-1 rounded-lg text-[10px] sm:text-xs font-bold capitalize ${
                       achievement.rarity === "legendary"
                         ? "bg-yellow-500/20 text-yellow-400"
                         : achievement.rarity === "epic"
@@ -738,14 +768,14 @@ export default function Leaderboard() {
                   </span>
 
                   <div className="text-right">
-                    <p className="text-white text-sm font-medium">
+                    <p className="text-white text-xs sm:text-sm font-medium">
                       {(
                         (achievement.unlockedBy / achievement.total) *
                         100
                       ).toFixed(1)}
                       %
                     </p>
-                    <p className="text-gray-400 text-xs">
+                    <p className="text-gray-400 text-[10px] sm:text-xs">
                       {achievement.unlockedBy.toLocaleString()} unlocked
                     </p>
                   </div>
@@ -771,27 +801,37 @@ export default function Leaderboard() {
         {/* Community Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-linear-to-br from-primary/10 to-secondary/10 border border-primary/30 rounded-xl p-6 text-center">
-            <p className="text-5xl font-bold text-white mb-2">10,247</p>
-            <p className="text-gray-300 text-sm font-medium mb-1">
+            <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
+              10,247
+            </p>
+            <p className="text-gray-300 text-xs sm:text-sm font-medium mb-1">
               Active Users
             </p>
-            <p className="text-gray-400 text-xs">+324 this week</p>
+            <p className="text-gray-400 text-[10px] sm:text-xs">
+              +324 this week
+            </p>
           </div>
 
           <div className="bg-linear-to-br from-accent/10 to-primary/10 border border-accent/30 rounded-xl p-6 text-center">
-            <p className="text-5xl font-bold text-white mb-2">487M</p>
-            <p className="text-gray-300 text-sm font-medium mb-1">
+            <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
+              487M
+            </p>
+            <p className="text-gray-300 text-xs sm:text-sm font-medium mb-1">
               Total Steps
             </p>
-            <p className="text-gray-400 text-xs">This month</p>
+            <p className="text-gray-400 text-[10px] sm:text-xs">This month</p>
           </div>
 
           <div className="bg-linear-to-br from-secondary/10 to-accent/10 border border-secondary/30 rounded-xl p-6 text-center">
-            <p className="text-5xl font-bold text-white mb-2">2,834</p>
-            <p className="text-gray-300 text-sm font-medium mb-1">
+            <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
+              2,834
+            </p>
+            <p className="text-gray-300 text-xs sm:text-sm font-medium mb-1">
               Active Quests
             </p>
-            <p className="text-gray-400 text-xs">Join the competition</p>
+            <p className="text-gray-400 text-[10px] sm:text-xs">
+              Join the competition
+            </p>
           </div>
         </div>
       </div>

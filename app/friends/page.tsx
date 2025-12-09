@@ -251,7 +251,7 @@ export default function Friends() {
       {showQuestModal && selectedFriend && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-dark-card border border-white/10 rounded-2xl p-6 max-w-md w-full animate-fade-in-up">
-            <h3 className="text-xl font-bold text-white mb-4">
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-4">
               Start a Quest with {selectedFriend.username}
             </h3>
 
@@ -260,10 +260,10 @@ export default function Friends() {
                 <div className="flex items-center gap-3">
                   <span className="text-3xl">🏃</span>
                   <div>
-                    <p className="text-white font-medium group-hover:text-primary transition-colors">
+                    <p className="text-sm sm:text-base text-white font-medium group-hover:text-primary transition-colors">
                       Weekly Steps Battle
                     </p>
-                    <p className="text-gray-400 text-sm">
+                    <p className="text-gray-400 text-xs sm:text-sm">
                       First to reach 70,000 steps wins
                     </p>
                   </div>
@@ -274,10 +274,10 @@ export default function Friends() {
                 <div className="flex items-center gap-3">
                   <span className="text-3xl">🧘</span>
                   <div>
-                    <p className="text-white font-medium group-hover:text-secondary transition-colors">
+                    <p className="text-sm sm:text-base text-white font-medium group-hover:text-secondary transition-colors">
                       Mindfulness Marathon
                     </p>
-                    <p className="text-gray-400 text-sm">
+                    <p className="text-gray-400 text-xs sm:text-sm">
                       7-day meditation streak challenge
                     </p>
                   </div>
@@ -288,10 +288,10 @@ export default function Friends() {
                 <div className="flex items-center gap-3">
                   <span className="text-3xl">🥗</span>
                   <div>
-                    <p className="text-white font-medium group-hover:text-accent transition-colors">
+                    <p className="text-sm sm:text-base text-white font-medium group-hover:text-accent transition-colors">
                       Healthy Eating Quest
                     </p>
-                    <p className="text-gray-400 text-sm">
+                    <p className="text-gray-400 text-xs sm:text-sm">
                       Track nutrition goals together
                     </p>
                   </div>
@@ -302,10 +302,10 @@ export default function Friends() {
                 <div className="flex items-center gap-3">
                   <span className="text-3xl">💤</span>
                   <div>
-                    <p className="text-white font-medium">
+                    <p className="text-sm sm:text-base text-white font-medium">
                       Sleep Recovery Challenge
                     </p>
-                    <p className="text-gray-400 text-sm">
+                    <p className="text-gray-400 text-xs sm:text-sm">
                       Best sleep quality wins
                     </p>
                   </div>
@@ -315,7 +315,7 @@ export default function Friends() {
 
             <button
               onClick={() => setShowQuestModal(false)}
-              className="w-full mt-6 px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white hover:bg-white/10 transition-all"
+              className="w-full mt-6 px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm sm:text-base text-white hover:bg-white/10 transition-all"
             >
               Cancel
             </button>
@@ -326,17 +326,17 @@ export default function Friends() {
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
         <div>
-          <h1 className="text-3xl font-bold text-white mb-2">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2">
             Friends & Community
           </h1>
-          <p className="text-gray-400">
+          <p className="text-xs sm:text-sm text-gray-400">
             Connect, compete, and achieve together
           </p>
         </div>
 
         {/* Search Section */}
         <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-          <h2 className="text-xl font-bold text-white mb-4">
+          <h2 className="text-lg sm:text-xl font-bold text-white mb-4">
             Find New Friends
           </h2>
 
@@ -378,7 +378,7 @@ export default function Friends() {
 
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
-                          <p className="text-white font-medium">
+                          <p className="text-sm sm:text-base text-white font-medium">
                             {user.username}
                           </p>
                           <span
@@ -389,12 +389,12 @@ export default function Friends() {
                             }`}
                           ></span>
                         </div>
-                        <p className="text-gray-400 text-sm">
+                        <p className="text-gray-400 text-xs sm:text-sm">
                           Health Score: {user.healthScore}
                         </p>
                       </div>
 
-                      <button className="px-4 py-2 bg-primary/20 border border-primary/40 rounded-lg text-primary font-medium hover:bg-primary/30 transition-all">
+                      <button className="px-4 py-2 bg-primary/20 border border-primary/40 rounded-lg text-primary text-xs sm:text-sm font-medium hover:bg-primary/30 transition-all">
                         Add Friend
                       </button>
                     </button>
@@ -417,20 +417,20 @@ export default function Friends() {
 
         {/* Friends Grid */}
         <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold text-white">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+            <h2 className="text-base sm:text-lg font-bold text-white">
               My Friends ({friends.length})
             </h2>
 
             {/* Filter Tabs */}
-            <div className="flex gap-2">
-              <button className="px-4 py-2 bg-primary/20 border border-primary/40 rounded-lg text-primary font-medium text-sm">
+            <div className="flex flex-wrap gap-2">
+              <button className="px-3 sm:px-4 py-1.5 sm:py-2 bg-primary/20 border border-primary/40 rounded-lg text-primary font-medium text-[10px] sm:text-xs">
                 All
               </button>
-              <button className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-gray-400 font-medium text-sm hover:bg-white/10 transition-all">
+              <button className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 border border-white/10 rounded-lg text-gray-400 font-medium text-[10px] sm:text-xs hover:bg-white/10 transition-all">
                 ⭐ Favorites
               </button>
-              <button className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-gray-400 font-medium text-sm hover:bg-white/10 transition-all">
+              <button className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 border border-white/10 rounded-lg text-gray-400 font-medium text-[10px] sm:text-xs hover:bg-white/10 transition-all">
                 🟢 Online
               </button>
             </div>
@@ -461,10 +461,10 @@ export default function Friends() {
 
                     {/* User Info */}
                     <div>
-                      <h3 className="text-lg font-bold text-white mb-1">
+                      <h3 className="text-base sm:text-lg font-bold text-white mb-1">
                         {friend.username}
                       </h3>
-                      <p className="text-gray-400 text-xs">
+                      <p className="text-gray-400 text-[10px] sm:text-xs">
                         {friend.lastActive}
                       </p>
                     </div>
@@ -490,7 +490,7 @@ export default function Friends() {
                           className="w-full px-4 py-3 text-left text-gray-300 hover:bg-white/10 transition-all flex items-center gap-3"
                         >
                           <span>{friend.isFavorite ? "⭐" : "☆"}</span>
-                          <span className="text-sm">
+                          <span className="text-xs sm:text-sm">
                             {friend.isFavorite
                               ? "Unfavorite"
                               : "Add to Favorites"}
@@ -502,7 +502,9 @@ export default function Friends() {
                           className="w-full px-4 py-3 text-left text-gray-300 hover:bg-white/10 transition-all flex items-center gap-3"
                         >
                           <span>🎯</span>
-                          <span className="text-sm">Start a Quest</span>
+                          <span className="text-xs sm:text-sm">
+                            Start a Quest
+                          </span>
                         </button>
 
                         <button
@@ -510,7 +512,9 @@ export default function Friends() {
                           className="w-full px-4 py-3 text-left text-red-400 hover:bg-red-500/10 transition-all flex items-center gap-3"
                         >
                           <span>🗑️</span>
-                          <span className="text-sm">Remove Friend</span>
+                          <span className="text-xs sm:text-sm">
+                            Remove Friend
+                          </span>
                         </button>
                       </div>
                     )}
@@ -524,8 +528,10 @@ export default function Friends() {
                   )}`}
                 >
                   <span className="text-lg">💪</span>
-                  <span className="font-bold">{friend.healthScore}</span>
-                  <span className="text-xs opacity-75">
+                  <span className="text-sm sm:text-base font-bold">
+                    {friend.healthScore}
+                  </span>
+                  <span className="text-[10px] sm:text-xs opacity-75">
                     {getHealthScoreLabel(friend.healthScore)}
                   </span>
                 </div>
@@ -533,33 +539,41 @@ export default function Friends() {
                 {/* Stats */}
                 <div className="grid grid-cols-3 gap-3 mb-4">
                   <div className="text-center p-3 bg-white/5 rounded-xl">
-                    <p className="text-2xl font-bold text-white">
+                    <p className="text-lg sm:text-xl md:text-2xl font-bold text-white">
                       {friend.streak}
                     </p>
-                    <p className="text-xs text-gray-400">Day Streak</p>
+                    <p className="text-[10px] sm:text-xs text-gray-400">
+                      Day Streak
+                    </p>
                   </div>
                   <div className="text-center p-3 bg-white/5 rounded-xl">
-                    <p className="text-2xl font-bold text-white">
+                    <p className="text-lg sm:text-xl md:text-2xl font-bold text-white">
                       {Math.floor(friend.weeklySteps / 1000)}k
                     </p>
-                    <p className="text-xs text-gray-400">Steps/Week</p>
+                    <p className="text-[10px] sm:text-xs text-gray-400">
+                      Steps/Week
+                    </p>
                   </div>
                   <div className="text-center p-3 bg-white/5 rounded-xl">
-                    <p className="text-2xl font-bold text-white">
+                    <p className="text-lg sm:text-xl md:text-2xl font-bold text-white">
                       {friend.joinedDays}
                     </p>
-                    <p className="text-xs text-gray-400">Days Active</p>
+                    <p className="text-[10px] sm:text-xs text-gray-400">
+                      Days Active
+                    </p>
                   </div>
                 </div>
 
                 {/* Badges */}
                 <div className="flex items-center gap-2 mb-4">
-                  <p className="text-xs text-gray-400">Achievements:</p>
+                  <p className="text-[10px] sm:text-xs text-gray-400">
+                    Achievements:
+                  </p>
                   <div className="flex gap-1">
                     {friend.badges.map((badge, i) => (
                       <span
                         key={i}
-                        className="text-lg"
+                        className="text-base sm:text-lg"
                         title="Achievement Badge"
                       >
                         {badge}
@@ -570,12 +584,12 @@ export default function Friends() {
 
                 {/* Action Buttons */}
                 <div className="flex gap-3">
-                  <button className="flex-1 px-4 py-2 bg-primary/20 border border-primary/40 rounded-lg text-primary font-medium text-sm hover:bg-primary/30 transition-all">
+                  <button className="flex-1 px-4 py-2 bg-primary/20 border border-primary/40 rounded-lg text-primary font-medium text-xs sm:text-sm hover:bg-primary/30 transition-all">
                     View Profile
                   </button>
                   <button
                     onClick={() => handleStartQuest(friend)}
-                    className="flex-1 px-4 py-2 bg-gradient-animated rounded-lg text-white font-medium text-sm hover:scale-105 transition-transform"
+                    className="flex-1 px-4 py-2 bg-gradient-animated rounded-lg text-white font-medium text-xs sm:text-sm hover:scale-105 transition-transform"
                   >
                     Challenge
                   </button>
@@ -634,7 +648,7 @@ export default function Friends() {
 
         {/* Active Quests */}
         <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-          <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+          <h2 className="text-lg sm:text-xl font-bold text-white mb-6 flex items-center gap-2">
             <span>🎯</span>
             Active Quests
           </h2>
@@ -653,18 +667,22 @@ export default function Friends() {
                       {quest.friendAvatar}
                     </div>
                     <div>
-                      <h3 className="text-white font-bold mb-1">
+                      <h3 className="text-sm sm:text-base text-white font-bold mb-1">
                         {quest.type}
                       </h3>
-                      <p className="text-gray-400 text-sm">
+                      <p className="text-gray-400 text-xs sm:text-sm">
                         vs {quest.friendName}
                       </p>
                     </div>
                   </div>
 
                   <div className="text-right">
-                    <p className="text-xs text-gray-400 mb-1">Ends in</p>
-                    <p className="text-white font-medium">{quest.endsIn}</p>
+                    <p className="text-[10px] sm:text-xs text-gray-400 mb-1">
+                      Ends in
+                    </p>
+                    <p className="text-xs sm:text-sm text-white font-medium">
+                      {quest.endsIn}
+                    </p>
                   </div>
                 </div>
 
@@ -673,8 +691,10 @@ export default function Friends() {
                   {/* User Progress */}
                   <div>
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm text-gray-400">You</span>
-                      <span className="text-sm text-white font-medium">
+                      <span className="text-xs sm:text-sm text-gray-400">
+                        You
+                      </span>
+                      <span className="text-xs sm:text-sm text-white font-medium">
                         {quest.userProgress.toLocaleString()} /{" "}
                         {quest.target.toLocaleString()}
                       </span>
@@ -701,10 +721,10 @@ export default function Friends() {
                   {/* Friend Progress */}
                   <div>
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm text-gray-400">
+                      <span className="text-xs sm:text-sm text-gray-400">
                         {quest.friendName}
                       </span>
-                      <span className="text-sm text-white font-medium">
+                      <span className="text-xs sm:text-sm text-white font-medium">
                         {quest.friendProgress.toLocaleString()} /{" "}
                         {quest.target.toLocaleString()}
                       </span>
@@ -733,15 +753,19 @@ export default function Friends() {
                 <div className="mt-4 p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-xl flex items-center gap-3">
                   <span className="text-2xl">🏆</span>
                   <div>
-                    <p className="text-yellow-400 text-xs font-medium">Prize</p>
-                    <p className="text-white text-sm">{quest.prize}</p>
+                    <p className="text-yellow-400 text-[10px] sm:text-xs font-medium">
+                      Prize
+                    </p>
+                    <p className="text-white text-xs sm:text-sm">
+                      {quest.prize}
+                    </p>
                   </div>
                 </div>
 
                 {/* Leader Badge */}
                 {quest.userProgress > quest.friendProgress && (
                   <div className="mt-4 text-center">
-                    <span className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/10 border border-green-500/30 rounded-full text-green-400 text-sm font-medium">
+                    <span className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/10 border border-green-500/30 rounded-full text-green-400 text-xs sm:text-sm font-medium">
                       <span>👑</span>
                       You're winning!
                     </span>
@@ -749,7 +773,7 @@ export default function Friends() {
                 )}
                 {quest.friendProgress > quest.userProgress && (
                   <div className="mt-4 text-center">
-                    <span className="inline-flex items-center gap-2 px-4 py-2 bg-red-500/10 border border-red-500/30 rounded-full text-red-400 text-sm font-medium">
+                    <span className="inline-flex items-center gap-2 px-4 py-2 bg-red-500/10 border border-red-500/30 rounded-full text-red-400 text-xs sm:text-sm font-medium">
                       <span>⚠️</span>
                       {quest.friendName} is ahead!
                     </span>
@@ -761,8 +785,10 @@ export default function Friends() {
             {activeQuests.length === 0 && (
               <div className="text-center py-12">
                 <span className="text-6xl mb-4 block">🎯</span>
-                <p className="text-gray-400 mb-4">No active quests</p>
-                <p className="text-gray-500 text-sm">
+                <p className="text-sm sm:text-base text-gray-400 mb-4">
+                  No active quests
+                </p>
+                <p className="text-gray-500 text-xs sm:text-sm">
                   Challenge a friend to start competing!
                 </p>
               </div>

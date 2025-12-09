@@ -136,19 +136,19 @@ export default function Devices() {
     switch (status) {
       case "connected":
         return (
-          <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-500/20 text-green-400 border border-green-500/30">
+          <span className="px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium bg-green-500/20 text-green-400 border border-green-500/30">
             ● Connected
           </span>
         );
       case "syncing":
         return (
-          <span className="px-3 py-1 rounded-full text-xs font-medium bg-blue-500/20 text-blue-400 border border-blue-500/30 animate-pulse">
+          <span className="px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium bg-blue-500/20 text-blue-400 border border-blue-500/30 animate-pulse">
             ⟳ Syncing...
           </span>
         );
       default:
         return (
-          <span className="px-3 py-1 rounded-full text-xs font-medium bg-gray-500/20 text-gray-400 border border-gray-500/30">
+          <span className="px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium bg-gray-500/20 text-gray-400 border border-gray-500/30">
             ○ Disconnected
           </span>
         );
@@ -162,10 +162,10 @@ export default function Devices() {
         <div className="sticky top-0 z-30 bg-dark/95 backdrop-blur-xl border-b border-white/5">
           <div className="flex items-center justify-between p-4 md:p-6">
             <div>
-              <h1 className="text-2xl md:text-4xl font-bold gradient-text-animated">
+              <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold gradient-text-animated">
                 Connected Devices
               </h1>
-              <p className="text-sm text-gray-400 mt-1">
+              <p className="text-xs sm:text-sm text-gray-400 mt-1">
                 Sync your wearables and track your health data
               </p>
             </div>
@@ -194,7 +194,7 @@ export default function Devices() {
           <div className="flex gap-2 px-4 md:px-6 pb-4">
             <button
               onClick={() => setActiveTab("connected")}
-              className={`flex-1 md:flex-none px-6 py-2.5 rounded-xl font-medium transition-all duration-300 ${
+              className={`flex-1 md:flex-none px-6 py-2.5 rounded-xl text-sm sm:text-base font-medium transition-all duration-300 ${
                 activeTab === "connected"
                   ? "bg-gradient-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
                   : "bg-white/5 border border-transparent text-gray-400 hover:text-white hover:bg-white/10"
@@ -204,7 +204,7 @@ export default function Devices() {
             </button>
             <button
               onClick={() => setActiveTab("available")}
-              className={`flex-1 md:flex-none px-6 py-2.5 rounded-xl font-medium transition-all duration-300 ${
+              className={`flex-1 md:flex-none px-6 py-2.5 rounded-xl text-sm sm:text-base font-medium transition-all duration-300 ${
                 activeTab === "available"
                   ? "bg-gradient-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
                   : "bg-white/5 border border-transparent text-gray-400 hover:text-white hover:bg-white/10"
@@ -238,14 +238,14 @@ export default function Devices() {
                     </svg>
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-semibold text-white">
+                    <h3 className="text-sm sm:text-base font-semibold text-white">
                       All devices synced
                     </h3>
-                    <p className="text-xs text-gray-400">
+                    <p className="text-[10px] sm:text-xs text-gray-400">
                       Last updated: 2 minutes ago
                     </p>
                   </div>
-                  <button className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-sm font-medium transition-colors">
+                  <button className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-xs sm:text-sm font-medium transition-colors">
                     Sync All
                   </button>
                 </div>
@@ -258,28 +258,30 @@ export default function Devices() {
                     key={device.id}
                     className="p-6 rounded-2xl bg-dark-card/50 backdrop-blur-lg border border-white/5 hover:border-primary/30 transition-all duration-300 hover:scale-[1.02]"
                   >
-                    <div className="flex items-start gap-4">
+                    <div className="flex flex-col">
                       {/* Device Icon */}
-                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center text-3xl border border-white/10">
+                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center text-3xl border border-white/10 mb-4 mx-auto">
                         {device.icon}
                       </div>
 
                       {/* Device Info */}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between gap-4 mb-2">
-                          <div>
-                            <h3 className="font-bold text-lg text-white">
+                          <div className="text-center w-full">
+                            <h3 className="text-base sm:text-lg font-bold text-white">
                               {device.name}
                             </h3>
-                            <p className="text-sm text-gray-400">
+                            <p className="text-xs sm:text-sm text-gray-400">
                               {device.brand} • {device.type}
                             </p>
                           </div>
+                        </div>
+                        <div className="flex justify-center mb-3">
                           {getStatusBadge(device.status)}
                         </div>
 
                         {/* Battery & Last Sync */}
-                        <div className="flex items-center gap-4 mb-3">
+                        <div className="flex items-center justify-center gap-4 mb-3">
                           {device.battery && (
                             <div className="flex items-center gap-2">
                               <svg
@@ -298,7 +300,7 @@ export default function Devices() {
                                 />
                               </svg>
                               <span
-                                className={`text-sm font-medium ${getBatteryColor(
+                                className={`text-xs sm:text-sm font-medium ${getBatteryColor(
                                   device.battery
                                 )}`}
                               >
@@ -321,17 +323,19 @@ export default function Devices() {
                                   d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                                 />
                               </svg>
-                              <span className="text-sm">{device.lastSync}</span>
+                              <span className="text-xs sm:text-sm">
+                                {device.lastSync}
+                              </span>
                             </div>
                           )}
                         </div>
 
                         {/* Data Types */}
-                        <div className="flex flex-wrap gap-2 mb-4">
+                        <div className="flex flex-wrap justify-center gap-2 mb-4">
                           {device.dataTypes.map((dataType) => (
                             <span
                               key={dataType}
-                              className="px-2 py-1 rounded-lg text-xs font-medium bg-primary/10 text-primary border border-primary/20"
+                              className="px-2 py-1 rounded-lg text-[10px] sm:text-xs font-medium bg-primary/10 text-primary border border-primary/20"
                             >
                               {dataType}
                             </span>
@@ -340,13 +344,13 @@ export default function Devices() {
 
                         {/* Actions */}
                         <div className="flex gap-2">
-                          <button className="flex-1 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-sm font-medium transition-colors border border-white/10 hover:border-white/20">
+                          <button className="flex-1 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-xs sm:text-sm font-medium transition-colors border border-white/10 hover:border-white/20">
                             Sync Now
                           </button>
-                          <button className="flex-1 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-sm font-medium transition-colors border border-white/10 hover:border-white/20">
+                          <button className="flex-1 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-xs sm:text-sm font-medium transition-colors border border-white/10 hover:border-white/20">
                             Settings
                           </button>
-                          <button className="px-4 py-2 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-sm font-medium text-red-400 transition-colors border border-red-500/20 hover:border-red-500/30">
+                          <button className="px-4 py-2 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-xs sm:text-sm font-medium text-red-400 transition-colors border border-red-500/20 hover:border-red-500/30">
                             Disconnect
                           </button>
                         </div>
@@ -376,8 +380,12 @@ export default function Devices() {
                       </svg>
                     </div>
                     <div>
-                      <p className="text-2xl font-bold text-white">12,847</p>
-                      <p className="text-xs text-gray-400">Steps Today</p>
+                      <p className="text-lg sm:text-xl md:text-2xl font-bold text-white">
+                        12,847
+                      </p>
+                      <p className="text-[10px] sm:text-xs text-gray-400">
+                        Steps Today
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -400,8 +408,12 @@ export default function Devices() {
                       </svg>
                     </div>
                     <div>
-                      <p className="text-2xl font-bold text-white">72 bpm</p>
-                      <p className="text-xs text-gray-400">Heart Rate</p>
+                      <p className="text-lg sm:text-xl md:text-2xl font-bold text-white">
+                        72 bpm
+                      </p>
+                      <p className="text-[10px] sm:text-xs text-gray-400">
+                        Heart Rate
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -424,8 +436,12 @@ export default function Devices() {
                       </svg>
                     </div>
                     <div>
-                      <p className="text-2xl font-bold text-white">7h 24m</p>
-                      <p className="text-xs text-gray-400">Sleep Last Night</p>
+                      <p className="text-lg sm:text-xl md:text-2xl font-bold text-white">
+                        7h 24m
+                      </p>
+                      <p className="text-[10px] sm:text-xs text-gray-400">
+                        Sleep Last Night
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -480,33 +496,33 @@ export default function Devices() {
                     className="p-6 rounded-2xl bg-dark-card/50 backdrop-blur-lg border border-white/5 hover:border-primary/30 transition-all duration-300 hover:scale-[1.02] cursor-pointer group"
                     onClick={() => handleConnectDevice(device)}
                   >
-                    <div className="flex items-start gap-4">
+                    <div className="flex flex-col items-center">
                       {/* Device Icon */}
-                      <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-gray-500/20 to-gray-600/20 flex items-center justify-center text-2xl border border-white/10 group-hover:border-primary/30 transition-colors">
+                      <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-gray-500/20 to-gray-600/20 flex items-center justify-center text-2xl border border-white/10 group-hover:border-primary/30 transition-colors mb-4">
                         {device.icon}
                       </div>
 
                       {/* Device Info */}
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-bold text-white mb-1">
+                      <div className="flex-1 min-w-0 w-full text-center">
+                        <h3 className="text-sm sm:text-base font-bold text-white mb-1">
                           {device.name}
                         </h3>
-                        <p className="text-sm text-gray-400 mb-3">
+                        <p className="text-xs sm:text-sm text-gray-400 mb-3">
                           {device.brand} • {device.type}
                         </p>
 
                         {/* Data Types */}
-                        <div className="flex flex-wrap gap-1 mb-4">
+                        <div className="flex flex-wrap justify-center gap-1 mb-4">
                           {device.dataTypes.slice(0, 3).map((dataType) => (
                             <span
                               key={dataType}
-                              className="px-2 py-0.5 rounded text-xs bg-white/5 text-gray-400"
+                              className="px-2 py-0.5 rounded text-[10px] sm:text-xs bg-white/5 text-gray-400"
                             >
                               {dataType}
                             </span>
                           ))}
                           {device.dataTypes.length > 3 && (
-                            <span className="px-2 py-0.5 rounded text-xs bg-white/5 text-gray-400">
+                            <span className="px-2 py-0.5 rounded text-[10px] sm:text-xs bg-white/5 text-gray-400">
                               +{device.dataTypes.length - 3}
                             </span>
                           )}
@@ -515,7 +531,7 @@ export default function Devices() {
                         {/* Connect Button */}
                         <button
                           onClick={() => handleConnectDevice(device)}
-                          className="w-full px-4 py-2 rounded-lg bg-gradient-to-r from-primary to-secondary text-white font-medium hover:scale-105 transition-all duration-300 shadow-lg shadow-primary/20"
+                          className="w-full px-4 py-2 rounded-lg bg-gradient-to-r from-primary to-secondary text-xs sm:text-sm text-white font-medium hover:scale-105 transition-all duration-300 shadow-lg shadow-primary/20"
                         >
                           Connect Device
                         </button>
@@ -544,14 +560,14 @@ export default function Devices() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-bold text-white mb-2">
+                    <h3 className="text-sm sm:text-base font-bold text-white mb-2">
                       Don't see your device?
                     </h3>
-                    <p className="text-sm text-gray-400 mb-3">
+                    <p className="text-xs sm:text-sm text-gray-400 mb-3">
                       Make sure your device is powered on, in pairing mode, and
                       Bluetooth is enabled on your phone.
                     </p>
-                    <button className="text-sm font-medium text-primary hover:text-secondary transition-colors">
+                    <button className="text-xs sm:text-sm font-medium text-primary hover:text-secondary transition-colors">
                       View Setup Guide →
                     </button>
                   </div>
@@ -588,10 +604,10 @@ export default function Devices() {
                 <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center text-4xl mx-auto mb-4 border border-white/10">
                   {selectedDevice?.icon || "⌚"}
                 </div>
-                <h2 className="text-2xl font-bold text-white mb-2">
+                <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">
                   Connect {selectedDevice?.name || "Device"}
                 </h2>
-                <p className="text-gray-400 text-sm mb-6">
+                <p className="text-gray-400 text-xs sm:text-sm mb-6">
                   Follow the steps to pair your device
                 </p>
 
@@ -602,8 +618,10 @@ export default function Devices() {
                       1
                     </div>
                     <div>
-                      <p className="text-white font-medium">Enable Bluetooth</p>
-                      <p className="text-xs text-gray-400">
+                      <p className="text-sm sm:text-base text-white font-medium">
+                        Enable Bluetooth
+                      </p>
+                      <p className="text-[10px] sm:text-xs text-gray-400">
                         Make sure Bluetooth is turned on
                       </p>
                     </div>
@@ -613,8 +631,10 @@ export default function Devices() {
                       2
                     </div>
                     <div>
-                      <p className="text-white font-medium">Wake your device</p>
-                      <p className="text-xs text-gray-400">
+                      <p className="text-sm sm:text-base text-white font-medium">
+                        Wake your device
+                      </p>
+                      <p className="text-[10px] sm:text-xs text-gray-400">
                         Turn on and activate pairing mode
                       </p>
                     </div>
@@ -624,8 +644,10 @@ export default function Devices() {
                       3
                     </div>
                     <div>
-                      <p className="text-white font-medium">Confirm pairing</p>
-                      <p className="text-xs text-gray-400">
+                      <p className="text-sm sm:text-base text-white font-medium">
+                        Confirm pairing
+                      </p>
+                      <p className="text-[10px] sm:text-xs text-gray-400">
                         Accept connection on your device
                       </p>
                     </div>
@@ -636,7 +658,7 @@ export default function Devices() {
                 <div className="flex gap-3">
                   <button
                     onClick={() => setShowConnectModal(false)}
-                    className="flex-1 px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-white font-medium transition-colors border border-white/10"
+                    className="flex-1 px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-sm sm:text-base text-white font-medium transition-colors border border-white/10"
                   >
                     Cancel
                   </button>
@@ -648,13 +670,13 @@ export default function Devices() {
                         setActiveTab("connected");
                       }, 500);
                     }}
-                    className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-medium hover:scale-105 transition-all duration-300 shadow-lg shadow-primary/20"
+                    className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-primary to-secondary text-sm sm:text-base text-white font-medium hover:scale-105 transition-all duration-300 shadow-lg shadow-primary/20"
                   >
                     Start Pairing
                   </button>
                 </div>
 
-                <p className="text-xs text-gray-500 mt-4">
+                <p className="text-[10px] sm:text-xs text-gray-500 mt-4">
                   Need help?{" "}
                   <span className="text-primary cursor-pointer hover:underline">
                     View troubleshooting guide

@@ -105,7 +105,7 @@ export default function Home() {
             }`}
           >
             {/* Logo/Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-dark-card border border-dark-border rounded-full text-sm animate-fade-in-down hover-glow">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-dark-card border border-dark-border rounded-full text-[10px] sm:text-xs md:text-sm animate-fade-in-down hover-glow">
               <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
               <span className="text-gray-400">
                 Welcome to the Future of Health • By ThePrimeShak
@@ -113,7 +113,7 @@ export default function Home() {
             </div>
 
             {/* Main Heading */}
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight animate-blur-in">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight animate-blur-in">
               <span className="gradient-text-animated animate-gradient-shift">
                 Digital Health
               </span>
@@ -125,7 +125,7 @@ export default function Home() {
 
             {/* Subheading */}
             <p
-              className="text-lg md:text-xl lg:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed animate-fade-in-up"
+              className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed animate-fade-in-up"
               style={{ animationDelay: "200ms" }}
             >
               Build your personalized digital twin that learns from your daily
@@ -140,7 +140,7 @@ export default function Home() {
             >
               <Link
                 href="/signup"
-                className="group relative px-8 py-4 bg-gradient-animated rounded-full text-white font-semibold text-lg overflow-hidden transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-primary/50 w-full sm:w-auto hover-glow"
+                className="group relative px-8 py-4 bg-gradient-animated rounded-full text-white font-semibold text-sm sm:text-base md:text-lg overflow-hidden transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-primary/50 w-full sm:w-auto hover-glow"
               >
                 <span className="relative z-10 flex items-center gap-2 justify-center">
                   Get Started
@@ -152,7 +152,7 @@ export default function Home() {
 
               <button
                 onClick={scrollToFeatures}
-                className="group px-8 py-4 bg-dark-card border-2 border-dark-border rounded-full text-white font-semibold text-lg transition-all duration-300 hover:border-primary hover:bg-dark-card/80 hover:scale-105 w-full sm:w-auto hover-lift"
+                className="group px-8 py-4 bg-dark-card border-2 border-dark-border rounded-full text-white font-semibold text-sm sm:text-base md:text-lg transition-all duration-300 hover:border-primary hover:bg-dark-card/80 hover:scale-105 w-full sm:w-auto hover-lift"
               >
                 <span className="flex items-center gap-2 justify-center">
                   Explore Features
@@ -177,10 +177,12 @@ export default function Home() {
                   <div className="text-4xl mb-2 group-hover:scale-125 transition-transform duration-300 animate-bounce-slow">
                     {stat.icon}
                   </div>
-                  <div className="text-2xl md:text-3xl font-bold gradient-text-animated">
+                  <div className="text-xl sm:text-2xl md:text-3xl font-bold gradient-text-animated">
                     {stat.value}
                   </div>
-                  <div className="text-sm text-gray-400 mt-1">{stat.label}</div>
+                  <div className="text-xs sm:text-sm text-gray-400 mt-1">
+                    {stat.label}
+                  </div>
                 </div>
               ))}
             </div>
@@ -194,10 +196,10 @@ export default function Home() {
               isVisible ? "opacity-100" : "opacity-0"
             }`}
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
               Everything You Need
             </h2>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
               Comprehensive health tracking powered by AI and gamification
             </p>
           </div>
@@ -219,10 +221,10 @@ export default function Home() {
                   >
                     {feature.icon}
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-animated transition-all duration-300">
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-animated transition-all duration-300">
                     {feature.title}
                   </h3>
-                  <p className="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+                  <p className="text-sm sm:text-base text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
                     {feature.description}
                   </p>
                 </div>
@@ -237,10 +239,10 @@ export default function Home() {
         {/* How It Works Section */}
         <section className="container mx-auto px-4 py-20">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
               How It Works
             </h2>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
               Simple steps to build your digital health twin
             </p>
           </div>
@@ -276,14 +278,14 @@ export default function Home() {
                 {/* Animated gradient border */}
                 <div className="absolute inset-0 bg-gradient-animated opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500" />
 
-                <div className="text-5xl font-bold gradient-text-animated min-w-[80px] group-hover:scale-125 transition-transform duration-500 relative z-10">
+                <div className="text-3xl sm:text-4xl md:text-5xl font-bold gradient-text-animated min-w-[80px] group-hover:scale-125 transition-transform duration-500 relative z-10">
                   {item.step}
                 </div>
                 <div className="flex-1 relative z-10">
-                  <h3 className="text-2xl font-bold text-white mb-2 group-hover:gradient-text-animated transition-all duration-300">
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2 group-hover:gradient-text-animated transition-all duration-300">
                     {item.title}
                   </h3>
-                  <p className="text-gray-400 text-lg group-hover:text-gray-300 transition-colors duration-300">
+                  <p className="text-sm sm:text-base md:text-lg text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
                     {item.desc}
                   </p>
                 </div>
@@ -309,16 +311,16 @@ export default function Home() {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse-slow" />
 
             <div className="relative z-10">
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 animate-zoom-in-out">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 animate-zoom-in-out">
                 Ready to Meet Your Digital Twin?
               </h2>
-              <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
                 Join the future of personalized health and start your
                 transformation today.
               </p>
               <Link
                 href="/signup"
-                className="group inline-block px-10 py-5 bg-gradient-animated rounded-full text-white font-bold text-xl transition-all duration-500 hover:scale-110 hover:shadow-2xl hover:shadow-primary/50 hover-glow relative overflow-hidden"
+                className="group inline-block px-10 py-5 bg-gradient-animated rounded-full text-white font-bold text-base sm:text-lg md:text-xl transition-all duration-500 hover:scale-110 hover:shadow-2xl hover:shadow-primary/50 hover-glow relative overflow-hidden"
               >
                 <span className="relative z-10 flex items-center gap-3 justify-center">
                   Start Your Journey
@@ -339,15 +341,15 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-animated opacity-5" />
 
           <div className="relative z-10 text-center text-gray-500 space-y-3">
-            <p className="text-sm hover:text-gray-400 transition-colors duration-300">
+            <p className="text-xs sm:text-sm hover:text-gray-400 transition-colors duration-300">
               © 2025 Digital Health Twin. A university project prototype.
             </p>
-            <p className="text-xs text-gray-600 hover:text-gray-500 transition-colors duration-300">
+            <p className="text-[10px] sm:text-xs text-gray-600 hover:text-gray-500 transition-colors duration-300">
               For educational and presentation purposes only.
             </p>
-            <p className="text-sm text-primary font-semibold group cursor-pointer inline-block">
+            <p className="text-xs sm:text-sm text-primary font-semibold group cursor-pointer inline-block">
               Developed by{" "}
-              <span className="gradient-text-animated font-bold text-lg group-hover:scale-110 inline-block transition-transform duration-300">
+              <span className="gradient-text-animated font-bold text-sm sm:text-base md:text-lg group-hover:scale-110 inline-block transition-transform duration-300">
                 ThePrimeShak
               </span>
             </p>

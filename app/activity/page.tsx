@@ -768,86 +768,100 @@ export default function Activity() {
     <AppLayout>
       {/* Success Toast */}
       {showSuccess && (
-        <div className="fixed top-24 right-6 z-50 bg-green-500/90 backdrop-blur-lg text-white px-6 py-4 rounded-2xl shadow-lg animate-fade-in flex items-center gap-3">
-          <span className="text-2xl">✅</span>
-          <span className="font-medium">Updated successfully!</span>
+        <div className="fixed top-20 sm:top-24 right-4 sm:right-6 z-50 bg-green-500/90 backdrop-blur-lg text-white px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl shadow-lg animate-fade-in flex items-center gap-2 sm:gap-3">
+          <span className="text-lg sm:text-2xl">✅</span>
+          <span className="font-medium text-sm sm:text-base">
+            Updated successfully!
+          </span>
         </div>
       )}
 
       <div className="min-h-screen pb-20">
         {/* Header */}
         <div className="sticky top-0 z-30 bg-dark/95 backdrop-blur-xl border-b border-white/5">
-          <div className="flex items-center justify-between p-4 md:p-6">
+          <div className="flex items-center justify-between p-3 sm:p-4 md:p-6">
             <div>
-              <h1 className="text-2xl md:text-4xl font-bold gradient-text-animated">
+              <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold gradient-text-animated">
                 Activity Dashboard
               </h1>
-              <p className="text-sm text-gray-400 mt-1">
+              <p className="text-xs sm:text-sm text-gray-400 mt-1">
                 Track your workouts and reach your fitness goals
               </p>
             </div>
             <div className="flex gap-2">
               <button
                 onClick={() => setShowOnboardingModal(true)}
-                className="px-3 py-2 md:px-4 md:py-2 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-lg font-medium transition-all duration-300 hover:scale-105 text-sm md:text-base flex items-center gap-2"
+                className="px-2 py-1.5 sm:px-3 sm:py-2 md:px-4 md:py-2 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-lg font-medium transition-all duration-300 hover:scale-105 text-xs sm:text-sm md:text-base flex items-center gap-1 sm:gap-2"
               >
-                <span>⚙️</span>
+                <span className="text-sm sm:text-base">⚙️</span>
                 <span className="hidden sm:inline">Settings</span>
               </button>
               <button
                 onClick={() => setShowResetConfirm(true)}
-                className="px-3 py-2 md:px-4 md:py-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-400 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-sm md:text-base flex items-center gap-2"
+                className="px-2 py-1.5 sm:px-3 sm:py-2 md:px-4 md:py-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-400 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-xs sm:text-sm md:text-base flex items-center gap-1 sm:gap-2"
               >
-                <span>🔄</span>
+                <span className="text-sm sm:text-base">🔄</span>
                 <span className="hidden sm:inline">Reset</span>
               </button>
             </div>
           </div>
 
           {/* Top Stats Bar */}
-          <div className="grid grid-cols-3 gap-3 px-4 md:px-6 pb-4">
+          <div className="grid grid-cols-3 gap-2 sm:gap-3 px-3 sm:px-4 md:px-6 pb-3 sm:pb-4">
             {/* Connected Device */}
-            <div className="p-3 rounded-xl bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-xl">⌚</span>
-                <span className="text-xs text-gray-400">Device</span>
+            <div className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-linear-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20">
+              <div className="flex items-center gap-1 sm:gap-2 mb-1">
+                <span className="text-base sm:text-lg md:text-xl">⌚</span>
+                <span className="text-[10px] sm:text-xs text-gray-400">
+                  Device
+                </span>
               </div>
-              <p className="text-sm font-bold text-white">Apple Watch</p>
-              <p className="text-xs text-green-400">● Connected</p>
+              <p className="text-xs sm:text-sm font-bold text-white">
+                Apple Watch
+              </p>
+              <p className="text-[10px] sm:text-xs text-green-400">
+                ● Connected
+              </p>
             </div>
 
             {/* Today's Steps */}
-            <div className="p-3 rounded-xl bg-gradient-to-br from-green-500/10 to-green-600/10 border border-green-500/20">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-xl">👟</span>
-                <span className="text-xs text-gray-400">Steps</span>
+            <div className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-linear-to-br from-green-500/10 to-green-600/10 border border-green-500/20">
+              <div className="flex items-center gap-1 sm:gap-2 mb-1">
+                <span className="text-base sm:text-lg md:text-xl">👟</span>
+                <span className="text-[10px] sm:text-xs text-gray-400">
+                  Steps
+                </span>
               </div>
-              <p className="text-lg font-bold text-white">
+              <p className="text-sm sm:text-base md:text-lg font-bold text-white">
                 {todayActivity.steps.toLocaleString()}
               </p>
-              <p className="text-xs text-gray-400">Goal: 10,000</p>
+              <p className="text-[10px] sm:text-xs text-gray-400">
+                Goal: 10,000
+              </p>
             </div>
 
             {/* Calories Burned */}
-            <div className="p-3 rounded-xl bg-gradient-to-br from-orange-500/10 to-orange-600/10 border border-orange-500/20">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-xl">🔥</span>
-                <span className="text-xs text-gray-400">Calories</span>
+            <div className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-linear-to-br from-orange-500/10 to-orange-600/10 border border-orange-500/20">
+              <div className="flex items-center gap-1 sm:gap-2 mb-1">
+                <span className="text-base sm:text-lg md:text-xl">🔥</span>
+                <span className="text-[10px] sm:text-xs text-gray-400">
+                  Calories
+                </span>
               </div>
-              <p className="text-lg font-bold text-white">
+              <p className="text-sm sm:text-base md:text-lg font-bold text-white">
                 {todayActivity.calories}
               </p>
-              <p className="text-xs text-gray-400">Today</p>
+              <p className="text-[10px] sm:text-xs text-gray-400">Today</p>
             </div>
           </div>
 
           {/* Tab Navigation */}
-          <div className="flex gap-2 px-4 md:px-6 pb-4">
+          <div className="flex gap-1.5 sm:gap-2 px-3 sm:px-4 md:px-6 pb-3 sm:pb-4">
             <button
               onClick={() => setActiveTab("overview")}
-              className={`flex-1 md:flex-none px-6 py-2.5 rounded-xl font-medium transition-all duration-300 ${
+              className={`flex-1 md:flex-none px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-medium text-xs sm:text-sm md:text-base transition-all duration-300 ${
                 activeTab === "overview"
-                  ? "bg-gradient-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
+                  ? "bg-linear-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
                   : "bg-white/5 border border-transparent text-gray-400 hover:text-white hover:bg-white/10"
               }`}
             >
@@ -855,9 +869,9 @@ export default function Activity() {
             </button>
             <button
               onClick={() => setActiveTab("plan")}
-              className={`flex-1 md:flex-none px-6 py-2.5 rounded-xl font-medium transition-all duration-300 ${
+              className={`flex-1 md:flex-none px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-medium text-xs sm:text-sm md:text-base transition-all duration-300 ${
                 activeTab === "plan"
-                  ? "bg-gradient-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
+                  ? "bg-linear-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
                   : "bg-white/5 border border-transparent text-gray-400 hover:text-white hover:bg-white/10"
               }`}
             >
@@ -865,9 +879,9 @@ export default function Activity() {
             </button>
             <button
               onClick={() => setActiveTab("progress")}
-              className={`flex-1 md:flex-none px-6 py-2.5 rounded-xl font-medium transition-all duration-300 ${
+              className={`flex-1 md:flex-none px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-medium text-xs sm:text-sm md:text-base transition-all duration-300 ${
                 activeTab === "progress"
-                  ? "bg-gradient-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
+                  ? "bg-linear-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
                   : "bg-white/5 border border-transparent text-gray-400 hover:text-white hover:bg-white/10"
               }`}
             >
@@ -877,58 +891,62 @@ export default function Activity() {
         </div>
 
         {/* Main Content */}
-        <div className="p-4 md:p-6">
+        <div className="p-3 sm:p-4 md:p-6">
           {/* OVERVIEW TAB */}
           {activeTab === "overview" && (
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {/* Movement Profile Card */}
-              <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center text-2xl">
+              <div className="bg-dark-card border border-white/5 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6">
+                <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-linear-to-br from-primary/20 to-secondary/20 flex items-center justify-center text-xl sm:text-2xl">
                     🏃
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-white">
+                    <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white">
                       Movement Profile
                     </h2>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-xs sm:text-sm text-gray-400">
                       Your fitness baseline assessment
                     </p>
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-2 gap-3 sm:gap-4">
                   {/* VO2 Max */}
-                  <div className="p-4 rounded-xl bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20">
+                  <div className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-linear-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-gray-400 text-sm">VO2 Max</span>
-                      <span className="text-2xl">🫁</span>
+                      <span className="text-gray-400 text-xs sm:text-sm">
+                        VO2 Max
+                      </span>
+                      <span className="text-xl sm:text-2xl">🫁</span>
                     </div>
-                    <p className="text-3xl font-bold text-white mb-1">
+                    <p className="text-2xl sm:text-3xl font-bold text-white mb-1">
                       {movementProfile.vo2Max}
                     </p>
-                    <p className="text-sm text-blue-400">
+                    <p className="text-xs sm:text-sm text-blue-400">
                       ml/kg/min • {movementProfile.vo2MaxCategory}
                     </p>
                   </div>
 
                   {/* Physical Condition */}
-                  <div className="p-4 rounded-xl bg-gradient-to-br from-green-500/10 to-green-600/10 border border-green-500/20">
+                  <div className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-linear-to-br from-green-500/10 to-green-600/10 border border-green-500/20">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-gray-400 text-sm">
+                      <span className="text-gray-400 text-xs sm:text-sm">
                         Physical Condition
                       </span>
-                      <span className="text-2xl">💪</span>
+                      <span className="text-xl sm:text-2xl">💪</span>
                     </div>
                     <div className="flex items-end gap-2 mb-2">
-                      <p className="text-3xl font-bold text-white">
+                      <p className="text-2xl sm:text-3xl font-bold text-white">
                         {movementProfile.physicalCondition}
                       </p>
-                      <p className="text-sm text-gray-400 mb-1">/100</p>
+                      <p className="text-xs sm:text-sm text-gray-400 mb-1">
+                        /100
+                      </p>
                     </div>
                     <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-gradient-to-r from-green-500 to-green-400"
+                        className="h-full bg-linear-to-r from-green-500 to-green-400"
                         style={{
                           width: `${movementProfile.physicalCondition}%`,
                         }}
@@ -937,29 +955,35 @@ export default function Activity() {
                   </div>
 
                   {/* Strength Metrics */}
-                  <div className="p-4 rounded-xl bg-gradient-to-br from-purple-500/10 to-purple-600/10 border border-purple-500/20">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-gray-400 text-sm">
+                  <div className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-linear-to-br from-purple-500/10 to-purple-600/10 border border-purple-500/20">
+                    <div className="flex items-center justify-between mb-2 sm:mb-3">
+                      <span className="text-gray-400 text-xs sm:text-sm">
                         Relative Strength
                       </span>
-                      <span className="text-2xl">🏋️</span>
+                      <span className="text-xl sm:text-2xl">🏋️</span>
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-1.5 sm:space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-300">Push-ups</span>
-                        <span className="text-lg font-bold text-white">
+                        <span className="text-xs sm:text-sm text-gray-300">
+                          Push-ups
+                        </span>
+                        <span className="text-base sm:text-lg font-bold text-white">
                           {movementProfile.strength.pushUps}
                         </span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-300">Squats</span>
-                        <span className="text-lg font-bold text-white">
+                        <span className="text-xs sm:text-sm text-gray-300">
+                          Squats
+                        </span>
+                        <span className="text-base sm:text-lg font-bold text-white">
                           {movementProfile.strength.squats}
                         </span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-300">Pull-ups</span>
-                        <span className="text-lg font-bold text-white">
+                        <span className="text-xs sm:text-sm text-gray-300">
+                          Pull-ups
+                        </span>
+                        <span className="text-base sm:text-lg font-bold text-white">
                           {movementProfile.strength.pullUps}
                         </span>
                       </div>
@@ -967,35 +991,37 @@ export default function Activity() {
                   </div>
 
                   {/* Flexibility & Posture */}
-                  <div className="p-4 rounded-xl bg-gradient-to-br from-orange-500/10 to-orange-600/10 border border-orange-500/20">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-gray-400 text-sm">
+                  <div className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-linear-to-br from-orange-500/10 to-orange-600/10 border border-orange-500/20">
+                    <div className="flex items-center justify-between mb-2 sm:mb-3">
+                      <span className="text-gray-400 text-xs sm:text-sm">
                         Flexibility & Posture
                       </span>
-                      <span className="text-2xl">🧘</span>
+                      <span className="text-xl sm:text-2xl">🧘</span>
                     </div>
-                    <div className="mb-3">
+                    <div className="mb-2 sm:mb-3">
                       <div className="flex items-center justify-between mb-1">
-                        <span className="text-sm text-gray-300">
+                        <span className="text-xs sm:text-sm text-gray-300">
                           Flexibility Score
                         </span>
-                        <span className="text-lg font-bold text-white">
+                        <span className="text-base sm:text-lg font-bold text-white">
                           {movementProfile.flexibility}/100
                         </span>
                       </div>
                       <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-orange-500 to-orange-400"
+                          className="h-full bg-linear-to-r from-orange-500 to-orange-400"
                           style={{ width: `${movementProfile.flexibility}%` }}
                         ></div>
                       </div>
                     </div>
                     <div className="space-y-1">
-                      <p className="text-xs text-gray-400">Postural Issues:</p>
+                      <p className="text-[10px] sm:text-xs text-gray-400">
+                        Postural Issues:
+                      </p>
                       {movementProfile.posturalIssues.map((issue, idx) => (
                         <span
                           key={idx}
-                          className="inline-block px-2 py-0.5 rounded text-xs bg-orange-500/20 text-orange-400 border border-orange-500/30 mr-1"
+                          className="inline-block px-1.5 sm:px-2 py-0.5 rounded text-[10px] sm:text-xs bg-orange-500/20 text-orange-400 border border-orange-500/30 mr-1"
                         >
                           {issue}
                         </span>
@@ -1006,45 +1032,57 @@ export default function Activity() {
               </div>
 
               {/* Today's Activity Details */}
-              <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-                <h2 className="text-xl font-bold text-white mb-4">
+              <div className="bg-dark-card border border-white/5 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6">
+                <h2 className="text-base sm:text-lg md:text-xl font-bold text-white mb-3 sm:mb-4">
                   Today's Activity
                 </h2>
-                <div className="grid md:grid-cols-4 gap-4">
-                  <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="text-xl">⏱️</span>
-                      <span className="text-sm text-gray-400">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+                  <div className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-white/5 border border-white/10">
+                    <div className="flex items-center gap-1 sm:gap-2 mb-2">
+                      <span className="text-base sm:text-lg md:text-xl">
+                        ⏱️
+                      </span>
+                      <span className="text-xs sm:text-sm text-gray-400">
                         Active Minutes
                       </span>
                     </div>
-                    <p className="text-2xl font-bold text-white">
+                    <p className="text-lg sm:text-xl md:text-2xl font-bold text-white">
                       {todayActivity.activeMinutes}
                     </p>
-                    <p className="text-xs text-gray-400 mt-1">Goal: 30 min</p>
+                    <p className="text-[10px] sm:text-xs text-gray-400 mt-1">
+                      Goal: 30 min
+                    </p>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="text-xl">❤️</span>
-                      <span className="text-sm text-gray-400">HRV</span>
+                  <div className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-white/5 border border-white/10">
+                    <div className="flex items-center gap-1 sm:gap-2 mb-2">
+                      <span className="text-base sm:text-lg md:text-xl">
+                        ❤️
+                      </span>
+                      <span className="text-xs sm:text-sm text-gray-400">
+                        HRV
+                      </span>
                     </div>
-                    <p className="text-2xl font-bold text-white">
+                    <p className="text-lg sm:text-xl md:text-2xl font-bold text-white">
                       {todayActivity.hrv} ms
                     </p>
-                    <p className="text-xs text-green-400 mt-1">Good recovery</p>
+                    <p className="text-[10px] sm:text-xs text-green-400 mt-1">
+                      Good recovery
+                    </p>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-white/5 border border-white/10 md:col-span-2">
-                    <div className="flex items-center gap-2 mb-3">
-                      <span className="text-xl">📊</span>
-                      <span className="text-sm text-gray-400">
+                  <div className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 col-span-2">
+                    <div className="flex items-center gap-1 sm:gap-2 mb-2 sm:mb-3">
+                      <span className="text-base sm:text-lg md:text-xl">
+                        📊
+                      </span>
+                      <span className="text-xs sm:text-sm text-gray-400">
                         Exercise Intensity
                       </span>
                     </div>
                     <div className="space-y-2">
                       <div>
-                        <div className="flex items-center justify-between text-xs mb-1">
+                        <div className="flex items-center justify-between text-[10px] sm:text-xs mb-1">
                           <span className="text-gray-400">Light</span>
                           <span className="text-white">
                             {todayActivity.exerciseIntensity.light} min
@@ -1063,7 +1101,7 @@ export default function Activity() {
                         </div>
                       </div>
                       <div>
-                        <div className="flex items-center justify-between text-xs mb-1">
+                        <div className="flex items-center justify-between text-[10px] sm:text-xs mb-1">
                           <span className="text-gray-400">Moderate</span>
                           <span className="text-white">
                             {todayActivity.exerciseIntensity.moderate} min
@@ -1083,7 +1121,7 @@ export default function Activity() {
                         </div>
                       </div>
                       <div>
-                        <div className="flex items-center justify-between text-xs mb-1">
+                        <div className="flex items-center justify-between text-[10px] sm:text-xs mb-1">
                           <span className="text-gray-400">Vigorous</span>
                           <span className="text-white">
                             {todayActivity.exerciseIntensity.vigorous} min
@@ -1108,43 +1146,47 @@ export default function Activity() {
               </div>
 
               {/* Activity Type Breakdown */}
-              <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-xl font-bold text-white">
+              <div className="bg-dark-card border border-white/5 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-3 sm:mb-4 gap-1">
+                  <h2 className="text-base sm:text-lg md:text-xl font-bold text-white">
                     Activity Breakdown
                   </h2>
-                  <span className="text-sm text-gray-400">
+                  <span className="text-xs sm:text-sm text-gray-400">
                     Calories burned by type
                   </span>
                 </div>
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-2 gap-3 sm:gap-4">
                   {activityBreakdown.map((activity, idx) => (
                     <div
                       key={idx}
-                      className="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-primary/30 transition-all duration-300"
+                      className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 hover:border-primary/30 transition-all duration-300"
                     >
                       <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center gap-3">
-                          <span className="text-3xl">{activity.icon}</span>
+                        <div className="flex items-center gap-2 sm:gap-3">
+                          <span className="text-2xl sm:text-3xl">
+                            {activity.icon}
+                          </span>
                           <div>
-                            <h3 className="font-bold text-white">
+                            <h3 className="font-bold text-white text-sm sm:text-base">
                               {activity.type}
                             </h3>
-                            <p className="text-xs text-gray-400">
+                            <p className="text-[10px] sm:text-xs text-gray-400">
                               {activity.duration} min
                             </p>
                           </div>
                         </div>
                         <div className="text-right">
-                          <p className="text-2xl font-bold text-primary">
+                          <p className="text-lg sm:text-xl md:text-2xl font-bold text-primary">
                             {activity.calories}
                           </p>
-                          <p className="text-xs text-gray-400">calories</p>
+                          <p className="text-[10px] sm:text-xs text-gray-400">
+                            calories
+                          </p>
                         </div>
                       </div>
                       <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-primary to-secondary"
+                          className="h-full bg-linear-to-r from-primary to-secondary"
                           style={{
                             width: `${(activity.calories / 450) * 100}%`,
                           }}
@@ -1153,8 +1195,8 @@ export default function Activity() {
                     </div>
                   ))}
                 </div>
-                <div className="mt-4 p-4 rounded-xl bg-primary/10 border border-primary/20">
-                  <p className="text-sm text-primary">
+                <div className="mt-3 sm:mt-4 p-3 sm:p-4 rounded-lg sm:rounded-xl bg-primary/10 border border-primary/20">
+                  <p className="text-xs sm:text-sm text-primary">
                     💡 <strong>Insight:</strong> Running burns the most calories
                     for you! Consider adding more cardio sessions.
                   </p>
@@ -1162,25 +1204,27 @@ export default function Activity() {
               </div>
 
               {/* Smart Insights */}
-              <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-                <h2 className="text-xl font-bold text-white mb-4">
+              <div className="bg-dark-card border border-white/5 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6">
+                <h2 className="text-base sm:text-lg md:text-xl font-bold text-white mb-3 sm:mb-4">
                   Smart Insights
                 </h2>
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-2 gap-3 sm:gap-4">
                   {smartInsights.map((insight, idx) => (
                     <div
                       key={idx}
-                      className={`p-4 rounded-xl bg-gradient-to-br border ${getInsightColor(
+                      className={`p-3 sm:p-4 rounded-lg sm:rounded-xl bg-linear-to-br border ${getInsightColor(
                         insight.type
                       )}`}
                     >
-                      <div className="flex items-start gap-3">
-                        <span className="text-3xl">{insight.icon}</span>
+                      <div className="flex items-start gap-2 sm:gap-3">
+                        <span className="text-2xl sm:text-3xl">
+                          {insight.icon}
+                        </span>
                         <div>
-                          <h3 className="font-bold text-white mb-1">
+                          <h3 className="font-bold text-white mb-1 text-sm sm:text-base">
                             {insight.title}
                           </h3>
-                          <p className="text-sm text-gray-300">
+                          <p className="text-xs sm:text-sm text-gray-300">
                             {insight.message}
                           </p>
                         </div>
@@ -1194,26 +1238,30 @@ export default function Activity() {
 
           {/* WORKOUT PLAN TAB */}
           {activeTab === "plan" && (
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {/* Week Overview */}
-              <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-                <div className="flex items-center justify-between mb-4">
+              <div className="bg-dark-card border border-white/5 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6">
+                <div className="flex items-center justify-between mb-3 sm:mb-4">
                   <div>
-                    <h2 className="text-2xl font-bold text-white">
+                    <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white">
                       This Week's Plan
                     </h2>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-xs sm:text-sm text-gray-400">
                       Personalized based on your fitness level
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="text-2xl font-bold text-primary">3/7</p>
-                    <p className="text-xs text-gray-400">Completed</p>
+                    <p className="text-lg sm:text-xl md:text-2xl font-bold text-primary">
+                      3/7
+                    </p>
+                    <p className="text-[10px] sm:text-xs text-gray-400">
+                      Completed
+                    </p>
                   </div>
                 </div>
 
                 {/* 7-Day Calendar */}
-                <div className="grid grid-cols-7 gap-2 mb-6">
+                <div className="grid grid-cols-7 gap-1 sm:gap-2 mb-4 sm:mb-6">
                   {weekPlan.map((day, idx) => (
                     <button
                       key={idx}
@@ -1223,7 +1271,7 @@ export default function Activity() {
                           setShowExerciseModal(true);
                         }
                       }}
-                      className={`p-3 rounded-xl border-2 transition-all duration-300 hover:scale-105 ${
+                      className={`p-1.5 sm:p-2 md:p-3 rounded-lg sm:rounded-xl border-2 transition-all duration-300 hover:scale-105 ${
                         day.completed
                           ? "bg-green-500/20 border-green-500/40"
                           : day.scheduled
@@ -1231,11 +1279,13 @@ export default function Activity() {
                           : "bg-white/5 border-white/10 opacity-50"
                       }`}
                     >
-                      <p className="text-xs text-gray-400 mb-1">{day.day}</p>
-                      <p className="text-xs font-bold text-white mb-1">
+                      <p className="text-[10px] sm:text-xs text-gray-400 mb-0.5 sm:mb-1">
+                        {day.day}
+                      </p>
+                      <p className="text-[10px] sm:text-xs font-bold text-white mb-0.5 sm:mb-1">
                         {day.date}
                       </p>
-                      <div className="text-xl mb-1">
+                      <div className="text-base sm:text-lg md:text-xl mb-0.5 sm:mb-1">
                         {day.completed
                           ? "✓"
                           : day.type === "Rest Day"
@@ -1243,7 +1293,7 @@ export default function Activity() {
                           : "💪"}
                       </div>
                       <span
-                        className={`text-xs px-2 py-0.5 rounded-full ${getIntensityColor(
+                        className={`text-[9px] sm:text-xs px-1 sm:px-2 py-0.5 rounded-full ${getIntensityColor(
                           day.intensity
                         )}`}
                       >
@@ -1254,18 +1304,30 @@ export default function Activity() {
                 </div>
 
                 {/* Week Statistics */}
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="p-3 rounded-xl bg-blue-500/10 border border-blue-500/20">
-                    <p className="text-xs text-gray-400 mb-1">Total Workouts</p>
-                    <p className="text-2xl font-bold text-white">6</p>
+                <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4">
+                  <div className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-blue-500/10 border border-blue-500/20">
+                    <p className="text-[10px] sm:text-xs text-gray-400 mb-1">
+                      Total Workouts
+                    </p>
+                    <p className="text-lg sm:text-xl md:text-2xl font-bold text-white">
+                      6
+                    </p>
                   </div>
-                  <div className="p-3 rounded-xl bg-green-500/10 border border-green-500/20">
-                    <p className="text-xs text-gray-400 mb-1">Est. Calories</p>
-                    <p className="text-2xl font-bold text-white">2,400</p>
+                  <div className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-green-500/10 border border-green-500/20">
+                    <p className="text-[10px] sm:text-xs text-gray-400 mb-1">
+                      Est. Calories
+                    </p>
+                    <p className="text-lg sm:text-xl md:text-2xl font-bold text-white">
+                      2,400
+                    </p>
                   </div>
-                  <div className="p-3 rounded-xl bg-purple-500/10 border border-purple-500/20">
-                    <p className="text-xs text-gray-400 mb-1">Rest Days</p>
-                    <p className="text-2xl font-bold text-white">1</p>
+                  <div className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-purple-500/10 border border-purple-500/20">
+                    <p className="text-[10px] sm:text-xs text-gray-400 mb-1">
+                      Rest Days
+                    </p>
+                    <p className="text-lg sm:text-xl md:text-2xl font-bold text-white">
+                      1
+                    </p>
                   </div>
                 </div>
               </div>
@@ -1276,27 +1338,29 @@ export default function Activity() {
                 .map((day, dayIdx) => (
                   <div
                     key={dayIdx}
-                    className="bg-dark-card border border-white/5 rounded-2xl p-6"
+                    className="bg-dark-card border border-white/5 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6"
                   >
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-3">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-3 sm:mb-4 gap-3">
+                      <div className="flex items-center gap-2 sm:gap-3">
                         <div
-                          className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl ${
+                          className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl flex items-center justify-center text-xl sm:text-2xl ${
                             day.completed ? "bg-green-500/20" : "bg-primary/20"
                           }`}
                         >
                           {day.completed ? "✓" : "💪"}
                         </div>
                         <div>
-                          <h3 className="text-lg font-bold text-white">
+                          <h3 className="text-base sm:text-lg font-bold text-white">
                             {day.day} - {day.type}
                           </h3>
-                          <p className="text-sm text-gray-400">{day.date}</p>
+                          <p className="text-xs sm:text-sm text-gray-400">
+                            {day.date}
+                          </p>
                         </div>
                       </div>
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2 sm:gap-3">
                         <span
-                          className={`px-3 py-1 rounded-full text-sm font-medium border ${getIntensityColor(
+                          className={`px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-medium border ${getIntensityColor(
                             day.intensity
                           )}`}
                         >
@@ -1306,7 +1370,7 @@ export default function Activity() {
                           onClick={() =>
                             handleCompleteDay(weekPlan.indexOf(day))
                           }
-                          className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                          className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg font-medium text-xs sm:text-sm transition-all duration-300 ${
                             day.completed
                               ? "bg-green-500/20 text-green-400 border border-green-500/30"
                               : "bg-primary/20 text-primary border border-primary/30 hover:bg-primary/30"
@@ -1319,17 +1383,17 @@ export default function Activity() {
 
                     {/* Exercises List */}
                     {day.exercises && (
-                      <div className="space-y-3">
+                      <div className="space-y-2 sm:space-y-3">
                         {day.exercises.map((exercise, exIdx) => (
                           <div
                             key={exIdx}
-                            className={`p-4 rounded-xl border transition-all duration-300 ${
+                            className={`p-3 sm:p-4 rounded-lg sm:rounded-xl border transition-all duration-300 ${
                               exercise.completed
                                 ? "bg-green-500/10 border-green-500/20"
                                 : "bg-white/5 border-white/10 hover:border-primary/30"
                             }`}
                           >
-                            <div className="flex items-center gap-4">
+                            <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
                               <button
                                 onClick={() =>
                                   handleCompleteExercise(
@@ -1337,7 +1401,7 @@ export default function Activity() {
                                     exIdx
                                   )
                                 }
-                                className={`w-8 h-8 rounded-lg border-2 flex items-center justify-center transition-all duration-300 ${
+                                className={`w-6 h-6 sm:w-8 sm:h-8 rounded-lg border-2 flex items-center justify-center transition-all duration-300 text-sm sm:text-base ${
                                   exercise.completed
                                     ? "bg-green-500/20 border-green-500 text-green-400"
                                     : "border-white/20 hover:border-primary"
@@ -1345,19 +1409,21 @@ export default function Activity() {
                               >
                                 {exercise.completed && "✓"}
                               </button>
-                              <span className="text-2xl">{exercise.icon}</span>
-                              <div className="flex-1">
-                                <h4 className="font-bold text-white">
+                              <span className="text-xl sm:text-2xl">
+                                {exercise.icon}
+                              </span>
+                              <div className="flex-1 min-w-0">
+                                <h4 className="font-bold text-white text-sm sm:text-base">
                                   {exercise.name}
                                 </h4>
-                                <div className="flex items-center gap-4 mt-1">
-                                  <span className="text-sm text-gray-400">
+                                <div className="flex flex-wrap items-center gap-2 sm:gap-3 md:gap-4 mt-1">
+                                  <span className="text-xs sm:text-sm text-gray-400">
                                     {exercise.sets} sets × {exercise.reps}
                                   </span>
-                                  <span className="text-sm text-gray-400">
+                                  <span className="text-xs sm:text-sm text-gray-400">
                                     Rest: {exercise.rest}
                                   </span>
-                                  <span className="px-2 py-0.5 rounded text-xs bg-primary/20 text-primary">
+                                  <span className="px-1.5 sm:px-2 py-0.5 rounded text-[10px] sm:text-xs bg-primary/20 text-primary">
                                     {exercise.equipment}
                                   </span>
                                 </div>
@@ -1371,26 +1437,30 @@ export default function Activity() {
                 ))}
 
               {/* Equipment & Location Info */}
-              <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-                <h3 className="text-lg font-bold text-white mb-4">
+              <div className="bg-dark-card border border-white/5 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6">
+                <h3 className="text-base sm:text-lg font-bold text-white mb-3 sm:mb-4">
                   Workout Settings
                 </h3>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className="text-2xl">🏠</span>
-                      <span className="font-medium text-white">Location</span>
+                <div className="grid md:grid-cols-2 gap-3 sm:gap-4">
+                  <div className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-white/5 border border-white/10">
+                    <div className="flex items-center gap-2 sm:gap-3 mb-2">
+                      <span className="text-xl sm:text-2xl">🏠</span>
+                      <span className="font-medium text-white text-sm sm:text-base">
+                        Location
+                      </span>
                     </div>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-xs sm:text-sm text-gray-400">
                       Home & Gym hybrid plan
                     </p>
                   </div>
-                  <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className="text-2xl">🏋️</span>
-                      <span className="font-medium text-white">Equipment</span>
+                  <div className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-white/5 border border-white/10">
+                    <div className="flex items-center gap-2 sm:gap-3 mb-2">
+                      <span className="text-xl sm:text-2xl">🏋️</span>
+                      <span className="font-medium text-white text-sm sm:text-base">
+                        Equipment
+                      </span>
                     </div>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-xs sm:text-sm text-gray-400">
                       Dumbbells, Barbell, Resistance bands
                     </p>
                   </div>
@@ -1401,26 +1471,28 @@ export default function Activity() {
 
           {/* PROGRESS TAB */}
           {activeTab === "progress" && (
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {/* Strength Progress */}
-              <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-                <h2 className="text-xl font-bold text-white mb-4">
+              <div className="bg-dark-card border border-white/5 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6">
+                <h2 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">
                   Strength Progress
                 </h2>
-                <div className="grid md:grid-cols-3 gap-4">
-                  <div className="p-4 rounded-xl bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-gray-400 text-sm">Push-ups</span>
-                      <span className="text-2xl">💪</span>
+                <div className="grid md:grid-cols-3 gap-3 sm:gap-4">
+                  <div className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-linear-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20">
+                    <div className="flex items-center justify-between mb-2 sm:mb-3">
+                      <span className="text-gray-400 text-xs sm:text-sm">
+                        Push-ups
+                      </span>
+                      <span className="text-xl sm:text-2xl">💪</span>
                     </div>
-                    <p className="text-3xl font-bold text-white mb-1">
+                    <p className="text-2xl sm:text-3xl font-bold text-white mb-1">
                       {movementProfile.strength.pushUps}
                     </p>
-                    <div className="flex items-center gap-2 text-sm">
+                    <div className="flex items-center gap-2 text-xs sm:text-sm">
                       <span className="text-green-400">↑ +15%</span>
                       <span className="text-gray-400">this month</span>
                     </div>
-                    <div className="mt-3 h-20 flex items-end gap-1">
+                    <div className="mt-2 sm:mt-3 h-16 sm:h-20 flex items-end gap-1">
                       {[18, 20, 22, 23, 25].map((val, idx) => (
                         <div
                           key={idx}
@@ -1431,19 +1503,21 @@ export default function Activity() {
                     </div>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-gradient-to-br from-purple-500/10 to-purple-600/10 border border-purple-500/20">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-gray-400 text-sm">Squats</span>
-                      <span className="text-2xl">🦵</span>
+                  <div className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-linear-to-br from-purple-500/10 to-purple-600/10 border border-purple-500/20">
+                    <div className="flex items-center justify-between mb-2 sm:mb-3">
+                      <span className="text-gray-400 text-xs sm:text-sm">
+                        Squats
+                      </span>
+                      <span className="text-xl sm:text-2xl">🦵</span>
                     </div>
-                    <p className="text-3xl font-bold text-white mb-1">
+                    <p className="text-2xl sm:text-3xl font-bold text-white mb-1">
                       {movementProfile.strength.squats}
                     </p>
-                    <div className="flex items-center gap-2 text-sm">
+                    <div className="flex items-center gap-2 text-xs sm:text-sm">
                       <span className="text-green-400">↑ +25%</span>
                       <span className="text-gray-400">this month</span>
                     </div>
-                    <div className="mt-3 h-20 flex items-end gap-1">
+                    <div className="mt-2 sm:mt-3 h-16 sm:h-20 flex items-end gap-1">
                       {[28, 32, 35, 38, 40].map((val, idx) => (
                         <div
                           key={idx}
@@ -1454,19 +1528,21 @@ export default function Activity() {
                     </div>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-gradient-to-br from-green-500/10 to-green-600/10 border border-green-500/20">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-gray-400 text-sm">Pull-ups</span>
-                      <span className="text-2xl">🏋️</span>
+                  <div className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-linear-to-br from-green-500/10 to-green-600/10 border border-green-500/20">
+                    <div className="flex items-center justify-between mb-2 sm:mb-3">
+                      <span className="text-gray-400 text-xs sm:text-sm">
+                        Pull-ups
+                      </span>
+                      <span className="text-xl sm:text-2xl">🏋️</span>
                     </div>
-                    <p className="text-3xl font-bold text-white mb-1">
+                    <p className="text-2xl sm:text-3xl font-bold text-white mb-1">
                       {movementProfile.strength.pullUps}
                     </p>
-                    <div className="flex items-center gap-2 text-sm">
+                    <div className="flex items-center gap-2 text-xs sm:text-sm">
                       <span className="text-green-400">↑ +60%</span>
                       <span className="text-gray-400">this month</span>
                     </div>
-                    <div className="mt-3 h-20 flex items-end gap-1">
+                    <div className="mt-2 sm:mt-3 h-16 sm:h-20 flex items-end gap-1">
                       {[3, 5, 6, 7, 8].map((val, idx) => (
                         <div
                           key={idx}
@@ -1480,11 +1556,11 @@ export default function Activity() {
               </div>
 
               {/* Weekly Activity Chart */}
-              <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-                <h2 className="text-xl font-bold text-white mb-4">
+              <div className="bg-dark-card border border-white/5 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6">
+                <h2 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">
                   Weekly Activity
                 </h2>
-                <div className="h-64 flex items-end gap-3">
+                <div className="h-48 sm:h-56 md:h-64 flex items-end gap-2 sm:gap-3">
                   {[
                     { day: "Mon", calories: 450, active: 45 },
                     { day: "Tue", calories: 320, active: 30 },
@@ -1500,15 +1576,15 @@ export default function Activity() {
                     >
                       <div className="w-full flex flex-col gap-1">
                         <div
-                          className="w-full bg-gradient-to-t from-primary to-primary/50 rounded-t-lg transition-all duration-500 hover:scale-105"
+                          className="w-full bg-linear-to-t from-primary to-primary/50 rounded-t-lg transition-all duration-500 hover:scale-105"
                           style={{ height: `${(day.calories / 500) * 200}px` }}
                         ></div>
                       </div>
                       <div className="text-center">
-                        <p className="text-xs font-bold text-white">
+                        <p className="text-[10px] sm:text-xs font-bold text-white">
                           {day.day}
                         </p>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[9px] sm:text-xs text-gray-400">
                           {day.calories}cal
                         </p>
                       </div>
@@ -1518,42 +1594,44 @@ export default function Activity() {
               </div>
 
               {/* Achievements */}
-              <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-                <h2 className="text-xl font-bold text-white mb-4">
+              <div className="bg-dark-card border border-white/5 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6">
+                <h2 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">
                   Achievements
                 </h2>
-                <div className="grid md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
                   {achievements.map((achievement) => (
                     <div
                       key={achievement.id}
-                      className={`p-4 rounded-xl border transition-all duration-300 ${
+                      className={`p-3 sm:p-4 rounded-lg sm:rounded-xl border transition-all duration-300 ${
                         achievement.unlocked
-                          ? "bg-gradient-to-br from-yellow-500/20 to-orange-500/20 border-yellow-500/40"
+                          ? "bg-linear-to-br from-yellow-500/20 to-orange-500/20 border-yellow-500/40"
                           : "bg-white/5 border-white/10 opacity-60"
                       }`}
                     >
-                      <div className="text-center mb-3">
-                        <span className="text-5xl">{achievement.icon}</span>
+                      <div className="text-center mb-2 sm:mb-3">
+                        <span className="text-3xl sm:text-4xl md:text-5xl">
+                          {achievement.icon}
+                        </span>
                       </div>
-                      <h3 className="font-bold text-white text-center mb-1">
+                      <h3 className="font-bold text-white text-center mb-1 text-sm sm:text-base">
                         {achievement.title}
                       </h3>
-                      <p className="text-xs text-gray-400 text-center mb-3">
+                      <p className="text-[10px] sm:text-xs text-gray-400 text-center mb-2 sm:mb-3">
                         {achievement.description}
                       </p>
                       {!achievement.unlocked &&
                         achievement.progress &&
                         achievement.target && (
                           <div>
-                            <div className="flex items-center justify-between text-xs mb-1">
+                            <div className="flex items-center justify-between text-[10px] sm:text-xs mb-1">
                               <span className="text-gray-400">Progress</span>
                               <span className="text-white">
                                 {achievement.progress}/{achievement.target}
                               </span>
                             </div>
-                            <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+                            <div className="w-full h-1.5 sm:h-2 bg-white/10 rounded-full overflow-hidden">
                               <div
-                                className="h-full bg-gradient-to-r from-primary to-secondary"
+                                className="h-full bg-linear-to-r from-primary to-secondary"
                                 style={{
                                   width: `${
                                     (achievement.progress /
@@ -1567,7 +1645,7 @@ export default function Activity() {
                         )}
                       {achievement.unlocked && (
                         <div className="text-center">
-                          <span className="px-3 py-1 rounded-full text-xs font-medium bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">
+                          <span className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-medium bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">
                             ✓ Unlocked
                           </span>
                         </div>
@@ -1578,53 +1656,63 @@ export default function Activity() {
               </div>
 
               {/* Streaks & Milestones */}
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-                  <h3 className="text-lg font-bold text-white mb-4">
+              <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
+                <div className="bg-dark-card border border-white/5 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6">
+                  <h3 className="text-base sm:text-lg font-bold text-white mb-3 sm:mb-4">
                     Current Streak
                   </h3>
                   <div className="text-center">
-                    <div className="text-6xl mb-3">🔥</div>
-                    <p className="text-5xl font-bold text-primary mb-2">8</p>
-                    <p className="text-gray-400">days in a row</p>
-                    <div className="mt-4 p-3 rounded-xl bg-orange-500/10 border border-orange-500/20">
-                      <p className="text-sm text-orange-400">
+                    <div className="text-4xl sm:text-5xl md:text-6xl mb-2 sm:mb-3">
+                      🔥
+                    </div>
+                    <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-1 sm:mb-2">
+                      8
+                    </p>
+                    <p className="text-gray-400 text-sm sm:text-base">
+                      days in a row
+                    </p>
+                    <div className="mt-3 sm:mt-4 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-orange-500/10 border border-orange-500/20">
+                      <p className="text-xs sm:text-sm text-orange-400">
                         Keep going! 2 more days for a new record 🎯
                       </p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-                  <h3 className="text-lg font-bold text-white mb-4">
+                <div className="bg-dark-card border border-white/5 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6">
+                  <h3 className="text-base sm:text-lg font-bold text-white mb-3 sm:mb-4">
                     Milestones
                   </h3>
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-3 p-3 rounded-xl bg-green-500/10 border border-green-500/20">
-                      <span className="text-2xl">✓</span>
+                  <div className="space-y-2 sm:space-y-3">
+                    <div className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-green-500/10 border border-green-500/20">
+                      <span className="text-xl sm:text-2xl">✓</span>
                       <div>
-                        <p className="font-medium text-white">100 Workouts</p>
-                        <p className="text-xs text-gray-400">
+                        <p className="font-medium text-white text-sm sm:text-base">
+                          100 Workouts
+                        </p>
+                        <p className="text-[10px] sm:text-xs text-gray-400">
                           Completed on Nov 15
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3 p-3 rounded-xl bg-green-500/10 border border-green-500/20">
-                      <span className="text-2xl">✓</span>
+                    <div className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-green-500/10 border border-green-500/20">
+                      <span className="text-xl sm:text-2xl">✓</span>
                       <div>
-                        <p className="font-medium text-white">
+                        <p className="font-medium text-white text-sm sm:text-base">
                           50,000 Calories Burned
                         </p>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] sm:text-xs text-gray-400">
                           Completed on Nov 28
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10 opacity-60">
-                      <span className="text-2xl">🔒</span>
+                    <div className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 opacity-60">
+                      <span className="text-xl sm:text-2xl">🔒</span>
                       <div>
-                        <p className="font-medium text-white">150 Workouts</p>
-                        <p className="text-xs text-gray-400">
+                        <p className="font-medium text-white text-sm sm:text-base">
+                          150 Workouts
+                        </p>
+                        <p className="text-[10px] sm:text-xs text-gray-400">
                           42 more to unlock
                         </p>
                       </div>
@@ -1638,14 +1726,14 @@ export default function Activity() {
 
         {/* Exercise Detail Modal */}
         {showExerciseModal && selectedDay && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-            <div className="bg-dark-card rounded-2xl border border-white/10 p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto relative">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-sm">
+            <div className="bg-dark-card rounded-xl sm:rounded-2xl border border-white/10 p-4 sm:p-5 md:p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto relative">
               <button
                 onClick={() => setShowExerciseModal(false)}
-                className="absolute top-4 right-4 w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors"
+                className="absolute top-3 right-3 sm:top-4 sm:right-4 w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors"
               >
                 <svg
-                  className="w-5 h-5 text-gray-400"
+                  className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -1659,48 +1747,54 @@ export default function Activity() {
                 </svg>
               </button>
 
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center text-3xl">
+              <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl sm:rounded-2xl bg-linear-to-br from-primary/20 to-secondary/20 flex items-center justify-center text-2xl sm:text-3xl">
                   💪
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-white">
+                  <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white">
                     {selectedDay.day} - {selectedDay.type}
                   </h2>
-                  <p className="text-gray-400">{selectedDay.date}</p>
+                  <p className="text-gray-400 text-sm sm:text-base">
+                    {selectedDay.date}
+                  </p>
                 </div>
               </div>
 
               {selectedDay.exercises && (
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   {selectedDay.exercises.map((exercise, idx) => (
                     <div
                       key={idx}
-                      className="p-4 rounded-xl bg-white/5 border border-white/10"
+                      className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-white/5 border border-white/10"
                     >
-                      <div className="flex items-start gap-4">
-                        <span className="text-4xl">{exercise.icon}</span>
-                        <div className="flex-1">
-                          <h3 className="text-lg font-bold text-white mb-2">
+                      <div className="flex items-start gap-3 sm:gap-4">
+                        <span className="text-2xl sm:text-3xl md:text-4xl">
+                          {exercise.icon}
+                        </span>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-base sm:text-lg font-bold text-white mb-2">
                             {exercise.name}
                           </h3>
-                          <div className="grid grid-cols-2 gap-2 mb-3">
+                          <div className="grid grid-cols-2 gap-2 mb-2 sm:mb-3">
                             <div className="p-2 rounded bg-white/5">
-                              <p className="text-xs text-gray-400">
+                              <p className="text-[10px] sm:text-xs text-gray-400">
                                 Sets × Reps
                               </p>
-                              <p className="text-sm font-bold text-white">
+                              <p className="text-xs sm:text-sm font-bold text-white">
                                 {exercise.sets} × {exercise.reps}
                               </p>
                             </div>
                             <div className="p-2 rounded bg-white/5">
-                              <p className="text-xs text-gray-400">Rest</p>
-                              <p className="text-sm font-bold text-white">
+                              <p className="text-[10px] sm:text-xs text-gray-400">
+                                Rest
+                              </p>
+                              <p className="text-xs sm:text-sm font-bold text-white">
                                 {exercise.rest}
                               </p>
                             </div>
                           </div>
-                          <span className="px-3 py-1 rounded-full text-xs bg-primary/20 text-primary border border-primary/30">
+                          <span className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs bg-primary/20 text-primary border border-primary/30">
                             {exercise.equipment}
                           </span>
                         </div>
@@ -1711,7 +1805,7 @@ export default function Activity() {
                               idx
                             )
                           }
-                          className={`w-10 h-10 rounded-lg border-2 flex items-center justify-center transition-all duration-300 ${
+                          className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg border-2 flex items-center justify-center transition-all duration-300 text-sm sm:text-base ${
                             exercise.completed
                               ? "bg-green-500/20 border-green-500 text-green-400"
                               : "border-white/20 hover:border-primary"

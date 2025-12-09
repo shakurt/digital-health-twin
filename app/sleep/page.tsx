@@ -387,19 +387,19 @@ export default function Sleep() {
           </div>
 
           {/* Top Stats Bar */}
-          <div className="grid grid-cols-3 gap-3 px-4 md:px-6 pb-4">
+          <div className="grid grid-cols-3 gap-2 sm:gap-3 px-3 sm:px-4 md:px-6 pb-3 sm:pb-4">
             {/* Recovery Score */}
-            <div className="p-3 rounded-xl bg-linear-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-lg">💤</span>
-                <span className="text-xs text-blue-400 font-medium">
+            <div className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-linear-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20">
+              <div className="flex items-center gap-1 sm:gap-2 mb-1">
+                <span className="text-base sm:text-lg">💤</span>
+                <span className="text-[10px] sm:text-xs text-blue-400 font-medium">
                   Recovery
                 </span>
               </div>
-              <p className="text-lg font-bold text-white">
+              <p className="text-base sm:text-lg font-bold text-white">
                 {data.recoveryScore}
               </p>
-              <p className="text-xs text-gray-400">
+              <p className="text-[10px] sm:text-xs text-gray-400">
                 {data.recoveryScore >= 80
                   ? "Excellent"
                   : data.recoveryScore >= 65
@@ -409,60 +409,63 @@ export default function Sleep() {
             </div>
 
             {/* Last Night */}
-            <div className="p-3 rounded-xl bg-linear-to-br from-green-500/10 to-green-600/10 border border-green-500/20">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-lg">🌙</span>
-                <span className="text-xs text-green-400 font-medium">
+            <div className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-linear-to-br from-green-500/10 to-green-600/10 border border-green-500/20">
+              <div className="flex items-center gap-1 sm:gap-2 mb-1">
+                <span className="text-base sm:text-lg">🌙</span>
+                <span className="text-[10px] sm:text-xs text-green-400 font-medium">
                   Last Night
                 </span>
               </div>
-              <p className="text-lg font-bold text-white">
+              <p className="text-base sm:text-lg font-bold text-white">
                 {data.lastNight.hours}h
               </p>
-              <p className="text-xs text-gray-400">
+              <p className="text-[10px] sm:text-xs text-gray-400">
                 Quality {data.lastNight.quality}/5
               </p>
             </div>
 
             {/* Sleep Debt */}
-            <div className="p-3 rounded-xl bg-linear-to-br from-orange-500/10 to-orange-600/10 border border-orange-500/20">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-lg">⏰</span>
-                <span className="text-xs text-orange-400 font-medium">
+            <div className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-linear-to-br from-orange-500/10 to-orange-600/10 border border-orange-500/20">
+              <div className="flex items-center gap-1 sm:gap-2 mb-1">
+                <span className="text-base sm:text-lg">⏰</span>
+                <span className="text-[10px] sm:text-xs text-orange-400 font-medium">
                   Sleep Debt
                 </span>
               </div>
-              <p className="text-lg font-bold text-white">
+              <p className="text-base sm:text-lg font-bold text-white">
                 {data.sleepDebt.toFixed(1)}h
               </p>
-              <p className="text-xs text-gray-400">This week</p>
+              <p className="text-[10px] sm:text-xs text-gray-400">This week</p>
             </div>
           </div>
         </div>
 
         {/* Main Content */}
-        <div className="p-4 md:p-6">
-          <div className="max-w-7xl mx-auto space-y-6">
+        <div className="p-3 sm:p-4 md:p-6">
+          <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6">
             {/* Recovery Score Section */}
-            <div className="bg-dark-card border border-white/5 rounded-2xl p-6 hover:border-white/10 transition-all duration-300">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-bold text-white">
+            <div className="bg-dark-card border border-white/5 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 hover:border-white/10 transition-all duration-300">
+              <div className="flex items-center justify-between mb-4 sm:mb-6">
+                <h2 className="text-base sm:text-lg md:text-xl font-bold text-white">
                   Sleep Intelligence
                 </h2>
                 <button
                   onClick={() => setShowLogModal(true)}
-                  className="px-4 py-2 bg-linear-to-r from-primary/20 to-secondary/20 border border-primary/40 text-primary rounded-lg font-medium transition-all duration-300 hover:scale-105 flex items-center gap-2"
+                  className="px-3 py-1.5 sm:px-4 sm:py-2 bg-linear-to-r from-primary/20 to-secondary/20 border border-primary/40 text-primary rounded-lg font-medium transition-all duration-300 hover:scale-105 flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm md:text-base"
                 >
-                  <span className="text-lg">📝</span>
-                  Log Sleep
+                  <span className="text-base sm:text-lg">📝</span>
+                  <span className="hidden sm:inline">Log Sleep</span>
+                  <span className="sm:hidden">Log</span>
                 </button>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-                  <div className="flex items-center justify-between mb-4">
-                    <p className="text-sm text-gray-400">Recovery score</p>
-                    <span className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/30">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+                <div className="bg-white/5 border border-white/10 rounded-lg sm:rounded-xl p-3 sm:p-4">
+                  <div className="flex items-center justify-between mb-3 sm:mb-4">
+                    <p className="text-xs sm:text-sm text-gray-400">
+                      Recovery score
+                    </p>
+                    <span className="text-[10px] sm:text-xs px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-primary/10 text-primary border border-primary/30">
                       {data.recoveryScore >= 80
                         ? "High"
                         : data.recoveryScore >= 65
@@ -470,8 +473,8 @@ export default function Sleep() {
                         : "Low"}
                     </span>
                   </div>
-                  <div className="flex items-center gap-6">
-                    <div className="relative w-28 h-28">
+                  <div className="flex items-center gap-4 sm:gap-6">
+                    <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28">
                       <svg
                         className="transform -rotate-90"
                         viewBox="0 0 120 120"
@@ -512,13 +515,15 @@ export default function Sleep() {
                         </defs>
                       </svg>
                       <div className="absolute inset-0 flex flex-col items-center justify-center">
-                        <span className="text-3xl font-bold text-white">
+                        <span className="text-2xl sm:text-3xl font-bold text-white">
                           {data.recoveryScore}
                         </span>
-                        <span className="text-xs text-gray-400">/ 100</span>
+                        <span className="text-[10px] sm:text-xs text-gray-400">
+                          / 100
+                        </span>
                       </div>
                     </div>
-                    <div className="space-y-2 text-sm text-gray-300">
+                    <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-gray-300">
                       <p>Efficiency {metrics.efficiency}%</p>
                       <p>Consistency {metrics.consistency.toFixed(0)}%</p>
                       <p>Optimal nights {metrics.optimalNights}/7</p>
@@ -526,14 +531,16 @@ export default function Sleep() {
                   </div>
                 </div>
 
-                <div className="bg-white/5 border border-white/10 rounded-xl p-4 space-y-4">
+                <div className="bg-white/5 border border-white/10 rounded-lg sm:rounded-xl p-3 sm:p-4 space-y-3 sm:space-y-4">
                   <div className="flex items-center justify-between">
-                    <p className="text-sm text-gray-400">Sleep debt</p>
-                    <span className="text-xs px-3 py-1 rounded-full bg-red-500/10 text-red-300 border border-red-500/30">
+                    <p className="text-xs sm:text-sm text-gray-400">
+                      Sleep debt
+                    </p>
+                    <span className="text-[10px] sm:text-xs px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-red-500/10 text-red-300 border border-red-500/30">
                       {data.sleepDebt.toFixed(1)}h
                     </span>
                   </div>
-                  <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+                  <div className="w-full h-1.5 sm:h-2 bg-white/10 rounded-full overflow-hidden">
                     <div
                       className="h-full bg-red-500 transition-all duration-500"
                       style={{
@@ -541,55 +548,65 @@ export default function Sleep() {
                       }}
                     />
                   </div>
-                  <p className="text-sm text-gray-300">
+                  <p className="text-xs sm:text-sm text-gray-300">
                     Recover with one 30-minute nap today and a{" "}
                     {data.idealSleep + 1}h window tonight.
                   </p>
-                  <div className="flex items-center gap-3 text-xs text-gray-400">
-                    <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 text-[10px] sm:text-xs text-gray-400">
+                    <span className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-white/5 border border-white/10">
                       Bedtime target {data.bedtime.target}
                     </span>
-                    <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">
+                    <span className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-white/5 border border-white/10">
                       Wake target {data.wakeTime.target}
                     </span>
                   </div>
                 </div>
 
-                <div className="bg-white/5 border border-white/10 rounded-xl p-4 space-y-4">
+                <div className="bg-white/5 border border-white/10 rounded-lg sm:rounded-xl p-3 sm:p-4 space-y-3 sm:space-y-4">
                   <div className="flex items-center justify-between">
-                    <p className="text-sm text-gray-400">Routine adherence</p>
-                    <span className="text-xs px-3 py-1 rounded-full bg-accent/10 text-accent border border-accent/30">
+                    <p className="text-xs sm:text-sm text-gray-400">
+                      Routine adherence
+                    </p>
+                    <span className="text-[10px] sm:text-xs px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-accent/10 text-accent border border-accent/30">
                       {Math.round(
                         (data.bedtime.adherence + data.wakeTime.adherence) / 2
                       )}
                       %
                     </span>
                   </div>
-                  <div className="grid grid-cols-2 gap-3 text-sm text-gray-200">
-                    <div className="p-3 rounded-xl bg-white/5 border border-white/10">
-                      <p className="text-gray-400 text-xs">Bedtime</p>
-                      <p className="font-semibold">{data.bedtime.actual}</p>
-                      <p className="text-xs text-gray-400">
+                  <div className="grid grid-cols-2 gap-2 sm:gap-3 text-xs sm:text-sm text-gray-200">
+                    <div className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-white/5 border border-white/10">
+                      <p className="text-gray-400 text-[10px] sm:text-xs">
+                        Bedtime
+                      </p>
+                      <p className="font-semibold text-sm sm:text-base">
+                        {data.bedtime.actual}
+                      </p>
+                      <p className="text-[10px] sm:text-xs text-gray-400">
                         Target {data.bedtime.target}
                       </p>
-                      <p className="text-xs text-green-300 mt-1">
+                      <p className="text-[10px] sm:text-xs text-green-300 mt-1">
                         {data.bedtime.adherence}% on target
                       </p>
                     </div>
-                    <div className="p-3 rounded-xl bg-white/5 border border-white/10">
-                      <p className="text-gray-400 text-xs">Wake time</p>
-                      <p className="font-semibold">{data.wakeTime.actual}</p>
-                      <p className="text-xs text-gray-400">
+                    <div className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-white/5 border border-white/10">
+                      <p className="text-gray-400 text-[10px] sm:text-xs">
+                        Wake time
+                      </p>
+                      <p className="font-semibold text-sm sm:text-base">
+                        {data.wakeTime.actual}
+                      </p>
+                      <p className="text-[10px] sm:text-xs text-gray-400">
                         Target {data.wakeTime.target}
                       </p>
-                      <p className="text-xs text-green-300 mt-1">
+                      <p className="text-[10px] sm:text-xs text-green-300 mt-1">
                         {data.wakeTime.adherence}% on target
                       </p>
                     </div>
                   </div>
                   <button
                     onClick={() => setShowLogModal(true)}
-                    className="w-full px-4 py-3 rounded-xl bg-linear-to-r from-accent/10 to-accent/20 border border-accent/30 text-accent hover:bg-accent/20 transition-all duration-300 hover:scale-105"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl bg-linear-to-r from-accent/10 to-accent/20 border border-accent/30 text-accent hover:bg-accent/20 transition-all duration-300 hover:scale-105 text-xs sm:text-sm md:text-base"
                   >
                     Update routine
                   </button>
@@ -597,32 +614,29 @@ export default function Sleep() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-              <div className="xl:col-span-2 bg-dark-card border border-white/5 rounded-2xl p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-xl font-bold text-white">
+            <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6">
+              <div className="xl:col-span-2 bg-dark-card border border-white/5 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6">
+                <div className="flex items-center justify-between mb-3 sm:mb-4">
+                  <h2 className="text-base sm:text-lg md:text-xl font-bold text-white">
                     Weekly rhythm
                   </h2>
-                  <p className="text-xs text-gray-400">
+                  <p className="text-[10px] sm:text-xs text-gray-400">
                     Ideal {data.idealSleep}h
                   </p>
                 </div>
-                <div className="flex items-end gap-3 h-64">
-                  {data.week.map((day) => (
-                    <div
-                      key={day.label}
-                      className="flex-1 flex flex-col items-center gap-2"
-                    >
+                <div className="space-y-2">
+                  <div className="flex items-end gap-1.5 sm:gap-2 md:gap-3 h-40 sm:h-48 md:h-56">
+                    {data.week.map((day) => (
                       <div
-                        className="relative w-full bg-white/5 rounded-lg overflow-hidden"
-                        style={{ height: "210px" }}
+                        key={day.label}
+                        className="relative flex-1 h-full bg-white/5 rounded-t-lg overflow-hidden"
                       >
                         <div
                           className="absolute w-full border-t border-dashed border-green-400/60"
                           style={{ bottom: `${(data.idealSleep / 11) * 100}%` }}
                         />
                         <div
-                          className={`absolute bottom-0 w-full rounded-lg transition-all duration-500 ${
+                          className={`absolute bottom-0 w-full rounded-t-lg transition-all duration-500 ${
                             day.hours >= data.idealSleep
                               ? "bg-linear-to-t from-green-500 to-green-400"
                               : day.hours >= 6.5
@@ -632,31 +646,41 @@ export default function Sleep() {
                           style={{ height: `${(day.hours / 11) * 100}%` }}
                         />
                       </div>
-                      <p className="text-sm text-gray-400">{day.label}</p>
-                      <p className="text-xs text-white font-medium">
-                        {day.hours.toFixed(1)}h · {day.quality.toFixed(1)}/5
-                      </p>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
+                  <div className="flex gap-1.5 sm:gap-2 md:gap-3">
+                    {data.week.map((day) => (
+                      <div key={day.label} className="flex-1 text-center">
+                        <p className="text-[10px] sm:text-xs text-gray-400">
+                          {day.label}
+                        </p>
+                        <p className="text-[9px] sm:text-[10px] text-white font-medium">
+                          {day.hours.toFixed(1)}h
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3 text-xs text-gray-400">
-                  <span className="px-3 py-2 rounded-xl bg-white/5 border border-white/10">
+                <div className="mt-3 sm:mt-4 grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 text-[10px] sm:text-xs text-gray-400">
+                  <span className="px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-white/5 border border-white/10">
                     Avg {metrics.avgHours.toFixed(1)}h
                   </span>
-                  <span className="px-3 py-2 rounded-xl bg-white/5 border border-white/10">
+                  <span className="px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-white/5 border border-white/10">
                     Quality {metrics.avgQuality.toFixed(1)}/5
                   </span>
-                  <span className="px-3 py-2 rounded-xl bg-white/5 border border-white/10">
+                  <span className="px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-white/5 border border-white/10">
                     Poor nights {metrics.poorNights}/7
                   </span>
-                  <span className="px-3 py-2 rounded-xl bg-white/5 border border-white/10">
+                  <span className="px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-white/5 border border-white/10">
                     Optimal {metrics.optimalNights}/7
                   </span>
                 </div>
               </div>
 
-              <div className="bg-dark-card border border-white/5 rounded-2xl p-6 space-y-4">
-                <h2 className="text-xl font-bold text-white">Sleep stages</h2>
+              <div className="bg-dark-card border border-white/5 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 space-y-3 sm:space-y-4">
+                <h2 className="text-base sm:text-lg md:text-xl font-bold text-white">
+                  Sleep stages
+                </h2>
                 {(
                   [
                     { key: "rem", label: "REM", color: "bg-accent" },
@@ -667,12 +691,12 @@ export default function Sleep() {
                 ).map((stage) => {
                   const value = data.stages[stage.key];
                   return (
-                    <div key={stage.key} className="space-y-2">
-                      <div className="flex items-center justify-between text-sm text-gray-300">
+                    <div key={stage.key} className="space-y-1.5 sm:space-y-2">
+                      <div className="flex items-center justify-between text-xs sm:text-sm text-gray-300">
                         <span>{stage.label}</span>
                         <span>{value}%</span>
                       </div>
-                      <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+                      <div className="w-full h-1.5 sm:h-2 bg-white/10 rounded-full overflow-hidden">
                         <div
                           className={`h-full ${stage.color}`}
                           style={{ width: `${(value / stageTotal) * 100}%` }}
@@ -681,28 +705,28 @@ export default function Sleep() {
                     </div>
                   );
                 })}
-                <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-sm text-gray-300">
+                <div className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 text-xs sm:text-sm text-gray-300">
                   More deep sleep boosts growth hormone release. Keep room at
                   19-20C and limit heavy meals 3h before bed.
                 </div>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-              <div className="xl:col-span-2 bg-dark-card border border-white/5 rounded-2xl p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-xl font-bold text-white">
+            <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6">
+              <div className="xl:col-span-2 bg-dark-card border border-white/5 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6">
+                <div className="flex items-center justify-between mb-3 sm:mb-4">
+                  <h2 className="text-base sm:text-lg md:text-xl font-bold text-white">
                     Digital twin insights
                   </h2>
-                  <span className="text-xs px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">
+                  <span className="text-[10px] sm:text-xs px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">
                     Personalized actions
                   </span>
                 </div>
-                <div className="space-y-3">
+                <div className="space-y-2 sm:space-y-3">
                   {insights.map((insight, index) => (
                     <div
                       key={`${insight.title}-${index}`}
-                      className={`p-4 rounded-xl border animate-fade-in ${
+                      className={`p-3 sm:p-4 rounded-lg sm:rounded-xl border animate-fade-in ${
                         insight.type === "warning"
                           ? "bg-red-500/10 border-red-500/30"
                           : insight.type === "success"
@@ -711,13 +735,15 @@ export default function Sleep() {
                       }`}
                       style={{ animationDelay: `${index * 80}ms` }}
                     >
-                      <div className="flex items-start gap-3">
-                        <span className="text-2xl">{insight.icon}</span>
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-white">
+                      <div className="flex items-start gap-2 sm:gap-3">
+                        <span className="text-xl sm:text-2xl">
+                          {insight.icon}
+                        </span>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-white text-sm sm:text-base">
                             {insight.title}
                           </h3>
-                          <p className="text-gray-300 text-sm leading-relaxed">
+                          <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
                             {insight.message}
                           </p>
                         </div>
@@ -725,50 +751,58 @@ export default function Sleep() {
                     </div>
                   ))}
                   {insights.length === 0 && (
-                    <p className="text-gray-400 text-sm">
+                    <p className="text-gray-400 text-xs sm:text-sm">
                       Everything looks balanced. Keep the routine steady.
                     </p>
                   )}
                 </div>
               </div>
 
-              <div className="bg-dark-card border border-white/5 rounded-2xl p-6 space-y-4">
-                <h2 className="text-xl font-bold text-white">
+              <div className="bg-dark-card border border-white/5 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 space-y-3 sm:space-y-4">
+                <h2 className="text-base sm:text-lg md:text-xl font-bold text-white">
                   Tonight&apos;s playbook
                 </h2>
-                <ul className="space-y-3 text-sm text-gray-200">
-                  <li className="flex items-start gap-3">
-                    <span className="text-lg">🧘</span>
+                <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm text-gray-200">
+                  <li className="flex items-start gap-2 sm:gap-3">
+                    <span className="text-base sm:text-lg">🧘</span>
                     <div>
-                      <p className="font-medium">10-minute wind-down</p>
-                      <p className="text-gray-400">
+                      <p className="font-medium text-sm sm:text-base">
+                        10-minute wind-down
+                      </p>
+                      <p className="text-gray-400 text-xs sm:text-sm">
                         Box breathing + dim lights one hour before bed.
                       </p>
                     </div>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-lg">💧</span>
+                  <li className="flex items-start gap-2 sm:gap-3">
+                    <span className="text-base sm:text-lg">💧</span>
                     <div>
-                      <p className="font-medium">Caffeine cutoff hit?</p>
-                      <p className="text-gray-400">
+                      <p className="font-medium text-sm sm:text-base">
+                        Caffeine cutoff hit?
+                      </p>
+                      <p className="text-gray-400 text-xs sm:text-sm">
                         No caffeine after 2pm to improve sleep latency.
                       </p>
                     </div>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-lg">📵</span>
+                  <li className="flex items-start gap-2 sm:gap-3">
+                    <span className="text-base sm:text-lg">📵</span>
                     <div>
-                      <p className="font-medium">Blue light guard</p>
-                      <p className="text-gray-400">
+                      <p className="font-medium text-sm sm:text-base">
+                        Blue light guard
+                      </p>
+                      <p className="text-gray-400 text-xs sm:text-sm">
                         Screens off or blue-light filter 60 minutes pre-bed.
                       </p>
                     </div>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-lg">🥥</span>
+                  <li className="flex items-start gap-2 sm:gap-3">
+                    <span className="text-base sm:text-lg">🥥</span>
                     <div>
-                      <p className="font-medium">Light snack only</p>
-                      <p className="text-gray-400">
+                      <p className="font-medium text-sm sm:text-base">
+                        Light snack only
+                      </p>
+                      <p className="text-gray-400 text-xs sm:text-sm">
                         Avoid heavy meals 3h before bedtime.
                       </p>
                     </div>
@@ -776,7 +810,7 @@ export default function Sleep() {
                 </ul>
                 <button
                   onClick={() => setShowLogModal(true)}
-                  className="w-full px-4 py-3 rounded-xl border border-white/10 text-white hover:bg-white/10 transition-colors"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl border border-white/10 text-white hover:bg-white/10 transition-colors text-xs sm:text-sm md:text-base"
                 >
                   Log tonight&apos;s sleep
                 </button>
@@ -787,16 +821,18 @@ export default function Sleep() {
 
         {/* Sleep Log Modal */}
         {showLogModal && (
-          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <div className="bg-dark-card border border-white/10 rounded-2xl p-6 max-w-xl w-full animate-fade-in-up">
-              <h3 className="text-xl font-bold text-white mb-4">
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4">
+            <div className="bg-dark-card border border-white/10 rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 max-w-xl w-full animate-fade-in-up">
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">
                 Log last night&apos;s sleep
               </h3>
 
-              <div className="grid gap-4">
+              <div className="grid gap-3 sm:gap-4">
                 <div className="grid gap-2">
-                  <label className="text-gray-300 text-sm">Hours slept</label>
-                  <div className="flex items-center gap-4">
+                  <label className="text-gray-300 text-xs sm:text-sm">
+                    Hours slept
+                  </label>
+                  <div className="flex items-center gap-3 sm:gap-4">
                     <input
                       type="range"
                       min="4"
@@ -806,20 +842,22 @@ export default function Sleep() {
                       onChange={(e) => setLogHours(parseFloat(e.target.value))}
                       className="flex-1"
                     />
-                    <span className="text-2xl font-bold text-white w-16 text-right">
+                    <span className="text-xl sm:text-2xl font-bold text-white w-14 sm:w-16 text-right">
                       {logHours.toFixed(1)}h
                     </span>
                   </div>
                 </div>
 
                 <div className="grid gap-2">
-                  <label className="text-gray-300 text-sm">Sleep quality</label>
+                  <label className="text-gray-300 text-xs sm:text-sm">
+                    Sleep quality
+                  </label>
                   <div className="flex gap-2">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <button
                         key={star}
                         onClick={() => setLogQuality(star)}
-                        className={`text-3xl transition-all ${
+                        className={`text-2xl sm:text-3xl transition-all ${
                           star <= logQuality
                             ? "scale-110"
                             : "opacity-30 grayscale"
@@ -832,36 +870,36 @@ export default function Sleep() {
                 </div>
 
                 <div className="grid gap-2 md:grid-cols-2">
-                  <label className="text-gray-300 text-sm">
+                  <label className="text-gray-300 text-xs sm:text-sm">
                     Bedtime (actual)
                     <input
                       type="time"
                       value={logBedtime}
                       onChange={(e) => setLogBedtime(e.target.value)}
-                      className="mt-2 w-full rounded-xl bg-white/5 border border-white/10 px-3 py-2 text-white"
+                      className="mt-2 w-full rounded-lg sm:rounded-xl bg-white/5 border border-white/10 px-2 sm:px-3 py-2 text-white text-sm sm:text-base"
                     />
                   </label>
-                  <label className="text-gray-300 text-sm">
+                  <label className="text-gray-300 text-xs sm:text-sm">
                     Wake time (actual)
                     <input
                       type="time"
                       value={logWake}
                       onChange={(e) => setLogWake(e.target.value)}
-                      className="mt-2 w-full rounded-xl bg-white/5 border border-white/10 px-3 py-2 text-white"
+                      className="mt-2 w-full rounded-lg sm:rounded-xl bg-white/5 border border-white/10 px-2 sm:px-3 py-2 text-white text-sm sm:text-base"
                     />
                   </label>
                 </div>
 
-                <div className="flex gap-3 pt-2">
+                <div className="flex gap-2 sm:gap-3 pt-2">
                   <button
                     onClick={() => setShowLogModal(false)}
-                    className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white hover:bg-white/10 transition-all"
+                    className="flex-1 px-3 sm:px-4 py-2 sm:py-3 bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-white hover:bg-white/10 transition-all text-xs sm:text-sm md:text-base"
                   >
                     Cancel
                   </button>
                   <button
                     onClick={handleLogSleep}
-                    className="flex-1 px-4 py-3 bg-gradient-animated rounded-xl text-white font-semibold hover:scale-105 transition-transform"
+                    className="flex-1 px-3 sm:px-4 py-2 sm:py-3 bg-gradient-animated rounded-lg sm:rounded-xl text-white font-semibold hover:scale-105 transition-transform text-xs sm:text-sm md:text-base"
                   >
                     Save log
                   </button>
@@ -873,25 +911,25 @@ export default function Sleep() {
 
         {/* Reset Confirmation Modal */}
         {showResetConfirm && (
-          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <div className="bg-dark-card border border-white/10 rounded-2xl max-w-md w-full p-6">
-              <h3 className="text-xl font-bold text-white mb-4">
+          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4">
+            <div className="bg-dark-card border border-white/10 rounded-xl sm:rounded-2xl max-w-md w-full p-4 sm:p-5 md:p-6">
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">
                 Reset Sleep Data
               </h3>
-              <p className="text-gray-300 mb-6">
+              <p className="text-gray-300 mb-4 sm:mb-6 text-xs sm:text-sm md:text-base">
                 Are you sure you want to reset all sleep data? This will restore
                 default values and cannot be undone.
               </p>
-              <div className="flex gap-3">
+              <div className="flex gap-2 sm:gap-3">
                 <button
                   onClick={() => setShowResetConfirm(false)}
-                  className="flex-1 px-4 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-xl font-medium transition-all duration-300"
+                  className="flex-1 px-3 sm:px-4 py-2 sm:py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg sm:rounded-xl font-medium transition-all duration-300 text-xs sm:text-sm md:text-base"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleResetSleepData}
-                  className="flex-1 px-4 py-3 bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-400 rounded-xl font-medium transition-all duration-300"
+                  className="flex-1 px-3 sm:px-4 py-2 sm:py-3 bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-400 rounded-lg sm:rounded-xl font-medium transition-all duration-300 text-xs sm:text-sm md:text-base"
                 >
                   Reset Data
                 </button>
@@ -1027,35 +1065,37 @@ function SleepSettingsModal({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-dark-card border border-white/10 rounded-2xl max-w-3xl w-full max-h-[85vh] overflow-y-auto">
-        <div className="p-4 sm:p-6 border-b border-white/5 flex items-center justify-between sticky top-0 bg-dark-card z-10">
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4">
+      <div className="bg-dark-card border border-white/10 rounded-xl sm:rounded-2xl max-w-3xl w-full max-h-[85vh] overflow-y-auto">
+        <div className="p-3 sm:p-4 md:p-6 border-b border-white/5 flex items-center justify-between sticky top-0 bg-dark-card z-10">
           <div>
-            <h2 className="text-2xl font-bold text-white">Sleep Settings</h2>
-            <p className="text-sm text-gray-400 mt-1">
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white">
+              Sleep Settings
+            </h2>
+            <p className="text-xs sm:text-sm text-gray-400 mt-1">
               Customize your sleep tracking preferences and goals
             </p>
           </div>
           <button
             onClick={onClose}
-            className="w-10 h-10 rounded-lg bg-white/5 hover:bg-white/10 text-white transition-all duration-300"
+            className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-white/5 hover:bg-white/10 text-white transition-all duration-300 text-sm sm:text-base"
           >
             ✕
           </button>
         </div>
 
-        <div className="p-4 sm:p-6 space-y-6">
+        <div className="p-3 sm:p-4 md:p-6 space-y-4 sm:space-y-6">
           {questions.map((question) => (
             <div key={question.key}>
-              <label className="text-white font-medium mb-3 block">
+              <label className="text-white font-medium mb-2 sm:mb-3 block text-sm sm:text-base">
                 {question.label}
               </label>
-              <div className="grid gap-2">
+              <div className="grid gap-1.5 sm:gap-2">
                 {question.options.map((option) => (
                   <button
                     key={option.value}
                     onClick={() => handleAnswer(question.key, option.value)}
-                    className={`p-3 rounded-xl text-left transition-all duration-300 ${
+                    className={`p-2 sm:p-3 rounded-lg sm:rounded-xl text-left transition-all duration-300 text-xs sm:text-sm md:text-base ${
                       settings[question.key] === option.value
                         ? "bg-primary/20 border border-primary/40 text-primary"
                         : "bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10 hover:border-white/20"
@@ -1069,16 +1109,16 @@ function SleepSettingsModal({
           ))}
         </div>
 
-        <div className="p-4 sm:p-6 border-t border-white/5 flex gap-3 sticky bottom-0 bg-dark-card">
+        <div className="p-3 sm:p-4 md:p-6 border-t border-white/5 flex gap-2 sm:gap-3 sticky bottom-0 bg-dark-card">
           <button
             onClick={onClose}
-            className="flex-1 px-4 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-xl font-medium transition-all duration-300"
+            className="flex-1 px-3 sm:px-4 py-2 sm:py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg sm:rounded-xl font-medium transition-all duration-300 text-xs sm:text-sm md:text-base"
           >
             Cancel
           </button>
           <button
             onClick={handleSave}
-            className="flex-1 px-4 py-3 bg-linear-to-r from-primary to-secondary text-white rounded-xl font-medium transition-all duration-300 hover:scale-105"
+            className="flex-1 px-3 sm:px-4 py-2 sm:py-3 bg-linear-to-r from-primary to-secondary text-white rounded-lg sm:rounded-xl font-medium transition-all duration-300 hover:scale-105 text-xs sm:text-sm md:text-base"
           >
             Save Settings
           </button>
