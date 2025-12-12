@@ -81,10 +81,11 @@ export default function Nutrition() {
   const [showChallengeModal, setShowChallengeModal] = useState(false);
   const [showOnboardingModal, setShowOnboardingModal] = useState(false);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const [showChatModal, setShowChatModal] = useState(false);
 
   // Prevent body scroll when modal is open
   useEffect(() => {
-    if (showOnboardingModal || showResetConfirm || showHabitModal) {
+    if (showOnboardingModal || showResetConfirm || showHabitModal || showChatModal) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
@@ -1103,6 +1104,14 @@ export default function Nutrition() {
         </div>
       </div>
 
+      {/* AI Chat Button */}
+      <button
+        onClick={() => setShowChatModal(true)}
+        className="fixed bottom-6 right-6 z-40 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-r from-primary to-secondary rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 flex items-center justify-center group"
+      >
+        <span className="text-xl sm:text-2xl group-hover:scale-110 transition-transform duration-300">🤖</span>
+      </button>
+
       {/* Habit Modal */}
       {showHabitModal && (
         <HabitModal
@@ -1153,6 +1162,12 @@ export default function Nutrition() {
           onSave={handleUpdateOnboardingAnswers}
         />
       )}
+
+      {/* AI Chat Modal */}
+      {showChatModal && (
+        <ChatModal onClose={() => setShowChatModal(false)} />
+      )}
+
     </AppLayout>
   );
 }
@@ -1670,6 +1685,162 @@ function OnboardingSettingsModal({
           >
             Save Changes
           </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ============= CHAT MODAL COMPONENT =============
+
+function ChatModal({ onClose }: { onClose: () => void }) {
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    // Prevent scrolling on mobile when modal is open
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.width = "100%";
+    document.body.style.top = `-${window.scrollY}px`;
+    document.body.style.touchAction = "none";
+    document.body.style.overscrollBehavior = "none";
+
+    return () => {
+      // Restore scrolling when modal is closed
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+      document.body.style.top = "";
+      document.body.style.touchAction = "";
+      document.body.style.overscrollBehavior = "";
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+      }
+    };
+  }, []);
+
+  return (
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-dark-card border border-white/10 rounded-2xl w-full max-w-md h-[80vh] flex flex-col">
+        {/* Header */}
+        <div className="flex items-center justify-between p-4 border-b border-white/10">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center">
+              <span className="text-sm">🤖</span>
+            </div>
+            <div>
+              <h3 className="font-semibold text-white">Nutrition AI Assistant</h3>
+              <p className="text-xs text-gray-400">Ask me anything about nutrition!</p>
+            </div>
+          </div>
+          <button
+            onClick={onClose}
+            className="w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center transition-colors"
+          >
+            <span className="text-lg">×</span>
+          </button>
+        </div>
+
+        {/* Messages */}
+        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          {/* AI Welcome Message */}
+          <div className="flex gap-3">
+            <div className="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-xs">🤖</span>
+            </div>
+            <div className="bg-dark-bg rounded-2xl rounded-tl-md p-3 max-w-[80%]">
+              <p className="text-sm text-gray-200">
+                Hi! I'm your nutrition AI assistant. I can help you with:
+              </p>
+              <ul className="text-xs text-gray-400 mt-2 space-y-1">
+                <li>• Meal planning and recipes</li>
+                <li>• Understanding nutrition labels</li>
+                <li>• Healthy eating tips</li>
+                <li>• Questions about your habits</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Sample User Message */}
+          <div className="flex gap-3 justify-end">
+            <div className="bg-primary rounded-2xl rounded-tr-md p-3 max-w-[80%]">
+              <p className="text-sm text-white">
+                How can I reduce my sugar intake?
+              </p>
+            </div>
+            <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-xs">👤</span>
+            </div>
+          </div>
+
+          {/* AI Response */}
+          <div className="flex gap-3">
+            <div className="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-xs">🤖</span>
+            </div>
+            <div className="bg-dark-bg rounded-2xl rounded-tl-md p-3 max-w-[80%]">
+              <p className="text-sm text-gray-200">
+                Great question! Here are some practical tips to reduce sugar intake:
+              </p>
+              <ul className="text-xs text-gray-400 mt-2 space-y-1">
+                <li>• Read labels and avoid added sugars</li>
+                <li>• Choose whole fruits over fruit juices</li>
+                <li>• Opt for unsweetened beverages</li>
+                <li>• Gradually reduce sugar in recipes</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Another Sample */}
+          <div className="flex gap-3 justify-end">
+            <div className="bg-primary rounded-2xl rounded-tr-md p-3 max-w-[80%]">
+              <p className="text-sm text-white">
+                What's a good protein source for vegetarians?
+              </p>
+            </div>
+            <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-xs">👤</span>
+            </div>
+          </div>
+
+          <div className="flex gap-3">
+            <div className="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-xs">🤖</span>
+            </div>
+            <div className="bg-dark-bg rounded-2xl rounded-tl-md p-3 max-w-[80%]">
+              <p className="text-sm text-gray-200">
+                Excellent vegetarian protein sources include:
+              </p>
+              <ul className="text-xs text-gray-400 mt-2 space-y-1">
+                <li>• Lentils and beans (15-20g protein per cup)</li>
+                <li>• Tofu and tempeh (20g+ per serving)</li>
+                <li>• Greek yogurt and cottage cheese</li>
+                <li>• Nuts and seeds (almonds, chia, hemp)</li>
+                <li>• Quinoa and whole grains</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Input */}
+        <div className="p-4 border-t border-white/10">
+          <div className="flex gap-2">
+            <input
+              type="text"
+              placeholder="Ask me about nutrition..."
+              className="flex-1 bg-dark-bg border border-white/10 rounded-xl px-3 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-primary"
+              disabled
+            />
+            <button
+              className="px-4 py-2 bg-primary rounded-xl text-white text-sm font-medium hover:bg-primary/80 transition-colors"
+              disabled
+            >
+              Send
+            </button>
+          </div>
+          <p className="text-xs text-gray-500 mt-2 text-center">
+            This is a prototype - chat functionality coming soon!
+          </p>
         </div>
       </div>
     </div>
