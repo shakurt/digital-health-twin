@@ -62,7 +62,6 @@ Complete in-app documentation available for:
 - **Language**: TypeScript for type safety
 - **Styling**: Tailwind CSS with custom animations and responsive design
 - **State Management**: React hooks with localStorage/sessionStorage
-- **Deployment**: Optimized for Vercel platform
 
 ## 🚀 Getting Started
 
@@ -93,9 +92,6 @@ Complete in-app documentation available for:
 - **✨ Vibe Coding**: Built with creativity, innovation, and modern development practices
 - **📝 Well-Documented**: Extensive documentation for all features and implementations
 
-## 👨‍💻 Developer
-
-**ThePrimeShak** - [GitHub Profile](https://github.com/shakurt)
 
 ## 📄 License
 
