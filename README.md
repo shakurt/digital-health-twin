@@ -62,6 +62,7 @@ Complete in-app documentation available for:
 - **Language**: TypeScript for type safety
 - **Styling**: Tailwind CSS with custom animations and responsive design
 - **State Management**: React hooks with localStorage/sessionStorage
+- **Responsive**: Fully Responsive Web-Application
 
 ## 🚀 Getting Started
 
