@@ -38,6 +38,18 @@ export default function Profile() {
     string | null
   >(null);
 
+  const [notificationSettings, setNotificationSettings] = useState(() => {
+    const saved = localStorage.getItem('notificationSettings');
+    return saved ? JSON.parse(saved) : {
+      healthAlerts: true,
+      dailyReminders: true,
+      weeklyReports: false,
+      achievements: true,
+      emailNotifications: false,
+      pushNotifications: true,
+    };
+  });
+
   // Form state for editing
   const [formData, setFormData] = useState({
     sex: "",
@@ -733,6 +745,138 @@ export default function Profile() {
               </div>
             </div>
           </div>
+
+          {/* Notifications Section */}
+          <div className="mt-6">
+            <div className="p-6 rounded-2xl bg-dark-card/50 backdrop-blur-lg border border-white/5">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 rounded-xl bg-yellow-500/20 flex items-center justify-center">
+                  <span className="text-3xl">🔔</span>
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-white">Notifications</h2>
+                  <p className="text-sm text-gray-400">Manage your notification preferences</p>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/5">
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-white">Health Alerts</h3>
+                    <p className="text-sm text-gray-400">Get notified about important health changes</p>
+                  </div>
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={notificationSettings.healthAlerts}
+                      onChange={(e) => {
+                        const newSettings = {...notificationSettings, healthAlerts: e.target.checked};
+                        setNotificationSettings(newSettings);
+                        localStorage.setItem('notificationSettings', JSON.stringify(newSettings));
+                      }}
+                      className="sr-only peer"
+                    />
+                    <div className="w-11 h-6 bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/25 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                  </label>
+                </div>
+                <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/5">
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-white">Daily Reminders</h3>
+                    <p className="text-sm text-gray-400">Daily check-ins and habit reminders</p>
+                  </div>
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={notificationSettings.dailyReminders}
+                      onChange={(e) => {
+                        const newSettings = {...notificationSettings, dailyReminders: e.target.checked};
+                        setNotificationSettings(newSettings);
+                        localStorage.setItem('notificationSettings', JSON.stringify(newSettings));
+                      }}
+                      className="sr-only peer"
+                    />
+                    <div className="w-11 h-6 bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/25 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                  </label>
+                </div>
+                <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/5">
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-white">Weekly Reports</h3>
+                    <p className="text-sm text-gray-400">Weekly health summaries and insights</p>
+                  </div>
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={notificationSettings.weeklyReports}
+                      onChange={(e) => {
+                        const newSettings = {...notificationSettings, weeklyReports: e.target.checked};
+                        setNotificationSettings(newSettings);
+                        localStorage.setItem('notificationSettings', JSON.stringify(newSettings));
+                      }}
+                      className="sr-only peer"
+                    />
+                    <div className="w-11 h-6 bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/25 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                  </label>
+                </div>
+                <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/5">
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-white">Achievements</h3>
+                    <p className="text-sm text-gray-400">Celebrate your health milestones</p>
+                  </div>
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={notificationSettings.achievements}
+                      onChange={(e) => {
+                        const newSettings = {...notificationSettings, achievements: e.target.checked};
+                        setNotificationSettings(newSettings);
+                        localStorage.setItem('notificationSettings', JSON.stringify(newSettings));
+                      }}
+                      className="sr-only peer"
+                    />
+                    <div className="w-11 h-6 bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/25 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                  </label>
+                </div>
+                <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/5">
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-white">Email Notifications</h3>
+                    <p className="text-sm text-gray-400">Receive notifications via email</p>
+                  </div>
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={notificationSettings.emailNotifications}
+                      onChange={(e) => {
+                        const newSettings = {...notificationSettings, emailNotifications: e.target.checked};
+                        setNotificationSettings(newSettings);
+                        localStorage.setItem('notificationSettings', JSON.stringify(newSettings));
+                      }}
+                      className="sr-only peer"
+                    />
+                    <div className="w-11 h-6 bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/25 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                  </label>
+                </div>
+                <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/5">
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-white">Push Notifications</h3>
+                    <p className="text-sm text-gray-400">Receive push notifications on your device</p>
+                  </div>
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={notificationSettings.pushNotifications}
+                      onChange={(e) => {
+                        const newSettings = {...notificationSettings, pushNotifications: e.target.checked};
+                        setNotificationSettings(newSettings);
+                        localStorage.setItem('notificationSettings', JSON.stringify(newSettings));
+                      }}
+                      className="sr-only peer"
+                    />
+                    <div className="w-11 h-6 bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/25 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
 
         {/* Edit Profile Modal */}
