@@ -214,21 +214,21 @@ export default function VerifyOTP() {
             <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/20 rounded-full mb-4 animate-pulse-slow">
               <span className="text-3xl">📧</span>
             </div>
-            <h1 className="text-4xl font-bold mb-2">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">
               <span className="gradient-text-animated">Verify Email</span>
             </h1>
-            <p className="text-gray-400">We&apos;ve sent a 6-digit code to</p>
-            <p className="text-white font-medium mt-1">{authData.email}</p>
+            <p className="text-sm sm:text-base text-gray-400">We&apos;ve sent a 6-digit code to</p>
+            <p className="text-sm sm:text-base text-white font-medium mt-1">{authData.email}</p>
           </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* OTP Input */}
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-gray-300 text-center">
+              <label className="block text-[10px] sm:text-xs font-medium text-gray-300 text-center">
                 Enter Verification Code
               </label>
-              <div className="flex gap-2 justify-center" onPaste={handlePaste}>
+              <div className="flex gap-1 sm:gap-2 justify-center" onPaste={handlePaste}>
                 {otp.map((digit, index) => (
                   <input
                     key={index}
@@ -241,14 +241,14 @@ export default function VerifyOTP() {
                     value={digit}
                     onChange={(e) => handleChange(index, e.target.value)}
                     onKeyDown={(e) => handleKeyDown(index, e)}
-                    className={`w-12 h-14 text-center text-2xl font-bold bg-dark-bg border ${
+                    className={`w-10 h-12 sm:w-12 sm:h-14 text-center text-lg sm:text-xl md:text-2xl font-bold bg-dark-bg border ${
                       error ? "border-red-500" : "border-dark-border"
                     } rounded-xl text-white focus:outline-none focus:border-primary transition-all duration-300 hover:border-primary/50`}
                   />
                 ))}
               </div>
               {error && (
-                <p className="text-red-500 text-sm text-center animate-fade-in">
+                <p className="text-red-500 text-[10px] sm:text-xs text-center animate-fade-in">
                   {error}
                 </p>
               )}
@@ -260,7 +260,7 @@ export default function VerifyOTP() {
                 type="button"
                 onClick={handleResend}
                 disabled={resendCooldown > 0}
-                className="text-sm text-gray-400 hover:text-primary transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="text-[10px] sm:text-xs text-gray-400 hover:text-primary transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {resendCooldown > 0
                   ? `Resend code in ${resendCooldown}s`
@@ -272,7 +272,7 @@ export default function VerifyOTP() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full px-6 py-4 bg-gradient-animated rounded-xl text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover-glow disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 relative overflow-hidden group"
+              className="w-full px-6 py-4 bg-gradient-animated rounded-xl text-white font-semibold text-sm sm:text-base md:text-lg transition-all duration-300 hover:scale-105 hover-glow disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 relative overflow-hidden group"
             >
               <span className="relative z-10 flex items-center justify-center gap-2">
                 {isLoading ? (
@@ -294,14 +294,14 @@ export default function VerifyOTP() {
 
           {/* Security Note */}
           <div className="mt-6 p-4 bg-dark-bg/50 border border-dark-border rounded-xl">
-            <p className="text-xs text-gray-500 text-center">
+            <p className="text-[9px] sm:text-[10px] text-gray-500 text-center">
               🔒 For security, this code will expire in 10 minutes
             </p>
           </div>
         </div>
 
         {/* Footer Note */}
-        <p className="text-center text-gray-500 text-sm mt-6">
+        <p className="text-center text-gray-500 text-[10px] sm:text-xs mt-6">
           Having trouble? Make sure to check your spam folder
         </p>
       </div>

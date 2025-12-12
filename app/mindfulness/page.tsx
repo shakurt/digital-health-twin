@@ -475,9 +475,9 @@ export default function Mindfulness() {
     <AppLayout>
       {/* Success Toast */}
       {showSuccess && (
-        <div className="fixed top-24 right-6 z-50 bg-green-500/90 backdrop-blur-lg text-white px-6 py-4 rounded-2xl shadow-lg animate-fade-in flex items-center gap-3">
+        <div className="fixed top-24 right-6 z-50 bg-green-500/90 backdrop-blur-lg text-white px-4 sm:px-6 py-2 sm:py-4 rounded-2xl shadow-lg animate-fade-in flex items-center gap-2 sm:gap-3">
           <span className="text-2xl">✅</span>
-          <span className="font-medium">Updated successfully!</span>
+          <span className="text-sm sm:text-base font-medium">Updated successfully!</span>
         </div>
       )}
 
@@ -486,24 +486,24 @@ export default function Mindfulness() {
         <div className="sticky top-0 z-30 bg-dark/95 backdrop-blur-xl border-b border-white/5">
           <div className="flex items-center justify-between p-4 md:p-6">
             <div>
-              <h1 className="text-2xl md:text-4xl font-bold gradient-text-animated">
+              <h1 className="text-xl sm:text-2xl md:text-4xl font-bold gradient-text-animated">
                 Mindfulness Dashboard
               </h1>
-              <p className="text-sm text-gray-400 mt-1">
+              <p className="text-xs sm:text-sm text-gray-400 mt-1">
                 Your mental pattern map and digital twin companion
               </p>
             </div>
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setShowSettings(true)}
-                className="px-4 py-2 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-xl font-medium transition-all duration-300 hover:scale-105 flex items-center gap-2"
+                className="px-3 sm:px-4 py-2 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-xl font-medium transition-all duration-300 hover:scale-105 flex items-center gap-2"
               >
                 <span>⚙️</span>
                 <span className="hidden sm:inline">Settings</span>
               </button>
               <button
                 onClick={() => setShowResetConfirm(true)}
-                className="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-400 rounded-xl font-medium transition-all duration-300 hover:scale-105 flex items-center gap-2"
+                className="px-3 sm:px-4 py-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-400 rounded-xl font-medium transition-all duration-300 hover:scale-105 flex items-center gap-2"
               >
                 <span>🔄</span>
                 <span className="hidden sm:inline">Reset</span>
@@ -516,51 +516,51 @@ export default function Mindfulness() {
             {/* Weekly Average Stress */}
             <div className="p-3 rounded-xl bg-linear-to-br from-red-500/10 to-red-600/10 border border-red-500/20">
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-xl">😰</span>
-                <span className="text-xs text-gray-400">Avg Stress</span>
+                <span className="text-lg sm:text-xl">😰</span>
+                <span className="text-[10px] sm:text-xs text-gray-400">Avg Stress</span>
               </div>
-              <p className="text-lg font-bold text-white">
+              <p className="text-base sm:text-lg font-bold text-white">
                 {(
                   mentalPatternsData.reduce((a, b) => a + b.stressLevel, 0) /
                   mentalPatternsData.length
                 ).toFixed(1)}
                 /10
               </p>
-              <p className="text-xs text-gray-400">This week</p>
+              <p className="text-[10px] sm:text-xs text-gray-400">This week</p>
             </div>
 
             {/* Weekly Average Energy */}
             <div className="p-3 rounded-xl bg-linear-to-br from-amber-500/10 to-amber-600/10 border border-amber-500/20">
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-xl">⚡</span>
-                <span className="text-xs text-gray-400">Avg Energy</span>
+                <span className="text-lg sm:text-xl">⚡</span>
+                <span className="text-[10px] sm:text-xs text-gray-400">Avg Energy</span>
               </div>
-              <p className="text-lg font-bold text-white">
+              <p className="text-base sm:text-lg font-bold text-white">
                 {(
                   mentalPatternsData.reduce((a, b) => a + b.energyLevel, 0) /
                   mentalPatternsData.length
                 ).toFixed(1)}
                 /10
               </p>
-              <p className="text-xs text-gray-400">This week</p>
+              <p className="text-[10px] sm:text-xs text-gray-400">This week</p>
             </div>
 
             {/* Best Day */}
             <div className="p-3 rounded-xl bg-linear-to-br from-emerald-500/10 to-emerald-600/10 border border-emerald-500/20">
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-xl">🌟</span>
-                <span className="text-xs text-gray-400">Best Day</span>
+                <span className="text-lg sm:text-xl">🌟</span>
+                <span className="text-[10px] sm:text-xs text-gray-400">Best Day</span>
               </div>
-              <p className="text-lg font-bold text-white">Saturday</p>
-              <p className="text-xs text-gray-400">Energized & Calm</p>
+              <p className="text-base sm:text-lg font-bold text-white">Saturday</p>
+              <p className="text-[10px] sm:text-xs text-gray-400">Energized & Calm</p>
             </div>
           </div>
 
           {/* Tab Navigation */}
-          <div className="flex gap-2 px-4 md:px-6 pb-4 overflow-x-auto">
+          <div className="flex gap-2 px-4 sm:px-6 pb-4 overflow-x-auto">
             <button
               onClick={() => setActiveTab("mirror")}
-              className={`flex-1 md:flex-none px-6 py-2.5 rounded-xl font-medium transition-all duration-300 whitespace-nowrap ${
+              className={`flex-1 md:flex-none px-3 sm:px-6 py-2 sm:py-2.5 rounded-xl font-medium transition-all duration-300 whitespace-nowrap text-xs sm:text-sm ${
                 activeTab === "mirror"
                   ? "bg-linear-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
                   : "bg-white/5 border border-transparent text-gray-400 hover:text-white hover:bg-white/10"
@@ -570,7 +570,7 @@ export default function Mindfulness() {
             </button>
             <button
               onClick={() => setActiveTab("patterns")}
-              className={`flex-1 md:flex-none px-6 py-2.5 rounded-xl font-medium transition-all duration-300 whitespace-nowrap ${
+              className={`flex-1 md:flex-none px-3 sm:px-6 py-2 sm:py-2.5 rounded-xl font-medium transition-all duration-300 whitespace-nowrap text-xs sm:text-sm ${
                 activeTab === "patterns"
                   ? "bg-linear-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
                   : "bg-white/5 border border-transparent text-gray-400 hover:text-white hover:bg-white/10"
@@ -580,7 +580,7 @@ export default function Mindfulness() {
             </button>
             <button
               onClick={() => setActiveTab("twin")}
-              className={`flex-1 md:flex-none px-6 py-2.5 rounded-xl font-medium transition-all duration-300 whitespace-nowrap ${
+              className={`flex-1 md:flex-none px-3 sm:px-6 py-2 sm:py-2.5 rounded-xl font-medium transition-all duration-300 whitespace-nowrap text-xs sm:text-sm ${
                 activeTab === "twin"
                   ? "bg-linear-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
                   : "bg-white/5 border border-transparent text-gray-400 hover:text-white hover:bg-white/10"
@@ -590,7 +590,7 @@ export default function Mindfulness() {
             </button>
             <button
               onClick={() => setActiveTab("exercises")}
-              className={`flex-1 md:flex-none px-6 py-2.5 rounded-xl font-medium transition-all duration-300 whitespace-nowrap ${
+              className={`flex-1 md:flex-none px-3 sm:px-6 py-2 sm:py-2.5 rounded-xl font-medium transition-all duration-300 whitespace-nowrap text-xs sm:text-sm ${
                 activeTab === "exercises"
                   ? "bg-linear-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
                   : "bg-white/5 border border-transparent text-gray-400 hover:text-white hover:bg-white/10"
@@ -613,32 +613,34 @@ export default function Mindfulness() {
                     🪞
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-white">
+                    <h2 className="text-xl sm:text-2xl font-bold text-white">
                       Mind Mirror
                     </h2>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-xs sm:text-sm text-gray-400">
                       See your mental state across the week
                     </p>
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-7 gap-2">
+                <div className="grid grid-cols-3 md:grid-cols-7 gap-2">
                   {mentalPatternsData.map((pattern, idx) => (
                     <div
                       key={idx}
-                      className={`p-3 rounded-xl border bg-linear-to-br ${getMoodColor(
+                      className={`p-2 sm:p-3 rounded-xl border bg-linear-to-br ${getMoodColor(
                         pattern.mood
-                      )} hover:scale-105 transition-all duration-300`}
+                      )} hover:scale-105 transition-all duration-300 ${
+                        idx === 6 ? 'col-span-3 md:col-span-1' : ''
+                      }`}
                     >
                       <div className="text-center">
-                        <p className="text-2xl mb-1">
+                        <p className="text-lg sm:text-xl md:text-2xl mb-1">
                           {getMoodEmoji(pattern.mood)}
                         </p>
-                        <p className="text-xs font-bold text-white mb-1">
+                        <p className="text-[10px] sm:text-xs font-bold text-white mb-1">
                           {pattern.day.slice(0, 3)}
                         </p>
                         <div className="flex justify-center gap-1">
-                          <span className="text-xs px-2 py-0.5 rounded bg-white/10 text-white">
+                          <span className="text-[10px] sm:text-xs px-2 py-0.5 rounded bg-white/10 text-white">
                             {pattern.stressLevel}
                           </span>
                         </div>
@@ -648,7 +650,7 @@ export default function Mindfulness() {
                 </div>
 
                 <div className="mt-6 p-4 rounded-xl bg-white/5 border border-white/10">
-                  <p className="text-sm text-gray-300">
+                  <p className="text-xs sm:text-sm text-gray-300">
                     <span className="font-semibold">How to read:</span> Each day
                     shows your mood, stress level (number), and emotional state.
                     Click any day to see detailed insights and suggested
@@ -664,10 +666,10 @@ export default function Mindfulness() {
                     💡
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-white">
+                    <h2 className="text-xl sm:text-2xl font-bold text-white">
                       Your Mental Insights
                     </h2>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-xs sm:text-sm text-gray-400">
                       Patterns detected from your data this week
                     </p>
                   </div>
@@ -684,14 +686,14 @@ export default function Mindfulness() {
                           {insight.icon}
                         </span>
                         <div className="flex-1">
-                          <h3 className="font-semibold text-white mb-1">
+                          <h3 className="text-sm sm:font-semibold text-white mb-1">
                             {insight.title}
                           </h3>
-                          <p className="text-sm text-gray-400 mb-2">
+                          <p className="text-xs sm:text-sm text-gray-400 mb-2">
                             {insight.message}
                           </p>
                           {insight.actionable && (
-                            <button className="text-xs px-3 py-1 rounded-lg bg-primary/20 text-primary border border-primary/40 hover:bg-primary/30 transition">
+                            <button className="text-[10px] sm:text-xs px-3 py-1 rounded-lg bg-primary/20 text-primary border border-primary/40 hover:bg-primary/30 transition">
                               Explore This Pattern
                             </button>
                           )}
@@ -714,10 +716,10 @@ export default function Mindfulness() {
                     🗺️
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-white">
+                    <h2 className="text-xl sm:text-2xl font-bold text-white">
                       Mental Pattern Map
                     </h2>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-xs sm:text-sm text-gray-400">
                       Your stress, energy, and activity correlation
                     </p>
                   </div>
@@ -733,13 +735,13 @@ export default function Mindfulness() {
                       <div className="flex items-start justify-between gap-4">
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-3">
-                            <h3 className="font-bold text-white text-lg">
+                            <h3 className="text-base sm:text-lg font-bold text-white">
                               {pattern.day}
                             </h3>
-                            <span className="text-2xl">
+                            <span className="text-xl sm:text-2xl">
                               {getMoodEmoji(pattern.mood)}
                             </span>
-                            <span className="text-xs px-2 py-1 rounded-full bg-white/10 text-white font-medium capitalize">
+                            <span className="text-[10px] sm:text-xs px-2 py-1 rounded-full bg-white/10 text-white font-medium capitalize">
                               {pattern.mood.replace("-", " ")}
                             </span>
                           </div>
@@ -747,35 +749,35 @@ export default function Mindfulness() {
                           {/* Pattern details */}
                           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3">
                             <div className="p-2 rounded-lg bg-red-500/20 border border-red-500/30">
-                              <p className="text-xs text-gray-400">
+                              <p className="text-[10px] sm:text-xs text-gray-400">
                                 Stress Level
                               </p>
-                              <p className="text-lg font-bold text-red-200">
+                              <p className="text-base sm:text-lg font-bold text-red-200">
                                 {pattern.stressLevel}
                               </p>
                             </div>
                             <div className="p-2 rounded-lg bg-amber-500/20 border border-amber-500/30">
-                              <p className="text-xs text-gray-400">Energy</p>
-                              <p className="text-lg font-bold text-amber-200">
+                              <p className="text-[10px] sm:text-xs text-gray-400">Energy</p>
+                              <p className="text-base sm:text-lg font-bold text-amber-200">
                                 {pattern.energyLevel}
                               </p>
                             </div>
                             <div className="p-2 rounded-lg bg-blue-500/20 border border-blue-500/30">
-                              <p className="text-xs text-gray-400">Sleep</p>
-                              <p className="text-lg font-bold text-blue-200">
+                              <p className="text-[10px] sm:text-xs text-gray-400">Sleep</p>
+                              <p className="text-base sm:text-lg font-bold text-blue-200">
                                 {pattern.sleepHours}h
                               </p>
                             </div>
                             <div className="p-2 rounded-lg bg-emerald-500/20 border border-emerald-500/30">
-                              <p className="text-xs text-gray-400">Activity</p>
-                              <p className="text-lg font-bold text-emerald-200">
+                              <p className="text-[10px] sm:text-xs text-gray-400">Activity</p>
+                              <p className="text-base sm:text-lg font-bold text-emerald-200">
                                 {pattern.activityMinutes}m
                               </p>
                             </div>
                           </div>
 
                           {/* Notes */}
-                          <p className="text-sm text-gray-300 mb-2">
+                          <p className="text-xs sm:text-sm text-gray-300 mb-2">
                             <span className="font-semibold">Notes:</span>{" "}
                             {pattern.notes}
                           </p>
@@ -786,7 +788,7 @@ export default function Mindfulness() {
                               {pattern.triggers.map((trigger, tidx) => (
                                 <span
                                   key={tidx}
-                                  className="text-xs px-2 py-1 rounded-full bg-red-500/20 text-red-200 border border-red-500/30"
+                                  className="text-[10px] sm:text-xs px-2 py-1 rounded-full bg-red-500/20 text-red-200 border border-red-500/30"
                                 >
                                   🚩 {trigger}
                                 </span>
@@ -801,10 +803,10 @@ export default function Mindfulness() {
 
                 {/* Pattern Summary */}
                 <div className="mt-6 p-4 rounded-xl bg-primary/10 border border-primary/30">
-                  <h3 className="font-semibold text-white mb-3">
+                  <h3 className="text-sm sm:font-semibold text-white mb-3">
                     📊 Pattern Summary
                   </h3>
-                  <div className="space-y-2 text-sm text-gray-300">
+                  <div className="space-y-2 text-xs sm:text-sm text-gray-300">
                     <p>
                       • <span className="font-semibold">Busiest Day:</span>{" "}
                       Tuesday - high stress, low activity. Consider a 5-min
@@ -831,7 +833,7 @@ export default function Mindfulness() {
 
               {/* All Insights */}
               <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
-                <h2 className="text-2xl font-bold text-white mb-6">
+                <h2 className="text-xl sm:text-2xl font-bold text-white mb-6">
                   All Detected Patterns
                 </h2>
                 <div className="space-y-3">
@@ -847,14 +849,14 @@ export default function Mindfulness() {
                       }`}
                     >
                       <div className="flex items-start gap-3">
-                        <span className="text-2xl shrink-0">
+                        <span className="text-xl sm:text-2xl shrink-0">
                           {insight.icon}
                         </span>
                         <div className="flex-1">
-                          <h3 className="font-semibold text-white mb-1">
+                          <h3 className="text-sm sm:font-semibold text-white mb-1">
                             {insight.title}
                           </h3>
-                          <p className="text-sm text-gray-300">
+                          <p className="text-xs sm:text-sm text-gray-300">
                             {insight.message}
                           </p>
                         </div>
@@ -876,17 +878,17 @@ export default function Mindfulness() {
                     🤖
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-white">
+                    <h2 className="text-xl sm:text-2xl font-bold text-white">
                       Conversation with Your Digital Twin
                     </h2>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-xs sm:text-sm text-gray-400">
                       Real-time mental health insights and personalized guidance
                     </p>
                   </div>
                 </div>
 
                 <div className="p-4 rounded-xl bg-indigo-500/10 border border-indigo-500/30 mb-6">
-                  <p className="text-sm text-indigo-100">
+                  <p className="text-xs sm:text-sm text-indigo-100">
                     💡 <span className="font-semibold">About Your Twin:</span>{" "}
                     Your digital twin learns from your patterns - sleep,
                     exercise, emotional responses, stress triggers, and recovery
@@ -914,9 +916,9 @@ export default function Mindfulness() {
                               : "bg-white/10 text-gray-200 border border-white/20"
                           }`}
                         >
-                          <p className="text-sm">{msg.message}</p>
+                          <p className="text-xs sm:text-sm">{msg.message}</p>
                           <p
-                            className={`text-xs mt-1 ${
+                            className={`text-[10px] sm:text-xs mt-1 ${
                               msg.role === "user"
                                 ? "text-primary/70"
                                 : "text-gray-400"
@@ -930,7 +932,7 @@ export default function Mindfulness() {
                   </div>
 
                   {/* Input */}
-                  <div className="flex gap-2">
+                  <div className="flex flex-col md:flex-row gap-2">
                     <input
                       type="text"
                       value={userInput}
@@ -939,11 +941,11 @@ export default function Mindfulness() {
                         e.key === "Enter" && handleSendMessage()
                       }
                       placeholder="Tell me what's on your mind..."
-                      className="flex-1 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-primary/50"
+                      className="flex-1 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-primary/50 text-xs sm:text-sm"
                     />
                     <button
                       onClick={handleSendMessage}
-                      className="px-4 py-2 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-lg font-medium transition-all duration-300"
+                      className="px-4 py-2 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-lg font-medium transition-all duration-300 text-xs sm:text-sm"
                     >
                       Send
                     </button>
@@ -953,19 +955,19 @@ export default function Mindfulness() {
                 {/* Twin Insights */}
                 <div className="grid md:grid-cols-2 gap-3">
                   <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30">
-                    <p className="text-xs font-semibold text-emerald-100 mb-1">
+                    <p className="text-[10px] sm:text-xs font-semibold text-emerald-100 mb-1">
                       ✅ What&apos;s Working for You
                     </p>
-                    <p className="text-sm text-emerald-100/80">
+                    <p className="text-xs sm:text-sm text-emerald-100/80">
                       Saturday routines: high activity + low screen time = peak
                       energy & calmness
                     </p>
                   </div>
                   <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30">
-                    <p className="text-xs font-semibold text-amber-100 mb-1">
+                    <p className="text-[10px] sm:text-xs font-semibold text-amber-100 mb-1">
                       ⚠️ Pattern to Watch
                     </p>
-                    <p className="text-sm text-amber-100/80">
+                    <p className="text-xs sm:text-sm text-amber-100/80">
                       Sunday evenings trigger overthinking. Try grounding
                       exercises before bed.
                     </p>
@@ -981,14 +983,14 @@ export default function Mindfulness() {
               {/* Exercise Library */}
               <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-emerald-500/20 to-emerald-600/20 flex items-center justify-center text-2xl">
+                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-emerald-500/20 to-emerald-600/20 flex items-center justify-center text-xl sm:text-2xl">
                     🌬️
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-white">
+                    <h2 className="text-xl sm:text-2xl font-bold text-white">
                       Meaningful Mental Exercises
                     </h2>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-xs sm:text-sm text-gray-400">
                       Breathing techniques with purposeful names
                     </p>
                   </div>
@@ -1004,26 +1006,26 @@ export default function Mindfulness() {
                       onClick={() => handleStartExercise(exercise)}
                     >
                       <div className="flex items-start gap-3 mb-2">
-                        <span className="text-3xl">{exercise.icon}</span>
+                        <span className="text-2xl sm:text-3xl">{exercise.icon}</span>
                         <div>
-                          <h3 className="font-bold text-white text-sm mb-1">
+                          <h3 className="text-xs sm:text-sm font-bold text-white mb-1">
                             {exercise.name}
                           </h3>
-                          <p className="text-xs text-gray-400 capitalize">
+                          <p className="text-[10px] sm:text-xs text-gray-400 capitalize">
                             {exercise.category} • {exercise.duration} min
                           </p>
                         </div>
                       </div>
 
-                      <p className="text-xs text-gray-300 mb-3">
+                      <p className="text-[10px] sm:text-xs text-gray-300 mb-3">
                         {exercise.description}
                       </p>
 
                       <div className="mb-3">
-                        <p className="text-xs font-semibold text-gray-400 mb-1">
+                        <p className="text-[10px] sm:text-xs font-semibold text-gray-400 mb-1">
                           Breathing Pattern:
                         </p>
-                        <p className="text-xs text-gray-300">
+                        <p className="text-[10px] sm:text-xs text-gray-300">
                           {exercise.breathing_pattern}
                         </p>
                       </div>
@@ -1032,14 +1034,14 @@ export default function Mindfulness() {
                         {exercise.benefits.map((benefit, idx) => (
                           <span
                             key={idx}
-                            className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-white"
+                            className="text-[10px] sm:text-xs px-2 py-0.5 rounded-full bg-white/10 text-white"
                           >
                             {benefit}
                           </span>
                         ))}
                       </div>
 
-                      <button className="w-full px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-medium transition group-hover:bg-primary/30 group-hover:text-primary">
+                      <button className="w-full px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-[10px] sm:text-xs font-medium transition group-hover:bg-primary/30 group-hover:text-primary">
                         Start Exercise
                       </button>
                     </div>
@@ -1050,25 +1052,25 @@ export default function Mindfulness() {
               {/* Exercise Stats */}
               <div className="grid md:grid-cols-3 gap-4">
                 <div className="bg-dark-card border border-white/5 rounded-2xl p-4">
-                  <p className="text-xs text-gray-400 mb-1">Total Completed</p>
-                  <p className="text-3xl font-bold text-white">12</p>
-                  <p className="text-xs text-gray-500 mt-1">This month</p>
+                  <p className="text-[10px] sm:text-xs text-gray-400 mb-1">Total Completed</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-white">12</p>
+                  <p className="text-[10px] sm:text-xs text-gray-500 mt-1">This month</p>
                 </div>
                 <div className="bg-dark-card border border-white/5 rounded-2xl p-4">
-                  <p className="text-xs text-gray-400 mb-1">
+                  <p className="text-[10px] sm:text-xs text-gray-400 mb-1">
                     Minutes Practiced
                   </p>
-                  <p className="text-3xl font-bold text-white">237</p>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-2xl sm:text-3xl font-bold text-white">237</p>
+                  <p className="text-[10px] sm:text-xs text-gray-500 mt-1">
                     Total time invested
                   </p>
                 </div>
                 <div className="bg-dark-card border border-white/5 rounded-2xl p-4">
-                  <p className="text-xs text-gray-400 mb-1">
+                  <p className="text-[10px] sm:text-xs text-gray-400 mb-1">
                     Favorite Exercise
                   </p>
-                  <p className="text-lg font-bold text-white">🌊</p>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-lg sm:text-lg font-bold text-white">🌊</p>
+                  <p className="text-[10px] sm:text-xs text-gray-500 mt-1">
                     Stress Release Wave
                   </p>
                 </div>
@@ -1093,12 +1095,12 @@ export default function Mindfulness() {
           <div className="bg-dark-card border border-white/10 rounded-2xl max-w-md w-full p-6">
             <div className="text-center mb-6">
               <div className="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center mx-auto mb-4">
-                <span className="text-4xl">⚠️</span>
+                <span className="text-3xl sm:text-4xl">⚠️</span>
               </div>
-              <h2 className="text-2xl font-bold text-white mb-2">
+              <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">
                 Reset Mindfulness Data?
               </h2>
-              <p className="text-gray-400">
+              <p className="text-xs sm:text-gray-400">
                 This will reset all your mindfulness data and conversations.
                 This action cannot be undone.
               </p>
@@ -1107,13 +1109,13 @@ export default function Mindfulness() {
             <div className="flex gap-3">
               <button
                 onClick={() => setShowResetConfirm(false)}
-                className="flex-1 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg font-medium transition-all duration-300"
+                className="flex-1 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg font-medium transition-all duration-300 text-xs sm:text-sm"
               >
                 Cancel
               </button>
               <button
                 onClick={handleResetMindfulnessData}
-                className="flex-1 px-4 py-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-400 rounded-lg font-medium transition-all duration-300"
+                className="flex-1 px-4 py-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-400 rounded-lg font-medium transition-all duration-300 text-xs sm:text-sm"
               >
                 Reset Data
               </button>
@@ -1170,28 +1172,28 @@ function ExerciseModal({
 
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-dark-card border border-white/10 rounded-2xl max-w-2xl w-full p-8 max-h-[90vh] overflow-y-auto">
+      <div className="bg-dark-card border border-white/10 rounded-2xl max-w-2xl w-full p-6 sm:p-8 max-h-[90vh] overflow-y-auto">
         <div className="text-center mb-8">
-          <div className="w-20 h-20 rounded-full bg-linear-to-br from-emerald-500/30 to-emerald-600/30 flex items-center justify-center mx-auto mb-4 text-5xl">
+          <div className="w-20 h-20 rounded-full bg-linear-to-br from-emerald-500/30 to-emerald-600/30 flex items-center justify-center mx-auto mb-4 text-4xl sm:text-5xl">
             {exercise.icon}
           </div>
-          <h2 className="text-3xl font-bold text-white mb-2">
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
             {exercise.name}
           </h2>
-          <p className="text-gray-400">{exercise.description}</p>
+          <p className="text-xs sm:text-sm text-gray-400">{exercise.description}</p>
         </div>
 
         {/* Exercise Details */}
         <div className="grid md:grid-cols-2 gap-4 mb-8">
-          <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-            <p className="text-xs text-gray-400 mb-2">Breathing Pattern</p>
-            <p className="text-lg font-semibold text-white">
+          <div className="p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10">
+            <p className="text-[10px] sm:text-xs text-gray-400 mb-2">Breathing Pattern</p>
+            <p className="text-base sm:text-lg font-semibold text-white">
               {exercise.breathing_pattern}
             </p>
           </div>
-          <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-            <p className="text-xs text-gray-400 mb-2">Duration</p>
-            <p className="text-lg font-semibold text-white">
+          <div className="p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10">
+            <p className="text-[10px] sm:text-xs text-gray-400 mb-2">Duration</p>
+            <p className="text-base sm:text-lg font-semibold text-white">
               {exercise.duration} minutes
             </p>
           </div>
@@ -1199,12 +1201,12 @@ function ExerciseModal({
 
         {/* Benefits */}
         <div className="mb-8">
-          <p className="text-sm font-semibold text-white mb-3">Benefits:</p>
+          <p className="text-xs sm:text-sm font-semibold text-white mb-3">Benefits:</p>
           <div className="space-y-2">
             {exercise.benefits.map((benefit, idx) => (
               <div key={idx} className="flex items-center gap-2">
-                <span className="text-primary">✓</span>
-                <span className="text-gray-300">{benefit}</span>
+                <span className="text-primary text-xs sm:text-sm">✓</span>
+                <span className="text-xs sm:text-gray-300">{benefit}</span>
               </div>
             ))}
           </div>
@@ -1213,10 +1215,10 @@ function ExerciseModal({
         {/* Timer */}
         <div className="mb-8">
           <div className="text-center mb-6">
-            <p className="text-6xl font-bold text-transparent bg-linear-to-r from-primary to-secondary bg-clip-text mb-2">
+            <p className="text-5xl sm:text-6xl font-bold text-transparent bg-linear-to-r from-primary to-secondary bg-clip-text mb-2">
               {formatTime(timeLeft)}
             </p>
-            <p className="text-gray-400">
+            <p className="text-xs sm:text-gray-400">
               {isRunning ? "Keep breathing..." : "Ready to start?"}
             </p>
           </div>
@@ -1234,13 +1236,13 @@ function ExerciseModal({
         <div className="flex gap-3 mb-6">
           <button
             onClick={() => setIsRunning(!isRunning)}
-            className="flex-1 px-6 py-3 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-lg font-bold transition-all duration-300"
+            className="flex-1 px-4 sm:px-6 py-2 sm:py-3 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-lg font-bold transition-all duration-300 text-xs sm:text-sm"
           >
             {isRunning ? "⏸ Pause" : "▶ Start"}
           </button>
           <button
             onClick={() => setTimeLeft(exercise.duration * 60)}
-            className="flex-1 px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg font-bold transition-all duration-300"
+            className="flex-1 px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg font-bold transition-all duration-300 text-xs sm:text-sm"
           >
             Reset
           </button>
@@ -1250,13 +1252,13 @@ function ExerciseModal({
         <div className="flex gap-3">
           <button
             onClick={onClose}
-            className="flex-1 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg font-medium transition-all duration-300"
+            className="flex-1 px-3 sm:px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg font-medium transition-all duration-300 text-xs sm:text-sm"
           >
             Close
           </button>
           <button
             onClick={onComplete}
-            className="flex-1 px-4 py-2 bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-emerald-400 rounded-lg font-medium transition-all duration-300"
+            className="flex-1 px-3 sm:px-4 py-2 bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-emerald-400 rounded-lg font-medium transition-all duration-300 text-xs sm:text-sm"
           >
             ✓ Mark Complete
           </button>
@@ -1359,10 +1361,10 @@ function MindfulnessSettingsModal({
       <div className="bg-dark-card border border-white/10 rounded-2xl max-w-3xl w-full max-h-[85vh] overflow-y-auto">
         <div className="p-4 sm:p-6 border-b border-white/5 flex items-center justify-between sticky top-0 bg-dark-card z-10">
           <div>
-            <h2 className="text-2xl font-bold text-white">
+            <h2 className="text-xl sm:text-2xl font-bold text-white">
               Mindfulness Settings
             </h2>
-            <p className="text-sm text-gray-400 mt-1">
+            <p className="text-xs sm:text-sm text-gray-400 mt-1">
               Personalize your mindfulness experience
             </p>
           </div>
@@ -1377,13 +1379,13 @@ function MindfulnessSettingsModal({
         <div className="p-4 sm:p-6 space-y-6">
           {questions.map((question) => (
             <div key={question.key} className="space-y-3">
-              <h3 className="text-white font-medium">{question.label}</h3>
+              <h3 className="text-sm sm:text-white font-medium">{question.label}</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {question.options.map((option) => (
                   <button
                     key={option.value}
                     onClick={() => handleAnswer(question.key, option.value)}
-                    className={`p-3 rounded-xl border text-left transition-all duration-300 ${
+                    className={`p-3 rounded-xl border text-left transition-all duration-300 text-xs sm:text-sm ${
                       answers[question.key] === option.value
                         ? "bg-primary/20 border-primary/40 text-white"
                         : "bg-white/5 border-white/10 text-gray-400 hover:bg-white/10 hover:text-white"
@@ -1400,13 +1402,13 @@ function MindfulnessSettingsModal({
         <div className="p-4 sm:p-6 border-t border-white/5 flex gap-3 sticky bottom-0 bg-dark-card">
           <button
             onClick={onClose}
-            className="flex-1 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg font-medium transition-all duration-300"
+            className="flex-1 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg font-medium transition-all duration-300 text-xs sm:text-sm"
           >
             Cancel
           </button>
           <button
             onClick={handleSave}
-            className="flex-1 px-4 py-2 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-lg font-medium transition-all duration-300"
+            className="flex-1 px-4 py-2 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-lg font-medium transition-all duration-300 text-xs sm:text-sm"
           >
             Save Changes
           </button>

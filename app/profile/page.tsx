@@ -76,12 +76,34 @@ export default function Profile() {
   // Disable body scroll when modals are open
   useEffect(() => {
     if (showEditModal || showPrivacyModal) {
-      document.body.style.overflow = "hidden";
+      const scrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
+      document.body.style.overscrollBehavior = 'none';
     } else {
-      document.body.style.overflow = "unset";
+      const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+      document.body.style.overscrollBehavior = '';
+      window.scrollTo(0, parseInt(scrollY || '0') * -1);
     }
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+      document.body.style.overscrollBehavior = '';
+      window.scrollTo(0, parseInt(document.body.style.top || '0') * -1);
     };
   }, [showEditModal, showPrivacyModal]);
 
@@ -200,7 +222,7 @@ export default function Profile() {
         {/* Header with Avatar */}
         <div className="relative">
           {/* Cover Background */}
-          <div className="h-32 md:h-40 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 border-b border-white/10"></div>
+          <div className="h-32 md:h-40 bg-linear-to-r from-primary/20 via-secondary/20 to-accent/20 border-b border-white/10"></div>
 
           {/* Profile Info Overlay */}
           <div className="px-4 md:px-6 -mt-16">
@@ -247,7 +269,7 @@ export default function Profile() {
                   setEditSection("basic");
                   setShowEditModal(true);
                 }}
-                className="px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-medium hover:scale-105 transition-all duration-300 shadow-lg shadow-primary/20"
+                className="px-6 py-3 rounded-xl bg-linear-to-r from-primary to-secondary text-white font-medium hover:scale-105 transition-all duration-300 shadow-lg shadow-primary/20"
               >
                 <div className="flex items-center gap-2">
                   <svg
@@ -448,7 +470,7 @@ export default function Profile() {
                 Health Stats
               </h2>
               <div className="space-y-4">
-                <div className="p-4 rounded-xl bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20">
+                <div className="p-4 rounded-xl bg-linear-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-gray-400 text-sm">BMI</span>
                     <span className="text-2xl">📊</span>
@@ -464,7 +486,7 @@ export default function Profile() {
                   <p className="text-xs text-gray-400 mt-1">Body Mass Index</p>
                 </div>
 
-                <div className="p-4 rounded-xl bg-gradient-to-br from-green-500/10 to-green-600/10 border border-green-500/20">
+                <div className="p-4 rounded-xl bg-linear-to-br from-green-500/10 to-green-600/10 border border-green-500/20">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-gray-400 text-sm">Goal</span>
                     <span className="text-2xl">🎯</span>
@@ -475,7 +497,7 @@ export default function Profile() {
                   <p className="text-xs text-gray-400 mt-1">Health objective</p>
                 </div>
 
-                <div className="p-4 rounded-xl bg-gradient-to-br from-purple-500/10 to-purple-600/10 border border-purple-500/20">
+                <div className="p-4 rounded-xl bg-linear-to-br from-purple-500/10 to-purple-600/10 border border-purple-500/20">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-gray-400 text-sm">Member Since</span>
                     <span className="text-2xl">📅</span>
@@ -522,7 +544,7 @@ export default function Profile() {
               </div>
 
               {/* Privacy Status Banner */}
-              <div className="mb-6 p-4 rounded-xl bg-gradient-to-r from-green-500/10 to-blue-500/10 border border-green-500/20">
+              <div className="mb-6 p-4 rounded-xl bg-linear-to-r from-green-500/10 to-blue-500/10 border border-green-500/20">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
                     <svg
@@ -716,7 +738,7 @@ export default function Profile() {
         {/* Edit Profile Modal */}
         {showEditModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-            <div className="bg-dark-card rounded-2xl border border-white/10 p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto relative">
+            <div className="bg-dark-card rounded-2xl border border-white/10 p-4 sm:p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto relative">
               <button
                 onClick={() => setShowEditModal(false)}
                 className="absolute top-4 right-4 w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors z-10"
@@ -736,7 +758,7 @@ export default function Profile() {
                 </svg>
               </button>
 
-              <h2 className="text-2xl font-bold text-white mb-6">
+              <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">
                 Edit Profile Information
               </h2>
 
@@ -827,29 +849,29 @@ export default function Profile() {
                     }
                     className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-primary/50 transition-colors"
                   >
-                    <option value="">Select job</option>
-                    <option value="student">Student</option>
-                    <option value="office-worker">Office Worker</option>
-                    <option value="software-developer">
+                    <option className="text-black" value="">Select job</option>
+                    <option className="text-black" value="student">Student</option>
+                    <option className="text-black" value="office-worker">Office Worker</option>
+                    <option className="text-black" value="software-developer">
                       Software Developer
                     </option>
-                    <option value="teacher">Teacher</option>
-                    <option value="healthcare-worker">Healthcare Worker</option>
-                    <option value="retail-service">
+                    <option className="text-black" value="teacher">Teacher</option>
+                    <option className="text-black" value="healthcare-worker">Healthcare Worker</option>
+                    <option className="text-black" value="retail-service">
                       Retail / Service Worker
                     </option>
-                    <option value="manual-labor">Manual Labor Worker</option>
-                    <option value="entrepreneur">
+                    <option className="text-black" value="manual-labor">Manual Labor Worker</option>
+                    <option className="text-black" value="entrepreneur">
                       Entrepreneur / Business Owner
                     </option>
-                    <option value="freelancer">
+                    <option className="text-black" value="freelancer">
                       Freelancer / Self-Employed
                     </option>
-                    <option value="retired">Retired</option>
-                    <option value="unemployed">
+                    <option className="text-black" value="retired">Retired</option>
+                    <option className="text-black" value="unemployed">
                       Unemployed / Between Jobs
                     </option>
-                    <option value="other">Other</option>
+                    <option className="text-black" value="other">Other</option>
                   </select>
                 </div>
 
@@ -865,21 +887,21 @@ export default function Profile() {
                     }
                     className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-primary/50 transition-colors"
                   >
-                    <option value="">Select goal</option>
-                    <option value="lose-weight">Lose Weight</option>
-                    <option value="gain-muscle">Gain Muscle</option>
-                    <option value="improve-fitness">
+                    <option className="text-black" value="">Select goal</option>
+                    <option className="text-black" value="lose-weight">Lose Weight</option>
+                    <option className="text-black" value="gain-muscle">Gain Muscle</option>
+                    <option className="text-black" value="improve-fitness">
                       Improve Overall Fitness
                     </option>
-                    <option value="better-sleep">Better Sleep Quality</option>
-                    <option value="reduce-stress">Reduce Stress</option>
-                    <option value="maintain-health">
+                    <option className="text-black" value="better-sleep">Better Sleep Quality</option>
+                    <option className="text-black" value="reduce-stress">Reduce Stress</option>
+                    <option className="text-black" value="maintain-health">
                       Maintain Current Health
                     </option>
-                    <option value="manage-condition">
+                    <option className="text-black" value="manage-condition">
                       Manage Health Condition
                     </option>
-                    <option value="increase-energy">
+                    <option className="text-black" value="increase-energy">
                       Increase Energy Levels
                     </option>
                   </select>
@@ -900,20 +922,20 @@ export default function Profile() {
                     }
                     className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-primary/50 transition-colors"
                   >
-                    <option value="">Select activity level</option>
-                    <option value="sedentary">
+                    <option className="text-black" value="">Select activity level</option>
+                    <option className="text-black" value="sedentary">
                       Sedentary (Little/No Exercise)
                     </option>
-                    <option value="lightly-active">
+                    <option className="text-black" value="lightly-active">
                       Lightly Active (1-3 days/week)
                     </option>
-                    <option value="moderately-active">
+                    <option className="text-black" value="moderately-active">
                       Moderately Active (3-5 days/week)
                     </option>
-                    <option value="very-active">
+                    <option className="text-black" value="very-active">
                       Very Active (6-7 days/week)
                     </option>
-                    <option value="extremely-active">
+                    <option className="text-black" value="extremely-active">
                       Extremely Active (Athlete)
                     </option>
                   </select>
@@ -930,7 +952,7 @@ export default function Profile() {
                 </button>
                 <button
                   onClick={handleSaveBasicInfo}
-                  className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-medium hover:scale-105 transition-all duration-300 shadow-lg shadow-primary/20"
+                  className="flex-1 px-4 py-3 rounded-xl bg-linear-to-r from-primary to-secondary text-white font-medium hover:scale-105 transition-all duration-300 shadow-lg shadow-primary/20"
                 >
                   Save Changes
                 </button>
@@ -942,7 +964,7 @@ export default function Profile() {
         {/* Privacy Detail Modal */}
         {showPrivacyModal && selectedPrivacyModule && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-            <div className="bg-dark-card rounded-2xl border border-white/10 p-6 w-full max-w-lg relative">
+            <div className="bg-dark-card rounded-2xl border border-white/10 p-4 sm:p-6 w-full max-w-lg relative">
               <button
                 onClick={() => setShowPrivacyModal(false)}
                 className="absolute top-4 right-4 w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors"
@@ -963,21 +985,21 @@ export default function Profile() {
               </button>
 
               {(() => {
-                const module = privacyModules.find(
+                const selectedModule = privacyModules.find(
                   (m) => m.id === selectedPrivacyModule
                 );
-                if (!module) return null;
+                if (!selectedModule) return null;
 
                 return (
                   <div>
                     <div className="flex items-center gap-3 mb-6">
-                      <div className="text-4xl">{module.icon}</div>
+                      <div className="text-4xl">{selectedModule.icon}</div>
                       <div>
-                        <h2 className="text-2xl font-bold text-white">
-                          {module.name}
+                        <h2 className="text-xl sm:text-2xl font-bold text-white">
+                          {selectedModule.name}
                         </h2>
                         <p className="text-sm text-gray-400">
-                          {module.description}
+                          {selectedModule.description}
                         </p>
                       </div>
                     </div>
@@ -989,7 +1011,7 @@ export default function Profile() {
                           Data Collected
                         </h3>
                         <div className="space-y-2">
-                          {module.dataTypes.map((type) => (
+                          {selectedModule.dataTypes.map((type: string) => (
                             <div
                               key={type}
                               className="flex items-center justify-between p-3 rounded-lg bg-white/5"
@@ -1012,7 +1034,7 @@ export default function Profile() {
                           <button className="w-full p-3 rounded-lg bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 text-left transition-colors">
                             <div className="flex items-center justify-between">
                               <span className="text-white font-medium">
-                                Export {module.name} Data
+                                Export {selectedModule.name} Data
                               </span>
                               <svg
                                 className="w-5 h-5 text-blue-400"
@@ -1033,7 +1055,7 @@ export default function Profile() {
                           <button className="w-full p-3 rounded-lg bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 text-left transition-colors">
                             <div className="flex items-center justify-between">
                               <span className="text-white font-medium">
-                                Delete {module.name} Data
+                                Delete {selectedModule.name} Data
                               </span>
                               <svg
                                 className="w-5 h-5 text-red-400"
@@ -1056,8 +1078,8 @@ export default function Profile() {
                       <div className="p-3 rounded-lg bg-green-500/10 border border-green-500/20">
                         <p className="text-xs text-gray-400">
                           <strong className="text-green-400">Protected:</strong>{" "}
-                          Your {module.name.toLowerCase()} data is encrypted and
-                          stored locally on your device. It's never sent to
+                          Your {selectedModule.name.toLowerCase()} data is encrypted and
+                          stored locally on your device. It&apos;s never sent to
                           external servers.
                         </p>
                       </div>
@@ -1065,7 +1087,7 @@ export default function Profile() {
 
                     <button
                       onClick={() => setShowPrivacyModal(false)}
-                      className="w-full mt-6 px-4 py-3 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-medium hover:scale-105 transition-all duration-300"
+                      className="w-full mt-6 px-4 py-3 rounded-xl bg-linear-to-r from-primary to-secondary text-white font-medium hover:scale-105 transition-all duration-300"
                     >
                       Close
                     </button>

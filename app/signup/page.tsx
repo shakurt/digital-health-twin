@@ -130,14 +130,14 @@ export default function SignUp() {
         <div className="bg-dark-card border border-dark-border rounded-3xl p-8 md:p-10 card-glow animate-fade-in-up">
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-dark-bg border border-dark-border rounded-full text-sm mb-4">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-dark-bg border border-dark-border rounded-full text-[10px] sm:text-xs mb-4">
               <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
               <span className="text-gray-400">Create Your Account</span>
             </div>
-            <h1 className="text-4xl font-bold mb-2">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">
               <span className="gradient-text-animated">Sign Up</span>
             </h1>
-            <p className="text-gray-400">
+            <p className="text-sm sm:text-base text-gray-400">
               Start your digital health journey today
             </p>
           </div>
@@ -148,7 +148,7 @@ export default function SignUp() {
             <div className="space-y-2">
               <label
                 htmlFor="username"
-                className="block text-sm font-medium text-gray-300"
+                className="block text-[10px] sm:text-xs font-medium text-gray-300"
               >
                 Username
               </label>
@@ -164,7 +164,7 @@ export default function SignUp() {
                 placeholder="Enter your username"
               />
               {errors.username && (
-                <p className="text-red-500 text-sm animate-fade-in">
+                <p className="text-red-500 text-[10px] sm:text-xs animate-fade-in">
                   {errors.username}
                 </p>
               )}
@@ -174,7 +174,7 @@ export default function SignUp() {
             <div className="space-y-2">
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-300"
+                className="block text-[10px] sm:text-xs font-medium text-gray-300"
               >
                 Email Address
               </label>
@@ -190,7 +190,7 @@ export default function SignUp() {
                 placeholder="Enter your email"
               />
               {errors.email && (
-                <p className="text-red-500 text-sm animate-fade-in">
+                <p className="text-red-500 text-[10px] sm:text-xs animate-fade-in">
                   {errors.email}
                 </p>
               )}
@@ -200,7 +200,7 @@ export default function SignUp() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full px-6 py-4 bg-gradient-animated rounded-xl text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover-glow disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 relative overflow-hidden group"
+              className="w-full px-6 py-4 bg-gradient-animated rounded-xl text-white font-semibold text-sm sm:text-base md:text-lg transition-all duration-300 hover:scale-105 hover-glow disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 relative overflow-hidden group"
             >
               <span className="relative z-10 flex items-center justify-center gap-2">
                 {isLoading ? (
@@ -225,7 +225,7 @@ export default function SignUp() {
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-dark-border"></div>
             </div>
-            <div className="relative flex justify-center text-sm">
+            <div className="relative flex justify-center text-[10px] sm:text-xs">
               <span className="px-4 bg-dark-card text-gray-500">
                 Already have an account?
               </span>
@@ -247,7 +247,7 @@ export default function SignUp() {
         </div>
 
         {/* Footer Note */}
-        <p className="text-center text-gray-500 text-sm mt-6">
+        <p className="text-center text-gray-500 text-[10px] sm:text-xs mt-6">
           By signing up, you agree to our Terms of Service and Privacy Policy
         </p>
       </div>

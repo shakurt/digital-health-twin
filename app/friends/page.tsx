@@ -192,6 +192,37 @@ export default function Friends() {
     setActiveQuests(mockQuests);
   }, [router]);
 
+  // Prevent scrolling when modal is open
+  useEffect(() => {
+    if (showQuestModal) {
+      // Prevent all types of scrolling
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.height = '100%';
+      document.body.style.top = '0';
+      document.body.style.left = '0';
+    } else {
+      // Restore scrolling
+      document.body.style.overflow = 'unset';
+      document.body.style.position = 'unset';
+      document.body.style.width = 'unset';
+      document.body.style.height = 'unset';
+      document.body.style.top = 'unset';
+      document.body.style.left = 'unset';
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = 'unset';
+      document.body.style.position = 'unset';
+      document.body.style.width = 'unset';
+      document.body.style.height = 'unset';
+      document.body.style.top = 'unset';
+      document.body.style.left = 'unset';
+    };
+  }, [showQuestModal]);
+
   const handleDeleteFriend = (friendId: string) => {
     setFriends(friends.filter((f) => f.id !== friendId));
     setActiveMenu(null);
@@ -249,7 +280,13 @@ export default function Friends() {
     <AppLayout>
       {/* Quest Modal */}
       {showQuestModal && selectedFriend && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div 
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          style={{
+            touchAction: 'none',
+            overscrollBehavior: 'none'
+          }}
+        >
           <div className="bg-dark-card border border-white/10 rounded-2xl p-6 max-w-md w-full animate-fade-in-up">
             <h3 className="text-lg sm:text-xl font-bold text-white mb-4">
               Start a Quest with {selectedFriend.username}
@@ -368,7 +405,7 @@ export default function Friends() {
                       .includes(searchQuery.toLowerCase())
                   )
                   .map((user, index) => (
-                    <button
+                    <div
                       key={index}
                       className="w-full p-4 flex items-center gap-4 hover:bg-white/5 transition-all text-left"
                     >
@@ -397,7 +434,7 @@ export default function Friends() {
                       <button className="px-4 py-2 bg-primary/20 border border-primary/40 rounded-lg text-primary text-xs sm:text-sm font-medium hover:bg-primary/30 transition-all">
                         Add Friend
                       </button>
-                    </button>
+                    </div>
                   ))}
 
                 {searchSuggestions.filter((user) =>
@@ -441,7 +478,7 @@ export default function Friends() {
             {getCurrentPageFriends().map((friend, index) => (
               <div
                 key={friend.id}
-                className="bg-linear-to-br from-white/5 to-white/[0.02] border border-white/10 rounded-2xl p-6 hover:border-primary/30 transition-all group animate-fade-in"
+                className="bg-linear-to-br from-white/5 to-white/2 border border-white/10 rounded-2xl p-6 hover:border-primary/30 transition-all group animate-fade-in"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 {/* Card Header */}
@@ -657,7 +694,7 @@ export default function Friends() {
             {activeQuests.map((quest, index) => (
               <div
                 key={quest.id}
-                className="bg-linear-to-br from-white/5 to-white/[0.02] border border-white/10 rounded-2xl p-6 animate-fade-in"
+                className="bg-linear-to-br from-white/5 to-white/2 border border-white/10 rounded-2xl p-6 animate-fade-in"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 {/* Quest Header */}
@@ -767,7 +804,7 @@ export default function Friends() {
                   <div className="mt-4 text-center">
                     <span className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/10 border border-green-500/30 rounded-full text-green-400 text-xs sm:text-sm font-medium">
                       <span>👑</span>
-                      You're winning!
+                      You&apos;re winning!
                     </span>
                   </div>
                 )}

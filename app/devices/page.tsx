@@ -37,6 +37,37 @@ export default function Devices() {
     }
   }, [router]);
 
+  // Prevent scrolling when modal is open
+  useEffect(() => {
+    if (showConnectModal) {
+      // Prevent all types of scrolling
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.height = '100%';
+      document.body.style.top = '0';
+      document.body.style.left = '0';
+    } else {
+      // Restore scrolling
+      document.body.style.overflow = 'unset';
+      document.body.style.position = 'unset';
+      document.body.style.width = 'unset';
+      document.body.style.height = 'unset';
+      document.body.style.top = 'unset';
+      document.body.style.left = 'unset';
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = 'unset';
+      document.body.style.position = 'unset';
+      document.body.style.width = 'unset';
+      document.body.style.height = 'unset';
+      document.body.style.top = 'unset';
+      document.body.style.left = 'unset';
+    };
+  }, [showConnectModal]);
+
   // Hardcoded connected devices
   const connectedDevices: Device[] = [
     {
@@ -171,7 +202,7 @@ export default function Devices() {
             </div>
             <button
               onClick={() => setShowConnectModal(true)}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-medium hover:scale-105 transition-all duration-300 shadow-lg shadow-primary/20"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-linear-to-r from-primary to-secondary text-white font-medium hover:scale-105 transition-all duration-300 shadow-lg shadow-primary/20"
             >
               <svg
                 className="w-5 h-5"
@@ -196,7 +227,7 @@ export default function Devices() {
               onClick={() => setActiveTab("connected")}
               className={`flex-1 md:flex-none px-6 py-2.5 rounded-xl text-sm sm:text-base font-medium transition-all duration-300 ${
                 activeTab === "connected"
-                  ? "bg-gradient-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
+                  ? "bg-linear-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
                   : "bg-white/5 border border-transparent text-gray-400 hover:text-white hover:bg-white/10"
               }`}
             >
@@ -206,7 +237,7 @@ export default function Devices() {
               onClick={() => setActiveTab("available")}
               className={`flex-1 md:flex-none px-6 py-2.5 rounded-xl text-sm sm:text-base font-medium transition-all duration-300 ${
                 activeTab === "available"
-                  ? "bg-gradient-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
+                  ? "bg-linear-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
                   : "bg-white/5 border border-transparent text-gray-400 hover:text-white hover:bg-white/10"
               }`}
             >
@@ -220,7 +251,7 @@ export default function Devices() {
           {activeTab === "connected" ? (
             <>
               {/* Sync Status Banner */}
-              <div className="mb-6 p-4 rounded-2xl bg-gradient-to-r from-green-500/10 to-blue-500/10 border border-green-500/20">
+              <div className="mb-6 p-4 rounded-2xl bg-linear-to-r from-green-500/10 to-blue-500/10 border border-green-500/20">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
                     <svg
@@ -260,7 +291,7 @@ export default function Devices() {
                   >
                     <div className="flex flex-col">
                       {/* Device Icon */}
-                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center text-3xl border border-white/10 mb-4 mx-auto">
+                      <div className="w-16 h-16 rounded-2xl bg-linear-to-br from-primary/20 to-secondary/20 flex items-center justify-center text-3xl border border-white/10 mb-4 mx-auto">
                         {device.icon}
                       </div>
 
@@ -362,7 +393,7 @@ export default function Devices() {
 
               {/* Data Insights */}
               <div className="mt-6 grid md:grid-cols-3 gap-4">
-                <div className="p-4 rounded-2xl bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20">
+                <div className="p-4 rounded-2xl bg-linear-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20">
                   <div className="flex items-center gap-3 mb-2">
                     <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
                       <svg
@@ -390,7 +421,7 @@ export default function Devices() {
                   </div>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-gradient-to-br from-red-500/10 to-red-600/10 border border-red-500/20">
+                <div className="p-4 rounded-2xl bg-linear-to-br from-red-500/10 to-red-600/10 border border-red-500/20">
                   <div className="flex items-center gap-3 mb-2">
                     <div className="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center">
                       <svg
@@ -418,7 +449,7 @@ export default function Devices() {
                   </div>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-gradient-to-br from-purple-500/10 to-purple-600/10 border border-purple-500/20">
+                <div className="p-4 rounded-2xl bg-linear-to-br from-purple-500/10 to-purple-600/10 border border-purple-500/20">
                   <div className="flex items-center gap-3 mb-2">
                     <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center">
                       <svg
@@ -498,7 +529,7 @@ export default function Devices() {
                   >
                     <div className="flex flex-col items-center">
                       {/* Device Icon */}
-                      <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-gray-500/20 to-gray-600/20 flex items-center justify-center text-2xl border border-white/10 group-hover:border-primary/30 transition-colors mb-4">
+                      <div className="w-14 h-14 rounded-xl bg-linear-to-br from-gray-500/20 to-gray-600/20 flex items-center justify-center text-2xl border border-white/10 group-hover:border-primary/30 transition-colors mb-4">
                         {device.icon}
                       </div>
 
@@ -531,7 +562,7 @@ export default function Devices() {
                         {/* Connect Button */}
                         <button
                           onClick={() => handleConnectDevice(device)}
-                          className="w-full px-4 py-2 rounded-lg bg-gradient-to-r from-primary to-secondary text-xs sm:text-sm text-white font-medium hover:scale-105 transition-all duration-300 shadow-lg shadow-primary/20"
+                          className="w-full px-4 py-2 rounded-lg bg-linear-to-r from-primary to-secondary text-xs sm:text-sm text-white font-medium hover:scale-105 transition-all duration-300 shadow-lg shadow-primary/20"
                         >
                           Connect Device
                         </button>
@@ -542,9 +573,9 @@ export default function Devices() {
               </div>
 
               {/* Help Card */}
-              <div className="mt-6 p-6 rounded-2xl bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20">
+              <div className="mt-6 p-6 rounded-2xl bg-linear-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center shrink-0">
                     <svg
                       className="w-6 h-6 text-blue-400"
                       fill="none"
@@ -561,7 +592,7 @@ export default function Devices() {
                   </div>
                   <div>
                     <h3 className="text-sm sm:text-base font-bold text-white mb-2">
-                      Don't see your device?
+                      Don&apos;t see your device?
                     </h3>
                     <p className="text-xs sm:text-sm text-gray-400 mb-3">
                       Make sure your device is powered on, in pairing mode, and
@@ -601,7 +632,7 @@ export default function Devices() {
               </button>
 
               <div className="text-center">
-                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center text-4xl mx-auto mb-4 border border-white/10">
+                <div className="w-20 h-20 rounded-2xl bg-linear-to-br from-primary/20 to-secondary/20 flex items-center justify-center text-4xl mx-auto mb-4 border border-white/10">
                   {selectedDevice?.icon || "⌚"}
                 </div>
                 <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">
@@ -614,7 +645,7 @@ export default function Devices() {
                 {/* Connection Steps */}
                 <div className="space-y-4 text-left mb-6">
                   <div className="flex gap-3">
-                    <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold flex-shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold shrink-0">
                       1
                     </div>
                     <div>
@@ -627,7 +658,7 @@ export default function Devices() {
                     </div>
                   </div>
                   <div className="flex gap-3">
-                    <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold flex-shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold shrink-0">
                       2
                     </div>
                     <div>
@@ -640,7 +671,7 @@ export default function Devices() {
                     </div>
                   </div>
                   <div className="flex gap-3">
-                    <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold flex-shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold shrink-0">
                       3
                     </div>
                     <div>
@@ -670,7 +701,7 @@ export default function Devices() {
                         setActiveTab("connected");
                       }, 500);
                     }}
-                    className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-primary to-secondary text-sm sm:text-base text-white font-medium hover:scale-105 transition-all duration-300 shadow-lg shadow-primary/20"
+                    className="flex-1 px-4 py-3 rounded-xl bg-linear-to-r from-primary to-secondary text-sm sm:text-base text-white font-medium hover:scale-105 transition-all duration-300 shadow-lg shadow-primary/20"
                   >
                     Start Pairing
                   </button>

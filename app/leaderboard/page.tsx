@@ -494,7 +494,7 @@ export default function Leaderboard() {
           {/* 2nd Place */}
           {leaderboardData[1] && (
             <div
-              className="bg-dark-card border border-white/5 rounded-2xl p-6 flex flex-col items-center animate-fade-in md:order-1"
+              className="bg-dark-card border border-white/5 rounded-2xl p-6 flex flex-col items-center animate-fade-in order-2 md:order-1"
               style={{ animationDelay: "100ms" }}
             >
               <span className="text-5xl mb-4">🥈</span>
@@ -527,7 +527,7 @@ export default function Leaderboard() {
 
           {/* 1st Place */}
           {leaderboardData[0] && (
-            <div className="bg-linear-to-br from-yellow-500/20 to-orange-500/20 border-2 border-yellow-500/50 rounded-2xl p-6 flex flex-col items-center animate-fade-in md:order-2 md:-mt-4">
+            <div className="bg-linear-to-br from-yellow-500/20 to-orange-500/20 border-2 border-yellow-500/50 rounded-2xl p-6 flex flex-col items-center animate-fade-in order-1 md:order-2 md:-mt-4">
               <span className="text-6xl mb-4">👑</span>
               <div className="w-28 h-28 rounded-full bg-linear-to-br from-yellow-400 to-orange-500 flex items-center justify-center text-5xl ring-4 ring-yellow-400/50 mb-4">
                 {leaderboardData[0].avatar}
@@ -557,7 +557,7 @@ export default function Leaderboard() {
           {/* 3rd Place */}
           {leaderboardData[2] && (
             <div
-              className="bg-dark-card border border-white/5 rounded-2xl p-6 flex flex-col items-center animate-fade-in md:order-3"
+              className="bg-dark-card border border-white/5 rounded-2xl p-6 flex flex-col items-center animate-fade-in order-3 md:order-3"
               style={{ animationDelay: "200ms" }}
             >
               <span className="text-5xl mb-4">🥉</span>
@@ -731,67 +731,72 @@ export default function Leaderboard() {
             {topAchievements.map((achievement, index) => (
               <div
                 key={achievement.id}
-                className={`bg-linear-to-br ${getRarityColor(
+                className={`bg-dark-card/80 backdrop-blur-sm border-2 ${getRarityBorder(
                   achievement.rarity
-                )} bg-opacity-10 border-2 ${getRarityBorder(
-                  achievement.rarity
-                )} rounded-xl p-4 hover:scale-105 transition-all animate-fade-in`}
+                )} rounded-xl p-4 hover:scale-105 transition-all animate-fade-in relative overflow-hidden`}
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <div className="flex items-start gap-3 mb-3">
-                  <span className="text-3xl sm:text-4xl">
-                    {achievement.icon}
-                  </span>
-                  <div className="flex-1">
-                    <h3 className="text-sm sm:text-base text-white font-bold mb-1">
-                      {achievement.name}
-                    </h3>
-                    <p className="text-gray-400 text-[10px] sm:text-xs">
-                      {achievement.description}
-                    </p>
+                {/* Subtle background gradient overlay */}
+                <div className={`absolute inset-0 bg-linear-to-br ${getRarityColor(
+                  achievement.rarity
+                )} opacity-5 rounded-xl`}></div>
+
+                <div className="relative z-10">
+                  <div className="flex items-start gap-3 mb-3">
+                    <span className="text-3xl sm:text-4xl">
+                      {achievement.icon}
+                    </span>
+                    <div className="flex-1">
+                      <h3 className="text-sm sm:text-base text-white font-bold mb-1">
+                        {achievement.name}
+                      </h3>
+                      <p className="text-gray-300 text-[10px] sm:text-xs">
+                        {achievement.description}
+                      </p>
+                    </div>
                   </div>
-                </div>
 
-                <div className="flex items-center justify-between">
-                  <span
-                    className={`px-2 py-1 rounded-lg text-[10px] sm:text-xs font-bold capitalize ${
-                      achievement.rarity === "legendary"
-                        ? "bg-yellow-500/20 text-yellow-400"
-                        : achievement.rarity === "epic"
-                        ? "bg-purple-500/20 text-purple-400"
-                        : achievement.rarity === "rare"
-                        ? "bg-blue-500/20 text-blue-400"
-                        : "bg-gray-500/20 text-gray-400"
-                    }`}
-                  >
-                    {achievement.rarity}
-                  </span>
+                  <div className="flex items-center justify-between">
+                    <span
+                      className={`px-2 py-1 rounded-lg text-[10px] sm:text-xs font-bold capitalize ${
+                        achievement.rarity === "legendary"
+                          ? "bg-yellow-500/20 text-yellow-300 border border-yellow-500/30"
+                          : achievement.rarity === "epic"
+                          ? "bg-purple-500/20 text-purple-300 border border-purple-500/30"
+                          : achievement.rarity === "rare"
+                          ? "bg-blue-500/20 text-blue-300 border border-blue-500/30"
+                          : "bg-gray-500/20 text-gray-300 border border-gray-500/30"
+                      }`}
+                    >
+                      {achievement.rarity}
+                    </span>
 
-                  <div className="text-right">
-                    <p className="text-white text-xs sm:text-sm font-medium">
-                      {(
-                        (achievement.unlockedBy / achievement.total) *
-                        100
-                      ).toFixed(1)}
-                      %
-                    </p>
-                    <p className="text-gray-400 text-[10px] sm:text-xs">
-                      {achievement.unlockedBy.toLocaleString()} unlocked
-                    </p>
+                    <div className="text-right">
+                      <p className="text-white text-xs sm:text-sm font-medium">
+                        {(
+                          (achievement.unlockedBy / achievement.total) *
+                          100
+                        ).toFixed(1)}
+                        %
+                      </p>
+                      <p className="text-gray-300 text-[10px] sm:text-xs">
+                        {achievement.unlockedBy.toLocaleString()} unlocked
+                      </p>
+                    </div>
                   </div>
-                </div>
 
-                <div className="mt-3 h-2 bg-white/5 rounded-full overflow-hidden">
-                  <div
-                    className={`h-full bg-linear-to-r ${getRarityColor(
-                      achievement.rarity
-                    )} transition-all duration-500`}
-                    style={{
-                      width: `${
-                        (achievement.unlockedBy / achievement.total) * 100
-                      }%`,
-                    }}
-                  ></div>
+                  <div className="mt-3 h-2 bg-dark-bg/50 rounded-full overflow-hidden">
+                    <div
+                      className={`h-full bg-linear-to-r ${getRarityColor(
+                        achievement.rarity
+                      )} transition-all duration-500`}
+                      style={{
+                        width: `${
+                          (achievement.unlockedBy / achievement.total) * 100
+                        }%`,
+                      }}
+                    ></div>
+                  </div>
                 </div>
               </div>
             ))}

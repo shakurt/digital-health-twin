@@ -386,24 +386,24 @@ export default function HealthPage() {
         <div className="sticky top-0 z-30 bg-dark/95 backdrop-blur-xl border-b border-white/5">
           <div className="flex items-center justify-between p-4 md:p-6">
             <div>
-              <h1 className="text-2xl md:text-4xl font-bold gradient-text-animated">
+              <h1 className="text-xl sm:text-2xl md:text-4xl font-bold gradient-text-animated">
                 Health Dashboard
               </h1>
-              <p className="text-sm text-gray-400 mt-1">
+              <p className="text-xs sm:text-sm text-gray-400 mt-1">
                 Your complete health overview and risk management system
               </p>
             </div>
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setShowOnboardingModal(true)}
-                className="px-4 py-2 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-xl font-medium transition-all duration-300 hover:scale-105 flex items-center gap-2"
+                className="px-4 py-2 text-xs sm:text-sm bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-xl font-medium transition-all duration-300 hover:scale-105 flex items-center gap-2"
               >
                 <span>⚙️</span>
                 <span className="hidden sm:inline">Settings</span>
               </button>
               <button
                 onClick={() => setShowResetConfirm(true)}
-                className="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-400 rounded-xl font-medium transition-all duration-300 hover:scale-105 flex items-center gap-2"
+                className="px-4 py-2 text-xs sm:text-sm bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-400 rounded-xl font-medium transition-all duration-300 hover:scale-105 flex items-center gap-2"
               >
                 <span>🔄</span>
                 <span className="hidden sm:inline">Reset</span>
@@ -415,34 +415,34 @@ export default function HealthPage() {
           <div className="grid grid-cols-3 gap-3 px-4 md:px-6 pb-4">
             {/* Health Score */}
             <div className="p-3 rounded-xl bg-linear-to-br from-emerald-500/10 to-emerald-600/10 border border-emerald-500/20">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-xl">💚</span>
-                <span className="text-xs text-gray-400">Health Score</span>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-1">
+                <span className="text-lg sm:text-xl self-center sm:self-auto">💚</span>
+                <span className="text-[10px] sm:text-xs text-gray-400 text-center sm:text-left">Health Score</span>
               </div>
-              <p className="text-lg font-bold text-white">{healthScore}/100</p>
-              <p className="text-xs text-gray-400">Good condition</p>
+              <p className="text-base sm:text-lg font-bold text-white text-center sm:text-left">{healthScore}/100</p>
+              <p className="text-[10px] sm:text-xs text-gray-400 text-center sm:text-left">Good condition</p>
             </div>
 
             {/* Active Warnings */}
             <div className="p-3 rounded-xl bg-linear-to-br from-amber-500/10 to-amber-600/10 border border-amber-500/20">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-xl">⚠️</span>
-                <span className="text-xs text-gray-400">Warnings</span>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-1">
+                <span className="text-lg sm:text-xl self-center sm:self-auto">⚠️</span>
+                <span className="text-[10px] sm:text-xs text-gray-400 text-center sm:text-left">Warnings</span>
               </div>
-              <p className="text-lg font-bold text-white">{activeWarnings}</p>
-              <p className="text-xs text-gray-400">Needs attention</p>
+              <p className="text-base sm:text-lg font-bold text-white text-center sm:text-left">{activeWarnings}</p>
+              <p className="text-[10px] sm:text-xs text-gray-400 text-center sm:text-left">Needs attention</p>
             </div>
 
             {/* Chronic Conditions */}
             <div className="p-3 rounded-xl bg-linear-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-xl">📋</span>
-                <span className="text-xs text-gray-400">Conditions</span>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-1">
+                <span className="text-lg sm:text-xl self-center sm:self-auto">📋</span>
+                <span className="text-[10px] sm:text-xs text-gray-400 text-center sm:text-left">Conditions</span>
               </div>
-              <p className="text-lg font-bold text-white">
+              <p className="text-base sm:text-lg font-bold text-white text-center sm:text-left">
                 {chronicConditions}
               </p>
-              <p className="text-xs text-gray-400">Being managed</p>
+              <p className="text-[10px] sm:text-xs text-gray-400 text-center sm:text-left">Being managed</p>
             </div>
           </div>
 
@@ -450,7 +450,7 @@ export default function HealthPage() {
           <div className="flex gap-2 px-4 md:px-6 pb-4">
             <button
               onClick={() => setActiveTab("overview")}
-              className={`flex-1 md:flex-none px-6 py-2.5 rounded-xl font-medium transition-all duration-300 ${
+              className={`flex-1 md:flex-none px-3 sm:px-6 py-1.5 sm:py-2.5 text-xs sm:text-sm rounded-xl font-medium transition-all duration-300 ${
                 activeTab === "overview"
                   ? "bg-linear-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
                   : "bg-white/5 border border-transparent text-gray-400 hover:text-white hover:bg-white/10"
@@ -460,7 +460,7 @@ export default function HealthPage() {
             </button>
             <button
               onClick={() => setActiveTab("risk")}
-              className={`flex-1 md:flex-none px-6 py-2.5 rounded-xl font-medium transition-all duration-300 ${
+              className={`flex-1 md:flex-none px-3 sm:px-6 py-1.5 sm:py-2.5 text-xs sm:text-sm rounded-xl font-medium transition-all duration-300 ${
                 activeTab === "risk"
                   ? "bg-linear-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
                   : "bg-white/5 border border-transparent text-gray-400 hover:text-white hover:bg-white/10"
@@ -470,7 +470,7 @@ export default function HealthPage() {
             </button>
             <button
               onClick={() => setActiveTab("manager")}
-              className={`flex-1 md:flex-none px-6 py-2.5 rounded-xl font-medium transition-all duration-300 ${
+              className={`flex-1 md:flex-none px-3 sm:px-6 py-1.5 sm:py-2.5 text-xs sm:text-sm rounded-xl font-medium transition-all duration-300 ${
                 activeTab === "manager"
                   ? "bg-linear-to-r from-primary/20 to-secondary/20 border border-primary/40 text-white"
                   : "bg-white/5 border border-transparent text-gray-400 hover:text-white hover:bg-white/10"
@@ -481,13 +481,13 @@ export default function HealthPage() {
           </div>
         </div>
 
-        {/* Success Toast */}
-        {showSuccess && (
-          <div className="fixed top-24 right-6 z-50 bg-green-500/90 backdrop-blur-lg text-white px-6 py-4 rounded-2xl shadow-lg animate-fade-in flex items-center gap-3">
-            <span className="text-2xl">✅</span>
-            <span className="font-medium">Updated successfully!</span>
-          </div>
-        )}
+      {/* Success Toast */}
+      {showSuccess && (
+        <div className="fixed top-24 right-6 z-50 bg-green-500/90 backdrop-blur-lg text-white px-4 sm:px-6 py-2 sm:py-4 rounded-2xl shadow-lg animate-fade-in flex items-center gap-2 sm:gap-3">
+          <span className="text-2xl">✅</span>
+          <span className="text-sm sm:text-base font-medium">Updated successfully!</span>
+        </div>
+      )}
 
         {/* Main Content */}
         <div className="p-4 md:p-6">
@@ -497,14 +497,14 @@ export default function HealthPage() {
               {/* Core Vitals Monitoring */}
               <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-emerald-500/20 to-emerald-600/20 flex items-center justify-center text-2xl">
+                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-emerald-500/20 to-emerald-600/20 flex items-center justify-center text-xl sm:text-2xl">
                     💓
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-white">
+                    <h2 className="text-xl sm:text-2xl font-bold text-white">
                       Core Vitals Monitoring
                     </h2>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-xs sm:text-sm text-gray-400">
                       Real-time tracking of your key health indicators
                     </p>
                   </div>
@@ -519,11 +519,11 @@ export default function HealthPage() {
                       )}`}
                     >
                       <div className="flex items-start justify-between mb-2">
-                        <span className="text-sm font-medium text-white">
+                        <span className="text-xs sm:text-sm font-medium text-white">
                           {vital.name}
                         </span>
                         <span
-                          className={`text-xs px-2 py-0.5 rounded-full ${
+                          className={`text-[10px] sm:text-xs px-2 py-0.5 rounded-full ${
                             vital.status === "normal"
                               ? "bg-emerald-500/20 text-emerald-200"
                               : vital.status === "elevated"
@@ -537,16 +537,16 @@ export default function HealthPage() {
                         </span>
                       </div>
                       <div className="flex items-baseline gap-2 mb-2">
-                        <span className="text-2xl font-bold text-white">
+                        <span className="text-xl sm:text-2xl font-bold text-white">
                           {vital.value}
                         </span>
                         {vital.unit && (
-                          <span className="text-sm text-gray-300">
+                          <span className="text-xs sm:text-sm text-gray-300">
                             {vital.unit}
                           </span>
                         )}
                       </div>
-                      <div className="flex items-center justify-between text-xs">
+                      <div className="flex items-center justify-between text-[10px] sm:text-xs">
                         <span className="text-gray-400">{vital.reference}</span>
                         <span className="flex items-center gap-1 text-gray-300">
                           {vital.trend === "up" && <span>↗</span>}
@@ -563,14 +563,14 @@ export default function HealthPage() {
               {/* Smart Warnings */}
               <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-amber-500/20 to-amber-600/20 flex items-center justify-center text-2xl">
+                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-amber-500/20 to-amber-600/20 flex items-center justify-center text-xl sm:text-2xl">
                     🔔
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-white">
+                    <h2 className="text-xl sm:text-2xl font-bold text-white">
                       Early Warning System
                     </h2>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-xs sm:text-sm text-gray-400">
                       AI-powered alerts before issues become serious
                     </p>
                   </div>
@@ -585,10 +585,10 @@ export default function HealthPage() {
                       )}`}
                     >
                       <div className="flex items-start justify-between gap-3 mb-2">
-                        <h3 className="font-semibold text-sm">
+                        <h3 className="text-xs sm:text-sm font-semibold">
                           {warning.title}
                         </h3>
-                        <span className="text-xs px-2 py-1 rounded-full bg-black/20 whitespace-nowrap">
+                        <span className="text-[10px] sm:text-xs px-2 py-1 rounded-full bg-black/20 whitespace-nowrap">
                           {warning.severity === "critical"
                             ? "🚨 Critical"
                             : warning.severity === "warning"
@@ -596,10 +596,10 @@ export default function HealthPage() {
                             : "ℹ️ Info"}
                         </span>
                       </div>
-                      <p className="text-sm mb-2 opacity-90">
+                      <p className="text-xs sm:text-sm mb-2 opacity-90">
                         {warning.message}
                       </p>
-                      <div className="text-xs opacity-75">
+                      <div className="text-[10px] sm:text-xs opacity-75">
                         Related: {warning.relatedTo.join(" • ")}
                       </div>
                     </div>
@@ -610,14 +610,14 @@ export default function HealthPage() {
               {/* Chronic Pattern Learning */}
               <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-purple-500/20 to-purple-600/20 flex items-center justify-center text-2xl">
+                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-purple-500/20 to-purple-600/20 flex items-center justify-center text-xl sm:text-2xl">
                     🧠
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-white">
+                    <h2 className="text-xl sm:text-2xl font-bold text-white">
                       Chronic Pattern Learning (Demo)
                     </h2>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-xs sm:text-sm text-gray-400">
                       AI learns your personal health patterns to predict
                       flare-ups
                     </p>
@@ -626,20 +626,20 @@ export default function HealthPage() {
 
                 <div className="p-4 rounded-xl border border-violet-400/40 bg-violet-500/10">
                   <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-semibold text-violet-100">
+                    <h3 className="text-xs sm:text-sm font-semibold text-violet-100">
                       Migraine · Episodic
                     </h3>
-                    <span className="text-xs px-2 py-1 rounded-full bg-violet-500/20 text-violet-200">
+                    <span className="text-[10px] sm:text-xs px-2 py-1 rounded-full bg-violet-500/20 text-violet-200">
                       Calm for 24 days
                     </span>
                   </div>
-                  <p className="text-sm text-violet-100/90 mb-3">
+                  <p className="text-xs sm:text-sm text-violet-100/90 mb-3">
                     Most flare-ups follow 2–3 nights of short sleep plus a spike
                     in stress levels. Current indicators suggest low risk for
                     the next 7 days.
                   </p>
                   <div className="p-3 rounded-lg bg-violet-500/10 border border-violet-400/20">
-                    <p className="text-xs text-violet-100/80">
+                    <p className="text-[10px] sm:text-xs text-violet-100/80">
                       💡 <strong>Smart Prediction:</strong> In a real system,
                       your watch and sleep data would trigger an early heads-up
                       1–2 days before a likely flare, giving you time to adjust
@@ -649,7 +649,7 @@ export default function HealthPage() {
                 </div>
 
                 <div className="mt-4 p-4 rounded-xl bg-white/5 border border-white/10">
-                  <p className="text-sm text-gray-300">
+                  <p className="text-xs sm:text-sm text-gray-300">
                     <strong>How it works:</strong> The system tracks patterns
                     between your vitals (heart rate, HRV, sleep quality) and
                     your symptom logs. Over time, it learns your unique triggers
@@ -667,21 +667,21 @@ export default function HealthPage() {
               {/* Scenario Selector */}
               <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-blue-500/20 to-blue-600/20 flex items-center justify-center text-2xl">
+                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-blue-500/20 to-blue-600/20 flex items-center justify-center text-xl sm:text-2xl">
                     🔮
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-white">
+                    <h2 className="text-xl sm:text-2xl font-bold text-white">
                       5-Year Risk Timeline
                     </h2>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-xs sm:text-sm text-gray-400">
                       See how your choices today shape your health tomorrow
                     </p>
                   </div>
                 </div>
 
                 <div className="mb-6">
-                  <h3 className="text-sm font-medium text-gray-400 mb-3">
+                  <h3 className="text-xs sm:text-sm font-medium text-gray-400 mb-3">
                     Choose Your Future Scenario:
                   </h3>
                   <div className="flex flex-wrap gap-2">
@@ -689,7 +689,7 @@ export default function HealthPage() {
                       <button
                         key={scenario.id}
                         onClick={() => setSelectedScenario(scenario.id)}
-                        className={`px-4 py-2 rounded-xl border transition-all ${
+                        className={`px-4 py-2 text-xs sm:text-sm rounded-xl border transition-all ${
                           selectedScenario === scenario.id
                             ? "bg-linear-to-r from-primary/20 to-secondary/20 border-primary/40 text-white"
                             : "bg-white/5 border-white/10 text-gray-300 hover:border-white/30"
@@ -699,7 +699,7 @@ export default function HealthPage() {
                       </button>
                     ))}
                   </div>
-                  <p className="text-sm text-gray-400 mt-3">
+                  <p className="text-xs sm:text-sm text-gray-400 mt-3">
                     {
                       scenarios.find((s) => s.id === selectedScenario)
                         ?.description
@@ -725,23 +725,23 @@ export default function HealthPage() {
                       >
                         <div className="flex items-center justify-between mb-3">
                           <div>
-                            <h3 className="font-semibold text-white">
+                            <h3 className="text-xs sm:text-sm font-semibold text-white">
                               {risk.name}
                             </h3>
-                            <p className="text-xs text-gray-400">
+                            <p className="text-[10px] sm:text-xs text-gray-400">
                               {risk.category} • Drivers:{" "}
                               {risk.mainDrivers.join(", ")}
                             </p>
                           </div>
                           <div className="text-right">
-                            <div className="text-2xl font-bold text-emerald-400">
+                            <div className="text-xl sm:text-2xl font-bold text-emerald-400">
                               {value}%
                             </div>
-                            <div className="text-xs text-gray-400">
+                            <div className="text-[10px] sm:text-xs text-gray-400">
                               5-year risk
                             </div>
                             {selectedScenario !== "current" && delta > 0 && (
-                              <div className="text-xs text-emerald-400 mt-1">
+                              <div className="text-[10px] sm:text-xs text-emerald-400 mt-1">
                                 ↓ {delta}% reduction
                               </div>
                             )}
@@ -762,14 +762,14 @@ export default function HealthPage() {
               {/* Behavior Change Suggestions */}
               <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-green-500/20 to-green-600/20 flex items-center justify-center text-2xl">
+                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-green-500/20 to-green-600/20 flex items-center justify-center text-xl sm:text-2xl">
                     ✨
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-white">
+                    <h2 className="text-xl sm:text-2xl font-bold text-white">
                       Personalized Action Plan
                     </h2>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-xs sm:text-sm text-gray-400">
                       Small changes that make a big impact
                     </p>
                   </div>
@@ -777,45 +777,45 @@ export default function HealthPage() {
 
                 <div className="space-y-4">
                   <div className="p-4 rounded-xl border border-emerald-400/40 bg-emerald-500/10">
-                    <h3 className="font-semibold text-emerald-100 mb-2">
+                    <h3 className="text-xs sm:text-sm font-semibold text-emerald-100 mb-2">
                       💪 Add 3 structured workouts per week
                     </h3>
-                    <p className="text-sm text-emerald-100/80 mb-2">
+                    <p className="text-xs sm:text-sm text-emerald-100/80 mb-2">
                       Could lower your 5-year diabetes risk from{" "}
                       <strong>22% → 14%</strong> and blood pressure risk from{" "}
                       <strong>28% → 20%</strong>.
                     </p>
-                    <p className="text-xs text-emerald-100/70">
+                    <p className="text-[10px] sm:text-xs text-emerald-100/70">
                       Impact: Improved insulin sensitivity, lower resting BP,
                       better weight management
                     </p>
                   </div>
 
                   <div className="p-4 rounded-xl border border-sky-400/40 bg-sky-500/10">
-                    <h3 className="font-semibold text-sky-100 mb-2">
+                    <h3 className="text-xs sm:text-sm font-semibold text-sky-100 mb-2">
                       😴 Increase sleep by 60-90 minutes
                     </h3>
-                    <p className="text-sm text-sky-100/80 mb-2">
+                    <p className="text-xs sm:text-sm text-sky-100/80 mb-2">
                       Could reduce migraine flare frequency by{" "}
                       <strong>~25%</strong> and lower hypertension risk by{" "}
                       <strong>5-7%</strong>.
                     </p>
-                    <p className="text-xs text-sky-100/70">
+                    <p className="text-[10px] sm:text-xs text-sky-100/70">
                       Impact: Better brain recovery, regulated stress hormones,
                       improved cardiovascular health
                     </p>
                   </div>
 
                   <div className="p-4 rounded-xl border border-amber-400/40 bg-amber-500/10">
-                    <h3 className="font-semibold text-amber-100 mb-2">
+                    <h3 className="text-xs sm:text-sm font-semibold text-amber-100 mb-2">
                       🥗 Reduce processed food to 1×/day
                     </h3>
-                    <p className="text-sm text-amber-100/80 mb-2">
+                    <p className="text-xs sm:text-sm text-amber-100/80 mb-2">
                       Could improve LDL and HbA1c levels, reducing heart disease
                       and diabetes risk by{" "}
                       <strong>several percentage points</strong>.
                     </p>
-                    <p className="text-xs text-amber-100/70">
+                    <p className="text-[10px] sm:text-xs text-amber-100/70">
                       Impact: Better metabolic health, reduced inflammation,
                       improved energy levels
                     </p>
@@ -826,14 +826,14 @@ export default function HealthPage() {
               {/* Genetics & Family History */}
               <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-purple-500/20 to-purple-600/20 flex items-center justify-center text-2xl">
+                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-purple-500/20 to-purple-600/20 flex items-center justify-center text-xl sm:text-2xl">
                     🧬
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-white">
+                    <h2 className="text-xl sm:text-2xl font-bold text-white">
                       Family Risk & Genetics
                     </h2>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-xs sm:text-sm text-gray-400">
                       Understanding your inherited risks and how to manage them
                     </p>
                   </div>
@@ -843,15 +843,15 @@ export default function HealthPage() {
                   <div className="p-4 rounded-xl bg-white/5 border border-white/10">
                     <div className="flex items-start justify-between gap-3">
                       <div>
-                        <h3 className="text-sm font-semibold text-white mb-1">
+                        <h3 className="text-xs sm:text-sm font-semibold text-white mb-1">
                           Early heart disease in parent
                         </h3>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] sm:text-xs text-gray-400">
                           Baseline risk elevated by ~1.4× compared to population
                           average
                         </p>
                       </div>
-                      <span className="text-xs px-2 py-1 rounded-full bg-rose-500/15 text-rose-200 border border-rose-500/30 whitespace-nowrap">
+                      <span className="text-[10px] sm:text-xs px-2 py-1 rounded-full bg-rose-500/15 text-rose-200 border border-rose-500/30 whitespace-nowrap">
                         Fixed Risk
                       </span>
                     </div>
@@ -860,14 +860,14 @@ export default function HealthPage() {
                   <div className="p-4 rounded-xl bg-white/5 border border-white/10">
                     <div className="flex items-start justify-between gap-3">
                       <div>
-                        <h3 className="text-sm font-semibold text-white mb-1">
+                        <h3 className="text-xs sm:text-sm font-semibold text-white mb-1">
                           Your lifestyle impact
                         </h3>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] sm:text-xs text-gray-400">
                           Current choices already offset ~35% of inherited risk
                         </p>
                       </div>
-                      <span className="text-xs px-2 py-1 rounded-full bg-emerald-500/15 text-emerald-200 border border-emerald-500/30 whitespace-nowrap">
+                      <span className="text-[10px] sm:text-xs px-2 py-1 rounded-full bg-emerald-500/15 text-emerald-200 border border-emerald-500/30 whitespace-nowrap">
                         Good Progress
                       </span>
                     </div>
@@ -875,7 +875,7 @@ export default function HealthPage() {
                 </div>
 
                 <div className="mt-4 p-4 rounded-xl bg-blue-500/10 border border-blue-500/20">
-                  <p className="text-sm text-blue-100">
+                  <p className="text-xs sm:text-sm text-blue-100">
                     💡 <strong>Good news:</strong> While you can&apos;t change
                     your genetics, your daily habits have a powerful effect. The
                     combination of regular exercise, good nutrition, and quality
@@ -892,14 +892,14 @@ export default function HealthPage() {
               {/* Conditions Overview */}
               <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-blue-500/20 to-blue-600/20 flex items-center justify-center text-2xl">
+                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-blue-500/20 to-blue-600/20 flex items-center justify-center text-xl sm:text-2xl">
                     📋
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-white">
+                    <h2 className="text-xl sm:text-2xl font-bold text-white">
                       Conditions at a Glance
                     </h2>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-xs sm:text-sm text-gray-400">
                       Complete overview of your health status
                     </p>
                   </div>
@@ -912,11 +912,11 @@ export default function HealthPage() {
                       className="p-4 rounded-xl bg-white/5 border border-white/10"
                     >
                       <div className="flex items-start justify-between gap-3 mb-2">
-                        <h3 className="font-semibold text-white">
+                        <h3 className="text-xs sm:text-sm font-semibold text-white">
                           {condition.name}
                         </h3>
                         <span
-                          className={`text-xs px-2 py-1 rounded-full ${
+                          className={`text-[10px] sm:text-xs px-2 py-1 rounded-full ${
                             condition.status === "controlled"
                               ? "bg-emerald-500/15 text-emerald-200 border border-emerald-500/30"
                               : condition.status === "borderline"
@@ -927,10 +927,10 @@ export default function HealthPage() {
                           {condition.status}
                         </span>
                       </div>
-                      <p className="text-sm text-gray-300 mb-2">
+                      <p className="text-xs sm:text-sm text-gray-300 mb-2">
                         {condition.notes}
                       </p>
-                      <p className="text-xs text-gray-400">
+                      <p className="text-[10px] sm:text-xs text-gray-400">
                         Since {condition.since}
                       </p>
                     </div>
@@ -941,14 +941,14 @@ export default function HealthPage() {
               {/* Medications Management */}
               <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-purple-500/20 to-purple-600/20 flex items-center justify-center text-2xl">
+                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-purple-500/20 to-purple-600/20 flex items-center justify-center text-xl sm:text-2xl">
                     💊
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-white">
+                    <h2 className="text-xl sm:text-2xl font-bold text-white">
                       Medications & Supplements
                     </h2>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-xs sm:text-sm text-gray-400">
                       Track effectiveness and manage your routine
                     </p>
                   </div>
@@ -962,23 +962,23 @@ export default function HealthPage() {
                     >
                       <div className="flex items-start justify-between gap-3 mb-2">
                         <div>
-                          <h3 className="font-semibold text-white">
+                          <h3 className="text-xs sm:text-sm font-semibold text-white">
                             {med.name}
                           </h3>
-                          <p className="text-sm text-gray-300">
+                          <p className="text-xs sm:text-sm text-gray-300">
                             {med.dose} • {med.schedule}
                           </p>
                         </div>
-                        <span className="text-xs px-2 py-1 rounded-full bg-white/5 text-gray-300 whitespace-nowrap">
+                        <span className="text-[10px] sm:text-xs px-2 py-1 rounded-full bg-white/5 text-gray-300 whitespace-nowrap">
                           Next: {med.nextDose}
                         </span>
                       </div>
-                      <p className="text-sm text-gray-400 mb-2">
+                      <p className="text-xs sm:text-sm text-gray-400 mb-2">
                         {med.effectSummary}
                       </p>
                       {med.changedRecently && (
                         <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
-                          <p className="text-xs text-emerald-200">
+                          <p className="text-[10px] sm:text-xs text-emerald-200">
                             ✓ Recently adjusted • System is monitoring your
                             vitals to evaluate effectiveness
                           </p>
@@ -989,7 +989,7 @@ export default function HealthPage() {
                 </div>
 
                 <div className="mt-4 p-4 rounded-xl bg-blue-500/10 border border-blue-500/20">
-                  <p className="text-sm text-blue-100">
+                  <p className="text-xs sm:text-sm text-blue-100">
                     💡 <strong>Smart Tracking:</strong> In a full system, we
                     track how medication changes affect your vitals and
                     symptoms, providing data-driven feedback to you and your
@@ -1001,14 +1001,14 @@ export default function HealthPage() {
               {/* Lab Results */}
               <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-green-500/20 to-green-600/20 flex items-center justify-center text-2xl">
+                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-green-500/20 to-green-600/20 flex items-center justify-center text-xl sm:text-2xl">
                     🧪
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-white">
+                    <h2 className="text-xl sm:text-2xl font-bold text-white">
                       Recent Lab Results
                     </h2>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-xs sm:text-sm text-gray-400">
                       Simplified, easy-to-understand format
                     </p>
                   </div>
@@ -1017,7 +1017,7 @@ export default function HealthPage() {
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead>
-                      <tr className="text-left text-xs text-gray-400 border-b border-white/10">
+                      <tr className="text-left text-[10px] sm:text-xs text-gray-400 border-b border-white/10">
                         <th className="pb-2 font-medium">Test</th>
                         <th className="pb-2 font-medium">Result</th>
                         <th className="pb-2 font-medium">Reference</th>
@@ -1030,20 +1030,20 @@ export default function HealthPage() {
                           key={lab.name}
                           className="border-b border-white/5 last:border-0"
                         >
-                          <td className="py-3 text-sm text-white">
+                          <td className="py-3 text-xs sm:text-sm text-white">
                             {lab.name}
                           </td>
                           <td
-                            className={`py-3 text-sm font-semibold ${getLabStatusColor(
+                            className={`py-3 text-xs sm:text-sm font-semibold ${getLabStatusColor(
                               lab.status
                             )}`}
                           >
                             {lab.value} {lab.unit}
                           </td>
-                          <td className="py-3 text-xs text-gray-400">
+                          <td className="py-3 text-[10px] sm:text-xs text-gray-400">
                             {lab.reference}
                           </td>
-                          <td className="py-3 text-xs text-gray-400">
+                          <td className="py-3 text-[10px] sm:text-xs text-gray-400">
                             {lab.lastChecked}
                           </td>
                         </tr>
@@ -1053,7 +1053,7 @@ export default function HealthPage() {
                 </div>
 
                 <div className="mt-4 p-4 rounded-xl bg-purple-500/10 border border-purple-500/20">
-                  <p className="text-sm text-purple-100">
+                  <p className="text-xs sm:text-sm text-purple-100">
                     🔗 <strong>Integration ready:</strong> In production, we
                     connect directly to your lab provider or doctor portal, so
                     results appear automatically with clear explanations.
@@ -1064,14 +1064,14 @@ export default function HealthPage() {
               {/* Appointments & Doctor Coordination */}
               <div className="bg-dark-card border border-white/5 rounded-2xl p-6">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-orange-500/20 to-orange-600/20 flex items-center justify-center text-2xl">
+                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-orange-500/20 to-orange-600/20 flex items-center justify-center text-xl sm:text-2xl">
                     👨‍⚕️
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-white">
+                    <h2 className="text-xl sm:text-2xl font-bold text-white">
                       Appointments & Care Team
                     </h2>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-xs sm:text-sm text-gray-400">
                       Stay coordinated with your healthcare providers
                     </p>
                   </div>
@@ -1084,15 +1084,15 @@ export default function HealthPage() {
                       className="p-4 rounded-xl bg-white/5 border border-white/10"
                     >
                       <div className="flex items-start justify-between gap-3 mb-2">
-                        <h3 className="font-semibold text-white">
+                        <h3 className="text-xs sm:text-sm font-semibold text-white">
                           {appt.type}
                         </h3>
-                        <span className="text-xs px-2 py-1 rounded-full bg-white/5 text-gray-300 whitespace-nowrap">
+                        <span className="text-[10px] sm:text-xs px-2 py-1 rounded-full bg-white/5 text-gray-300 whitespace-nowrap">
                           {appt.date} • {appt.time}
                         </span>
                       </div>
-                      <p className="text-sm text-gray-300 mb-1">{appt.with}</p>
-                      <p className="text-xs text-gray-400">
+                      <p className="text-xs sm:text-sm text-gray-300 mb-1">{appt.with}</p>
+                      <p className="text-[10px] sm:text-xs text-gray-400">
                         Focus: {appt.focus}
                       </p>
                     </div>
@@ -1102,22 +1102,22 @@ export default function HealthPage() {
                 {/* Doctor Notification System */}
                 <div className="p-4 rounded-xl border border-emerald-400/40 bg-emerald-500/10">
                   <div className="flex items-start gap-3">
-                    <span className="text-2xl">🔒</span>
+                    <span className="text-xl sm:text-2xl">🔒</span>
                     <div>
-                      <h3 className="font-semibold text-emerald-100 mb-2">
+                      <h3 className="text-xs sm:text-sm font-semibold text-emerald-100 mb-2">
                         Smart Doctor Alerts (With Your Consent)
                       </h3>
-                      <p className="text-sm text-emerald-100/80 mb-3">
+                      <p className="text-xs sm:text-sm text-emerald-100/80 mb-3">
                         When enabled, the system can automatically notify your
                         doctor if it detects unusual patterns or concerning
                         changes in your vitals. You maintain full control over
                         what gets shared and when.
                       </p>
                       <div className="flex gap-2">
-                        <button className="px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-100 text-xs font-medium border border-emerald-400/30 hover:bg-emerald-500/30 transition">
+                        <button className="px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-100 text-[10px] sm:text-xs font-medium border border-emerald-400/30 hover:bg-emerald-500/30 transition">
                           Configure Alerts
                         </button>
-                        <button className="px-3 py-1.5 rounded-lg bg-white/5 text-gray-300 text-xs font-medium border border-white/10 hover:bg-white/10 transition">
+                        <button className="px-3 py-1.5 rounded-lg bg-white/5 text-gray-300 text-[10px] sm:text-xs font-medium border border-white/10 hover:bg-white/10 transition">
                           Privacy Settings
                         </button>
                       </div>
@@ -1136,12 +1136,12 @@ export default function HealthPage() {
           <div className="bg-dark-card border border-white/10 rounded-2xl max-w-md w-full p-6">
             <div className="text-center mb-6">
               <div className="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center mx-auto mb-4">
-                <span className="text-4xl">⚠️</span>
+                <span className="text-3xl sm:text-4xl">⚠️</span>
               </div>
-              <h2 className="text-2xl font-bold text-white mb-2">
+              <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">
                 Reset Health Data?
               </h2>
-              <p className="text-gray-400">
+              <p className="text-xs sm:text-sm text-gray-400">
                 This will reset all your health data to default values. This
                 action cannot be undone.
               </p>
@@ -1150,13 +1150,13 @@ export default function HealthPage() {
             <div className="flex gap-3">
               <button
                 onClick={() => setShowResetConfirm(false)}
-                className="flex-1 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg font-medium transition-all duration-300"
+                className="flex-1 px-4 py-2 text-xs sm:text-sm bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg font-medium transition-all duration-300"
               >
                 Cancel
               </button>
               <button
                 onClick={handleResetHealthData}
-                className="flex-1 px-4 py-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-400 rounded-lg font-medium transition-all duration-300"
+                className="flex-1 px-4 py-2 text-xs sm:text-sm bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-400 rounded-lg font-medium transition-all duration-300"
               >
                 Reset Data
               </button>
@@ -1291,8 +1291,8 @@ function OnboardingSettingsModal({
       <div className="bg-dark-card border border-white/10 rounded-2xl max-w-3xl w-full max-h-[85vh] overflow-y-auto">
         <div className="p-4 sm:p-6 border-b border-white/5 flex items-center justify-between sticky top-0 bg-dark-card z-10">
           <div>
-            <h2 className="text-2xl font-bold text-white">Health Settings</h2>
-            <p className="text-sm text-gray-400 mt-1">
+            <h2 className="text-xl sm:text-2xl font-bold text-white">Health Settings</h2>
+            <p className="text-xs sm:text-sm text-gray-400 mt-1">
               Update your health profile preferences
             </p>
           </div>
@@ -1307,13 +1307,13 @@ function OnboardingSettingsModal({
         <div className="p-4 sm:p-6 space-y-6">
           {questions.map((question) => (
             <div key={question.key} className="space-y-3">
-              <h3 className="text-white font-medium">{question.label}</h3>
+              <h3 className="text-xs sm:text-sm text-white font-medium">{question.label}</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {question.options.map((option) => (
                   <button
                     key={option.value}
                     onClick={() => handleAnswer(question.key, option.value)}
-                    className={`p-3 rounded-xl border text-left transition-all duration-300 ${
+                    className={`p-3 text-xs sm:text-sm rounded-xl border text-left transition-all duration-300 ${
                       answers[question.key] === option.value
                         ? "bg-primary/20 border-primary/40 text-white"
                         : "bg-white/5 border-white/10 text-gray-400 hover:bg-white/10 hover:text-white"
@@ -1330,13 +1330,13 @@ function OnboardingSettingsModal({
         <div className="p-4 sm:p-6 border-t border-white/5 flex gap-3 sticky bottom-0 bg-dark-card">
           <button
             onClick={onClose}
-            className="flex-1 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg font-medium transition-all duration-300"
+            className="flex-1 px-4 py-2 text-xs sm:text-sm bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg font-medium transition-all duration-300"
           >
             Cancel
           </button>
           <button
             onClick={handleSave}
-            className="flex-1 px-4 py-2 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-lg font-medium transition-all duration-300"
+            className="flex-1 px-4 py-2 text-xs sm:text-sm bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary rounded-lg font-medium transition-all duration-300"
           >
             Save Changes
           </button>

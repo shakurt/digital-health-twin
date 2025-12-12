@@ -296,8 +296,12 @@ export default function Dashboard() {
                   className="flex-1 flex flex-col items-center gap-2"
                 >
                   <div
-                    className="w-full bg-linear-to-t from-blue-500/80 to-blue-400/40 rounded-t-lg transition-all hover:from-blue-500 hover:to-blue-400"
-                    style={{ height: `${(hours / 10) * 100}%` }}
+                    className="w-full rounded-t-lg transition-all"
+                    style={{ 
+                      height: `${(hours / 9) * 100}%`,
+                      minHeight: '40px',
+                      background: 'linear-gradient(to top, rgb(59, 130, 246), rgb(96, 165, 250))',
+                    }}
                   ></div>
                   <span className="text-xs text-gray-500">
                     {["S", "M", "T", "W", "T", "F", "S"][index]}

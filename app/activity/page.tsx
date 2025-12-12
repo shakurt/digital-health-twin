@@ -768,11 +768,9 @@ export default function Activity() {
     <AppLayout>
       {/* Success Toast */}
       {showSuccess && (
-        <div className="fixed top-20 sm:top-24 right-4 sm:right-6 z-50 bg-green-500/90 backdrop-blur-lg text-white px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl shadow-lg animate-fade-in flex items-center gap-2 sm:gap-3">
-          <span className="text-lg sm:text-2xl">✅</span>
-          <span className="font-medium text-sm sm:text-base">
-            Updated successfully!
-          </span>
+        <div className="fixed top-24 right-6 z-50 bg-green-500/90 backdrop-blur-lg text-white px-4 sm:px-6 py-2 sm:py-4 rounded-2xl shadow-lg animate-fade-in flex items-center gap-2 sm:gap-3">
+          <span className="text-2xl">✅</span>
+          <span className="text-sm sm:text-base font-medium">Updated successfully!</span>
         </div>
       )}
 
