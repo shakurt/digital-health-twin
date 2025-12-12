@@ -155,6 +155,13 @@ export default function NutritionDocs() {
       example:
         "Insight: 'High stress days (7+) linked to 2x more fast food. Try 5-min meditation before meals.'",
     },
+    {
+      title: "🤖 AI Nutrition Assistant",
+      description:
+        "Chat with an AI assistant that provides personalized nutrition advice, answers questions about your eating patterns, and offers meal suggestions based on your health data.",
+      example:
+        "Ask: 'Why am I craving sugar?' → AI analyzes your sleep data and suggests: 'Low sleep (6.1h) increases cravings by 30%. Try protein-rich snacks instead.'",
+    },
   ];
 
   const futureFeatures = [

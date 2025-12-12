@@ -152,6 +152,13 @@ export default function ActivityDocs() {
       example:
         "Recovery Status: Good ✓ - HRV 68ms, rested heart rate 58 bpm. Ready for high-intensity training today!",
     },
+    {
+      title: "🤖 AI Fitness Assistant",
+      description:
+        "Chat with an AI assistant that provides personalized workout advice, answers questions about your fitness patterns, and offers exercise recommendations based on your activity data.",
+      example:
+        "Ask: 'Should I do cardio today?' → AI analyzes your HRV and suggests: 'Recovery status good (68ms). Try 30-min moderate cardio - perfect for building endurance.'",
+    },
   ];
 
   const futureFeatures = [

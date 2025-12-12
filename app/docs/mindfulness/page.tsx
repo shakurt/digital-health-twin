@@ -152,6 +152,13 @@ export default function MindfulnessDocs() {
       example:
         "Week summary: Busiest day Tuesday (8/10), Best day Saturday (2/10), Sleep avg 7.1h, Activity avg 45min.",
     },
+    {
+      title: "🤖 AI Mindfulness Assistant",
+      description:
+        "Chat with AI that knows your mental wellness patterns and provides personalized mindfulness guidance.",
+      example:
+        "Ask: 'I'm feeling anxious about tomorrow.' → AI: 'I see your anxiety peaks before presentations. Last time, 10-min breathing helped. Try that now?'",
+    },
   ];
 
   const futureFeatures = [

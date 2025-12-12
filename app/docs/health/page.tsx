@@ -145,6 +145,13 @@ export default function HealthDocs() {
       example:
         "Hypertension: Controlled ✓ (since 2020), Prediabetes: Monitoring ⚠️ (borderline), High cholesterol: Controlled ✓",
     },
+    {
+      title: "🤖 AI Health Assistant",
+      description:
+        "Chat with AI that knows your complete health history and provides personalized medical guidance.",
+      example:
+        "Ask: 'Why is my BP higher today?' → AI: 'You had high sodium lunch (2400mg) + only 5h sleep. Both elevate BP temporarily.'",
+    },
   ];
 
   const futureFeatures = [

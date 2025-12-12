@@ -159,6 +159,13 @@ export default function SleepDocs() {
       example:
         "Sleep debt: 3 hours accumulated this week. Recovery plan: Add 30 min to next 6 nights to pay off debt.",
     },
+    {
+      title: "🤖 AI Sleep Assistant",
+      description:
+        "Chat with AI that knows your sleep patterns and provides personalized sleep optimization guidance.",
+      example:
+        "Ask: 'Why am I tired today?' → AI: 'You had fragmented sleep last night (woke 4x) + only 6h total. Try: earlier bedtime, magnesium supplement.'",
+    },
   ];
 
   const futureFeatures = [
