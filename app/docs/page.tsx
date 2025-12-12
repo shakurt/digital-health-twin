@@ -35,6 +35,17 @@ export default function Docs() {
 
   const modules = [
     {
+      name: "Authentication",
+      description:
+        "Learn about user authentication, access control, and data security",
+      icon: "🔐",
+      gradient: "from-green-500/20 via-emerald-500/20 to-teal-500/20",
+      borderColor: "border-green-500/40",
+      hoverBorder: "hover:border-green-500/70",
+      iconBg: "bg-green-500/20",
+      link: "/docs/auth",
+    },
+    {
       name: "Nutrition",
       description:
         "Learn about nutrition tracking, meal planning, and dietary guidelines",
