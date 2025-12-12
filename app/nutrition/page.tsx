@@ -1105,12 +1105,22 @@ export default function Nutrition() {
       </div>
 
       {/* AI Chat Button */}
-      <button
-        onClick={() => setShowChatModal(true)}
-        className="fixed bottom-6 right-6 z-40 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-r from-primary to-secondary rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 flex items-center justify-center group"
-      >
-        <span className="text-xl sm:text-2xl group-hover:scale-110 transition-transform duration-300">🤖</span>
-      </button>
+      <div className="fixed bottom-6 right-6 z-40 group">
+        <button
+          onClick={() => setShowChatModal(true)}
+          title="Ask AI about nutrition - meal planning, healthy eating tips, and more!"
+          className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-r from-primary to-secondary rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 flex items-center justify-center"
+        >
+          <span className="text-xl sm:text-2xl group-hover:scale-110 transition-transform duration-300">🤖</span>
+        </button>
+        {/* Tooltip */}
+        <div className="absolute bottom-full right-0 mb-2 px-3 py-2 bg-dark-card border border-white/10 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
+          <div className="text-xs text-white font-medium">Ask AI about nutrition</div>
+          <div className="text-xs text-gray-400">Meal planning, tips & more</div>
+          {/* Arrow */}
+          <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-dark-card"></div>
+        </div>
+      </div>
 
       {/* Habit Modal */}
       {showHabitModal && (

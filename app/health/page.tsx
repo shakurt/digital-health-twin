@@ -336,10 +336,11 @@ export default function HealthPage() {
   const [showOnboardingModal, setShowOnboardingModal] = useState(false);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showChatModal, setShowChatModal] = useState(false);
 
   // Prevent body scroll when modal is open
   useEffect(() => {
-    if (showOnboardingModal || showResetConfirm) {
+    if (showOnboardingModal || showResetConfirm || showChatModal) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
@@ -348,7 +349,7 @@ export default function HealthPage() {
     return () => {
       document.body.style.overflow = "unset";
     };
-  }, [showOnboardingModal, showResetConfirm]);
+  }, [showOnboardingModal, showResetConfirm, showChatModal]);
 
   const handleResetHealthData = () => {
     // Reset all health data to defaults
@@ -1172,6 +1173,27 @@ export default function HealthPage() {
           onSave={handleUpdateOnboardingAnswers}
         />
       )}
+
+      {/* AI Chat Button */}
+      <div className="fixed bottom-6 right-6 z-40 group">
+        <button
+          onClick={() => setShowChatModal(true)}
+          className="w-14 h-14 bg-linear-to-r from-primary to-secondary rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 flex items-center justify-center text-white text-xl group-hover:animate-pulse"
+          title="Ask AI about your health metrics and insights"
+        >
+          🤖
+        </button>
+        <div className="absolute bottom-full right-0 mb-2 px-3 py-2 bg-dark-card border border-white/10 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
+          <div className="text-xs text-gray-300">Health AI Assistant</div>
+          <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-dark-card"></div>
+        </div>
+      </div>
+
+      {/* AI Chat Modal */}
+      {showChatModal && (
+        <ChatModal onClose={() => setShowChatModal(false)} />
+      )}
+
     </AppLayout>
   );
 }
@@ -1374,4 +1396,169 @@ function OnboardingSettingsModal({
   );
  
   
+}
+// ============= CHAT MODAL COMPONENT =============
+
+function ChatModal({ onClose }: { onClose: () => void }) {
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    // Prevent scrolling on mobile when modal is open
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.width = "100%";
+    document.body.style.top = `-${window.scrollY}px`;
+    document.body.style.touchAction = "none";
+    document.body.style.overscrollBehavior = "none";
+
+    return () => {
+      // Restore scrolling when modal is closed
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+      document.body.style.top = "";
+      document.body.style.touchAction = "";
+      document.body.style.overscrollBehavior = "";
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || "0") * -1);
+      }
+    };
+  }, []);
+
+  return (
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-dark-card border border-white/10 rounded-2xl w-full max-w-md h-[80vh] flex flex-col">
+        {/* Header */}
+        <div className="p-4 border-b border-white/5 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-linear-to-r from-primary to-secondary flex items-center justify-center text-white text-lg">
+              🏥
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-white">Health AI Assistant</h3>
+              <p className="text-xs text-gray-400">Medical insights & guidance</p>
+            </div>
+          </div>
+          <button
+            onClick={onClose}
+            className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors"
+          >
+            ✕
+          </button>
+        </div>
+
+        {/* Chat Messages */}
+        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          {/* AI Welcome Message */}
+          <div className="flex gap-3">
+            <div className="w-8 h-8 rounded-full bg-linear-to-r from-primary to-secondary flex items-center justify-center text-white text-sm flex-shrink-0">
+              🏥
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-3 max-w-[80%]">
+              <p className="text-sm text-gray-300">
+                Hello! I'm your Health AI assistant. I can help you understand your health metrics, explain medical terms, and provide insights about your wellness data. What would you like to know about your health?
+              </p>
+            </div>
+          </div>
+
+          {/* Sample User Question */}
+          <div className="flex gap-3 justify-end">
+            <div className="bg-linear-to-r from-primary to-secondary rounded-2xl p-3 max-w-[80%]">
+              <p className="text-sm text-white">
+                What does my elevated blood pressure mean?
+              </p>
+            </div>
+            <div className="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white text-sm flex-shrink-0">
+              👤
+            </div>
+          </div>
+
+          {/* AI Response */}
+          <div className="flex gap-3">
+            <div className="w-8 h-8 rounded-full bg-linear-to-r from-primary to-secondary flex items-center justify-center text-white text-sm flex-shrink-0">
+              🏥
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-3 max-w-[80%]">
+              <p className="text-sm text-gray-300 mb-2">
+                Your blood pressure of 132/86 mmHg falls into the "elevated" category according to medical guidelines. This means:
+              </p>
+              <ul className="text-sm text-gray-300 space-y-1 ml-4">
+                <li>• <strong>Systolic (132):</strong> The pressure when your heart beats</li>
+                <li>• <strong>Diastolic (86):</strong> The pressure when your heart rests</li>
+                <li>• <strong>Normal range:</strong> Less than 120/80 mmHg</li>
+              </ul>
+              <p className="text-sm text-gray-300 mt-2">
+                This increases your risk for heart disease and stroke. Consider lifestyle changes like reducing salt intake, regular exercise, and stress management. Consult your doctor for personalized advice.
+              </p>
+            </div>
+          </div>
+
+          {/* Another Sample Question */}
+          <div className="flex gap-3 justify-end">
+            <div className="bg-linear-to-r from-primary to-secondary rounded-2xl p-3 max-w-[80%]">
+              <p className="text-sm text-white">
+                How can I improve my sleep quality?
+              </p>
+            </div>
+            <div className="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white text-sm flex-shrink-0">
+              👤
+            </div>
+          </div>
+
+          {/* AI Response */}
+          <div className="flex gap-3">
+            <div className="w-8 h-8 rounded-full bg-linear-to-r from-primary to-secondary flex items-center justify-center text-white text-sm flex-shrink-0">
+              🏥
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-3 max-w-[80%]">
+              <p className="text-sm text-gray-300 mb-2">
+                Based on your sleep data showing 6.1 hours (below the recommended 7-9 hours), here are evidence-based tips to improve your sleep quality:
+              </p>
+              <ul className="text-sm text-gray-300 space-y-1 ml-4">
+                <li>• <strong>Consistent schedule:</strong> Go to bed and wake up at the same time daily</li>
+                <li>• <strong>Sleep environment:</strong> Keep your bedroom cool (65-68°F), dark, and quiet</li>
+                <li>• <strong>Wind-down routine:</strong> Avoid screens 1 hour before bed, try reading or meditation</li>
+                <li>• <strong>Limit caffeine:</strong> No caffeine after 2 PM</li>
+                <li>• <strong>Exercise timing:</strong> Finish workouts at least 3 hours before bedtime</li>
+              </ul>
+              <p className="text-sm text-amber-300 mt-2">
+                💡 Small changes can add 60-90 minutes of quality sleep, potentially reducing your migraine risk and improving overall health.
+              </p>
+            </div>
+          </div>
+
+          {/* Typing Indicator */}
+          <div className="flex gap-3">
+            <div className="w-8 h-8 rounded-full bg-linear-to-r from-primary to-secondary flex items-center justify-center text-white text-sm flex-shrink-0">
+              🏥
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-3">
+              <div className="flex space-x-1">
+                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Input Area */}
+        <div className="p-4 border-t border-white/5">
+          <div className="flex gap-3">
+            <input
+              type="text"
+              placeholder="Ask about your health metrics..."
+              className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-primary transition-colors"
+            />
+            <button className="px-4 py-3 bg-linear-to-r from-primary to-secondary text-white rounded-xl font-medium hover:scale-105 transition-transform">
+              Send
+            </button>
+          </div>
+          <p className="text-xs text-gray-500 mt-2 text-center">
+            This is a prototype. Real AI integration coming soon.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 }

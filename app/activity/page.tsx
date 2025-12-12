@@ -83,6 +83,7 @@ export default function Activity() {
   const [showOnboardingModal, setShowOnboardingModal] = useState(false);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showChatModal, setShowChatModal] = useState(false);
 
   // Check session
   useEffect(() => {
@@ -99,7 +100,7 @@ export default function Activity() {
 
   // Disable body scroll when modal is open
   useEffect(() => {
-    if (showExerciseModal || showOnboardingModal || showResetConfirm) {
+    if (showExerciseModal || showOnboardingModal || showResetConfirm || showChatModal) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
@@ -107,7 +108,7 @@ export default function Activity() {
     return () => {
       document.body.style.overflow = "unset";
     };
-  }, [showExerciseModal, showOnboardingModal, showResetConfirm]);
+  }, [showExerciseModal, showOnboardingModal, showResetConfirm, showChatModal]);
 
   // Hardcoded movement profile
   const movementProfile: MovementProfile = {
@@ -1868,6 +1869,30 @@ export default function Activity() {
           />
         )}
       </div>
+
+      {/* AI Chat Button */}
+      <div className="fixed bottom-6 right-6 z-40 group">
+        <button
+          onClick={() => setShowChatModal(true)}
+          title="Ask AI about fitness - workout plans, exercise tips, and more!"
+          className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-r from-primary to-secondary rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 flex items-center justify-center"
+        >
+          <span className="text-xl sm:text-2xl group-hover:scale-110 transition-transform duration-300">🤖</span>
+        </button>
+        {/* Tooltip */}
+        <div className="absolute bottom-full right-0 mb-2 px-3 py-2 bg-dark-card border border-white/10 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
+          <div className="text-xs text-white font-medium">Ask AI about fitness</div>
+          <div className="text-xs text-gray-400">Workout plans, tips & more</div>
+          {/* Arrow */}
+          <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-dark-card"></div>
+        </div>
+      </div>
+
+      {/* AI Chat Modal */}
+      {showChatModal && (
+        <ChatModal onClose={() => setShowChatModal(false)} />
+      )}
+
     </AppLayout>
   );
 }
@@ -2066,6 +2091,161 @@ function OnboardingSettingsModal({
           >
             Save Settings
           </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ============= CHAT MODAL COMPONENT =============
+
+function ChatModal({ onClose }: { onClose: () => void }) {
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    // Prevent scrolling on mobile when modal is open
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.width = "100%";
+    document.body.style.top = `-${window.scrollY}px`;
+    document.body.style.touchAction = "none";
+    document.body.style.overscrollBehavior = "none";
+
+    return () => {
+      // Restore scrolling when modal is closed
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+      document.body.style.top = "";
+      document.body.style.touchAction = "";
+      document.body.style.overscrollBehavior = "";
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+      }
+    };
+  }, []);
+
+  return (
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-dark-card border border-white/10 rounded-2xl w-full max-w-md h-[80vh] flex flex-col">
+        {/* Header */}
+        <div className="flex items-center justify-between p-4 border-b border-white/10">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center">
+              <span className="text-sm">🤖</span>
+            </div>
+            <div>
+              <h3 className="font-semibold text-white">Fitness AI Assistant</h3>
+              <p className="text-xs text-gray-400">Ask me anything about fitness!</p>
+            </div>
+          </div>
+          <button
+            onClick={onClose}
+            className="w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center transition-colors"
+          >
+            <span className="text-lg">×</span>
+          </button>
+        </div>
+
+        {/* Messages */}
+        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          {/* AI Welcome Message */}
+          <div className="flex gap-3">
+            <div className="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-xs">🤖</span>
+            </div>
+            <div className="bg-dark-bg rounded-2xl rounded-tl-md p-3 max-w-[80%]">
+              <p className="text-sm text-gray-200">
+                Hi! I'm your fitness AI assistant. I can help you with:
+              </p>
+              <ul className="text-xs text-gray-400 mt-2 space-y-1">
+                <li>• Workout planning and routines</li>
+                <li>• Exercise form and technique</li>
+                <li>• Fitness goals and progress</li>
+                <li>• Recovery and injury prevention</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Sample User Message */}
+          <div className="flex gap-3 justify-end">
+            <div className="bg-primary rounded-2xl rounded-tr-md p-3 max-w-[80%]">
+              <p className="text-sm text-white">
+                How can I build muscle faster?
+              </p>
+            </div>
+            <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-xs">👤</span>
+            </div>
+          </div>
+
+          {/* AI Response */}
+          <div className="flex gap-3">
+            <div className="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-xs">🤖</span>
+            </div>
+            <div className="bg-dark-bg rounded-2xl rounded-tl-md p-3 max-w-[80%]">
+              <p className="text-sm text-gray-200">
+                Great question! Here are evidence-based strategies to accelerate muscle growth:
+              </p>
+              <ul className="text-xs text-gray-400 mt-2 space-y-1">
+                <li>• Progressive overload: Increase weight/reps over time</li>
+                <li>• Protein intake: 1.6-2.2g per kg of body weight</li>
+                <li>• Training frequency: 2-3x per muscle group weekly</li>
+                <li>• Recovery: 7-9 hours sleep, proper nutrition</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Another Sample */}
+          <div className="flex gap-3 justify-end">
+            <div className="bg-primary rounded-2xl rounded-tr-md p-3 max-w-[80%]">
+              <p className="text-sm text-white">
+                What's the best cardio for fat loss?
+              </p>
+            </div>
+            <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-xs">👤</span>
+            </div>
+          </div>
+
+          <div className="flex gap-3">
+            <div className="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-xs">🤖</span>
+            </div>
+            <div className="bg-dark-bg rounded-2xl rounded-tl-md p-3 max-w-[80%]">
+              <p className="text-sm text-gray-200">
+                For optimal fat loss, combine different cardio types:
+              </p>
+              <ul className="text-xs text-gray-400 mt-2 space-y-1">
+                <li>• HIIT: High-intensity interval training (20-30 min)</li>
+                <li>• Steady-state: Moderate pace cardio (45-60 min)</li>
+                <li>• LISS: Low-intensity steady-state (60+ min)</li>
+                <li>• Incorporate 2-3 sessions per week</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Input */}
+        <div className="p-4 border-t border-white/10">
+          <div className="flex gap-2">
+            <input
+              type="text"
+              placeholder="Ask me about fitness..."
+              className="flex-1 bg-dark-bg border border-white/10 rounded-xl px-3 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-primary"
+              disabled
+            />
+            <button
+              className="px-4 py-2 bg-primary rounded-xl text-white text-sm font-medium hover:bg-primary/80 transition-colors"
+              disabled
+            >
+              Send
+            </button>
+          </div>
+          <p className="text-xs text-gray-500 mt-2 text-center">
+            This is a prototype - chat functionality coming soon!
+          </p>
         </div>
       </div>
     </div>

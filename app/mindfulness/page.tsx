@@ -298,6 +298,7 @@ export default function Mindfulness() {
   const [showSettings, setShowSettings] = useState(false);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showChatModal, setShowChatModal] = useState(false);
   const [conversationHistory, setConversationHistory] = useState<
     ConversationMessage[]
   >([
@@ -314,7 +315,7 @@ export default function Mindfulness() {
 
   // Prevent body scroll when modal is open
   useEffect(() => {
-    if (showExerciseModal || showSettings || showResetConfirm) {
+    if (showExerciseModal || showSettings || showResetConfirm || showChatModal) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
@@ -323,7 +324,7 @@ export default function Mindfulness() {
     return () => {
       document.body.style.overflow = "unset";
     };
-  }, [showExerciseModal, showSettings, showResetConfirm]);
+  }, [showExerciseModal, showSettings, showResetConfirm, showChatModal]);
 
   // Check session
   useEffect(() => {
@@ -1131,6 +1132,27 @@ export default function Mindfulness() {
           onSave={handleUpdateMindfulnessSettings}
         />
       )}
+
+      {/* AI Chat Button */}
+      <div className="fixed bottom-6 right-6 z-40 group">
+        <button
+          onClick={() => setShowChatModal(true)}
+          className="w-14 h-14 bg-linear-to-r from-primary to-secondary rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 flex items-center justify-center text-white text-xl group-hover:animate-pulse"
+          title="Ask AI about your mental patterns and mindfulness"
+        >
+          🤖
+        </button>
+        <div className="absolute bottom-full right-0 mb-2 px-3 py-2 bg-dark-card border border-white/10 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
+          <div className="text-xs text-gray-300">Mindfulness AI Assistant</div>
+          <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-dark-card"></div>
+        </div>
+      </div>
+
+      {/* AI Chat Modal */}
+      {showChatModal && (
+        <ChatModal onClose={() => setShowChatModal(false)} />
+      )}
+
     </AppLayout>
   );
 }
@@ -1462,6 +1484,171 @@ function MindfulnessSettingsModal({
           >
             Save Changes
           </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ============= CHAT MODAL COMPONENT =============
+
+function ChatModal({ onClose }: { onClose: () => void }) {
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    // Prevent scrolling on mobile when modal is open
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.width = "100%";
+    document.body.style.top = `-${window.scrollY}px`;
+    document.body.style.touchAction = "none";
+    document.body.style.overscrollBehavior = "none";
+
+    return () => {
+      // Restore scrolling when modal is closed
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+      document.body.style.top = "";
+      document.body.style.touchAction = "";
+      document.body.style.overscrollBehavior = "";
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+      }
+    };
+  }, []);
+
+  return (
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-dark-card border border-white/10 rounded-2xl w-full max-w-md h-[80vh] flex flex-col">
+        {/* Header */}
+        <div className="p-4 border-b border-white/5 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-linear-to-r from-primary to-secondary flex items-center justify-center text-white text-lg">
+              🧘
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-white">Mindfulness AI Assistant</h3>
+              <p className="text-xs text-gray-400">Mental wellness & mindfulness guidance</p>
+            </div>
+          </div>
+          <button
+            onClick={onClose}
+            className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors"
+          >
+            ✕
+          </button>
+        </div>
+
+        {/* Chat Messages */}
+        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          {/* AI Welcome Message */}
+          <div className="flex gap-3">
+            <div className="w-8 h-8 rounded-full bg-linear-to-r from-primary to-secondary flex items-center justify-center text-white text-sm flex-shrink-0">
+              🧘
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-3 max-w-[80%]">
+              <p className="text-sm text-gray-300">
+                Hello! I'm your Mindfulness AI assistant. I can help you understand your mental patterns, interpret your emotional data, and provide personalized mindfulness strategies. What would you like to explore about your mental wellness?
+              </p>
+            </div>
+          </div>
+
+          {/* Sample User Question */}
+          <div className="flex gap-3 justify-end">
+            <div className="bg-linear-to-r from-primary to-secondary rounded-2xl p-3 max-w-[80%]">
+              <p className="text-sm text-white">
+                Why do I get stressed on Tuesday afternoons?
+              </p>
+            </div>
+            <div className="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white text-sm flex-shrink-0">
+              👤
+            </div>
+          </div>
+
+          {/* AI Response */}
+          <div className="flex gap-3">
+            <div className="w-8 h-8 rounded-full bg-linear-to-r from-primary to-secondary flex items-center justify-center text-white text-sm flex-shrink-0">
+              🧘
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-3 max-w-[80%]">
+              <p className="text-sm text-gray-300 mb-2">
+                Based on your patterns, Tuesday afternoons consistently show your highest stress levels (8/10). This correlates with:
+              </p>
+              <ul className="text-sm text-gray-300 space-y-1 ml-4">
+                <li>• <strong>Back-to-back meetings:</strong> 3+ consecutive meetings</li>
+                <li>• <strong>Reduced activity:</strong> Only 20 minutes of movement</li>
+                <li>• <strong>Phone usage spike:</strong> 6.5 hours (highest of week)</li>
+              </ul>
+              <p className="text-sm text-gray-300 mt-2">
+                Try a 5-minute breathing exercise before your first afternoon meeting. Your data shows this reduces stress by 40% in similar situations.
+              </p>
+            </div>
+          </div>
+
+          {/* Another Sample Question */}
+          <div className="flex gap-3 justify-end">
+            <div className="bg-linear-to-r from-primary to-secondary rounded-2xl p-3 max-w-[80%]">
+              <p className="text-sm text-white">
+                How can I improve my focus?
+              </p>
+            </div>
+            <div className="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white text-sm flex-shrink-0">
+              👤
+            </div>
+          </div>
+
+          {/* AI Response */}
+          <div className="flex gap-3">
+            <div className="w-8 h-8 rounded-full bg-linear-to-r from-primary to-secondary flex items-center justify-center text-white text-sm flex-shrink-0">
+              🧘
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-3 max-w-[80%]">
+              <p className="text-sm text-gray-300 mb-2">
+                Your focus patterns show clear correlations with lifestyle factors. Here are evidence-based strategies based on your data:
+              </p>
+              <ul className="text-sm text-gray-300 space-y-1 ml-4">
+                <li>• <strong>Sleep priority:</strong> 8+ hours reduces stress by 40%, improving focus</li>
+                <li>• <strong>Morning routine:</strong> Your calm Wednesdays follow consistent morning practices</li>
+                <li>• <strong>Movement breaks:</strong> Even 45 minutes of activity (like Monday) boosts energy</li>
+                <li>• <strong>Screen boundaries:</strong> Limit phone usage during work hours</li>
+              </ul>
+              <p className="text-sm text-amber-300 mt-2">
+                💡 Start with the "Focus Activation Breath" exercise - just 5 minutes can increase alertness by 25% according to your patterns.
+              </p>
+            </div>
+          </div>
+
+          {/* Typing Indicator */}
+          <div className="flex gap-3">
+            <div className="w-8 h-8 rounded-full bg-linear-to-r from-primary to-secondary flex items-center justify-center text-white text-sm flex-shrink-0">
+              🧘
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-3">
+              <div className="flex space-x-1">
+                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Input Area */}
+        <div className="p-4 border-t border-white/5">
+          <div className="flex gap-3">
+            <input
+              type="text"
+              placeholder="Ask about your mental patterns..."
+              className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-primary transition-colors"
+            />
+            <button className="px-4 py-3 bg-linear-to-r from-primary to-secondary text-white rounded-xl font-medium hover:scale-105 transition-transform">
+              Send
+            </button>
+          </div>
+          <p className="text-xs text-gray-500 mt-2 text-center">
+            This is a prototype. Real AI integration coming soon.
+          </p>
         </div>
       </div>
     </div>

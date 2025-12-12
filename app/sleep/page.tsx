@@ -134,6 +134,7 @@ export default function Sleep() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const [showChatModal, setShowChatModal] = useState(false);
 
   useEffect(() => {
     const userData = localStorage.getItem("user");
@@ -151,7 +152,7 @@ export default function Sleep() {
 
   // Disable body scroll when modal is open
   useEffect(() => {
-    if (showLogModal || showSettingsModal || showResetConfirm) {
+    if (showLogModal || showSettingsModal || showResetConfirm || showChatModal) {
       // Prevent scrolling on mobile when modal is open
       document.body.style.overflow = "hidden";
       document.body.style.position = "fixed";
@@ -182,7 +183,7 @@ export default function Sleep() {
       document.body.style.touchAction = "";
       document.body.style.overscrollBehavior = "";
     };
-  }, [showLogModal, showSettingsModal, showResetConfirm]);
+  }, [showLogModal, showSettingsModal, showResetConfirm, showChatModal]);
 
   const metrics = useMemo(() => {
     const totalHours = data.week.reduce((sum, day) => sum + day.hours, 0);
@@ -968,6 +969,27 @@ export default function Sleep() {
             onSave={handleUpdateSleepSettings}
           />
         )}
+
+        {/* AI Chat Button */}
+        <div className="fixed bottom-6 right-6 z-40 group">
+          <button
+            onClick={() => setShowChatModal(true)}
+            className="w-14 h-14 bg-linear-to-r from-primary to-secondary rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 flex items-center justify-center text-white text-xl group-hover:animate-pulse"
+            title="Ask AI about your sleep patterns and recovery"
+          >
+            🤖
+          </button>
+          <div className="absolute bottom-full right-0 mb-2 px-3 py-2 bg-dark-card border border-white/10 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
+            <div className="text-xs text-gray-300">Sleep AI Assistant</div>
+            <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-dark-card"></div>
+          </div>
+        </div>
+
+        {/* AI Chat Modal */}
+        {showChatModal && (
+          <ChatModal onClose={() => setShowChatModal(false)} />
+        )}
+
       </div>
     </AppLayout>
   );
@@ -1170,6 +1192,171 @@ function SleepSettingsModal({
           >
             Save Settings
           </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ============= CHAT MODAL COMPONENT =============
+
+function ChatModal({ onClose }: { onClose: () => void }) {
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    // Prevent scrolling on mobile when modal is open
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.width = "100%";
+    document.body.style.top = `-${window.scrollY}px`;
+    document.body.style.touchAction = "none";
+    document.body.style.overscrollBehavior = "none";
+
+    return () => {
+      // Restore scrolling when modal is closed
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+      document.body.style.top = "";
+      document.body.style.touchAction = "";
+      document.body.style.overscrollBehavior = "";
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+      }
+    };
+  }, []);
+
+  return (
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-dark-card border border-white/10 rounded-2xl w-full max-w-md h-[80vh] flex flex-col">
+        {/* Header */}
+        <div className="p-4 border-b border-white/5 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-linear-to-r from-primary to-secondary flex items-center justify-center text-white text-lg">
+              🌙
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-white">Sleep AI Assistant</h3>
+              <p className="text-xs text-gray-400">Sleep insights & recovery guidance</p>
+            </div>
+          </div>
+          <button
+            onClick={onClose}
+            className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors"
+          >
+            ✕
+          </button>
+        </div>
+
+        {/* Chat Messages */}
+        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          {/* AI Welcome Message */}
+          <div className="flex gap-3">
+            <div className="w-8 h-8 rounded-full bg-linear-to-r from-primary to-secondary flex items-center justify-center text-white text-sm flex-shrink-0">
+              🌙
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-3 max-w-[80%]">
+              <p className="text-sm text-gray-300">
+                Hello! I'm your Sleep AI assistant. I can help you understand your sleep patterns, interpret your recovery metrics, and provide personalized sleep improvement strategies. What would you like to know about your sleep?
+              </p>
+            </div>
+          </div>
+
+          {/* Sample User Question */}
+          <div className="flex gap-3 justify-end">
+            <div className="bg-linear-to-r from-primary to-secondary rounded-2xl p-3 max-w-[80%]">
+              <p className="text-sm text-white">
+                Why is my sleep efficiency low?
+              </p>
+            </div>
+            <div className="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white text-sm flex-shrink-0">
+              👤
+            </div>
+          </div>
+
+          {/* AI Response */}
+          <div className="flex gap-3">
+            <div className="w-8 h-8 rounded-full bg-linear-to-r from-primary to-secondary flex items-center justify-center text-white text-sm flex-shrink-0">
+              🌙
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-3 max-w-[80%]">
+              <p className="text-sm text-gray-300 mb-2">
+                Your sleep efficiency of 91% is actually quite good! Here's what it means and how to optimize it further:
+              </p>
+              <ul className="text-sm text-gray-300 space-y-1 ml-4">
+                <li>• <strong>91% efficiency:</strong> Time asleep vs. time in bed</li>
+                <li>• <strong>14-minute latency:</strong> Time to fall asleep</li>
+                <li>• <strong>2 disturbances:</strong> Nighttime awakenings</li>
+              </ul>
+              <p className="text-sm text-gray-300 mt-2">
+                To improve further, consider a consistent wind-down routine, keeping your bedroom cooler (65-68°F), and limiting screen time 1 hour before bed.
+              </p>
+            </div>
+          </div>
+
+          {/* Another Sample Question */}
+          <div className="flex gap-3 justify-end">
+            <div className="bg-linear-to-r from-primary to-secondary rounded-2xl p-3 max-w-[80%]">
+              <p className="text-sm text-white">
+                How can I reduce my sleep debt?
+              </p>
+            </div>
+            <div className="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white text-sm flex-shrink-0">
+              👤
+            </div>
+          </div>
+
+          {/* AI Response */}
+          <div className="flex gap-3">
+            <div className="w-8 h-8 rounded-full bg-linear-to-r from-primary to-secondary flex items-center justify-center text-white text-sm flex-shrink-0">
+              🌙
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-3 max-w-[80%]">
+              <p className="text-sm text-gray-300 mb-2">
+                You currently have 3.6 hours of sleep debt this week. Here are evidence-based strategies to reduce it:
+              </p>
+              <ul className="text-sm text-gray-300 space-y-1 ml-4">
+                <li>• <strong>Extend sleep duration:</strong> Add 30-60 minutes to your sleep window</li>
+                <li>• <strong>Consistent schedule:</strong> Same bedtime/wake time (±30 minutes)</li>
+                <li>• <strong>Nap strategically:</strong> 20-30 minute naps before 3 PM</li>
+                <li>• <strong>Recovery focus:</strong> Prioritize sleep over late nights</li>
+              </ul>
+              <p className="text-sm text-amber-300 mt-2">
+                💡 Your intermediate chronotype suggests optimal sleep between 11 PM - 7 AM. Try adjusting your schedule to align with this natural rhythm.
+              </p>
+            </div>
+          </div>
+
+          {/* Typing Indicator */}
+          <div className="flex gap-3">
+            <div className="w-8 h-8 rounded-full bg-linear-to-r from-primary to-secondary flex items-center justify-center text-white text-sm flex-shrink-0">
+              🌙
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-3">
+              <div className="flex space-x-1">
+                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Input Area */}
+        <div className="p-4 border-t border-white/5">
+          <div className="flex gap-3">
+            <input
+              type="text"
+              placeholder="Ask about your sleep patterns..."
+              className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-primary transition-colors"
+            />
+            <button className="px-4 py-3 bg-linear-to-r from-primary to-secondary text-white rounded-xl font-medium hover:scale-105 transition-transform">
+              Send
+            </button>
+          </div>
+          <p className="text-xs text-gray-500 mt-2 text-center">
+            This is a prototype. Real AI integration coming soon.
+          </p>
         </div>
       </div>
     </div>
