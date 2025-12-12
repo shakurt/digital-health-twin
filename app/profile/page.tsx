@@ -877,6 +877,108 @@ export default function Profile() {
             </div>
           </div>
 
+          {/* Premium Account Section */}
+          <div className="mt-6">
+            <div className="relative overflow-hidden rounded-2xl bg-linear-to-br from-purple-500/10 via-pink-500/10 to-orange-500/10 border border-purple-500/20 p-6">
+              {/* Background Pattern */}
+              <div className="absolute inset-0 opacity-5">
+                <div className="absolute top-4 right-4 w-32 h-32 bg-purple-500/20 rounded-full blur-3xl"></div>
+                <div className="absolute bottom-4 left-4 w-24 h-24 bg-pink-500/20 rounded-full blur-2xl"></div>
+              </div>
+
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-purple-500/25">
+                    <span className="text-2xl">👑</span>
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-white">Upgrade to Premium</h2>
+                    <p className="text-sm text-gray-300">Unlock your full health potential</p>
+                  </div>
+                </div>
+
+                <p className="text-gray-200 mb-6 leading-relaxed">
+                  Take your health journey to the next level with premium features designed to give you deeper insights,
+                  personalized guidance, and unlimited access to all tools.
+                </p>
+
+                {/* Premium Features Grid */}
+                <div className="grid md:grid-cols-2 gap-4 mb-6">
+                  <div className="flex items-start gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
+                    <div className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-sm">🤖</span>
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-white text-sm">Advanced AI Insights</h4>
+                      <p className="text-xs text-gray-400">Get personalized health predictions and detailed analytics</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
+                    <div className="w-8 h-8 rounded-lg bg-pink-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-sm">📊</span>
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-white text-sm">Unlimited Data Storage</h4>
+                      <p className="text-xs text-gray-400">Store years of health data with no limits</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
+                    <div className="w-8 h-8 rounded-lg bg-orange-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-sm">🎯</span>
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-white text-sm">Personalized Coaching</h4>
+                      <p className="text-xs text-gray-400">1-on-1 health coaching with certified experts</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
+                    <div className="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-sm">📱</span>
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-white text-sm">Family Accounts</h4>
+                      <p className="text-xs text-gray-400">Manage health for up to 5 family members</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
+                    <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-sm">📈</span>
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-white text-sm">Advanced Reports</h4>
+                      <p className="text-xs text-gray-400">Detailed PDF reports and data export</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
+                    <div className="w-8 h-8 rounded-lg bg-yellow-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-sm">⚡</span>
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-white text-sm">Priority Support</h4>
+                      <p className="text-xs text-gray-400">24/7 priority customer support</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* CTA Section */}
+                <div className="flex flex-col sm:flex-row gap-3 items-center justify-between">
+                  <div className="text-center sm:text-left">
+                    <div className="text-2xl font-bold text-white mb-1">$9.99<span className="text-sm font-normal text-gray-400">/month</span></div>
+                    <p className="text-xs text-gray-400">Cancel anytime • 30-day free trial</p>
+                  </div>
+                  <button className="px-8 py-3 rounded-xl bg-linear-to-r from-purple-500 to-pink-500 text-white font-semibold hover:scale-105 transition-all duration-300 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40">
+                    Upgrade Now
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
 
         {/* Edit Profile Modal */}
