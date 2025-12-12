@@ -222,9 +222,9 @@ export default function Home() {
                 {/* Gradient overlay on hover */}
                 <div className="absolute inset-0 bg-gradient-animated opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
 
-                <div className="relative z-10">
+                <div className="relative z-10 text-center md:text-left">
                   <div
-                    className="text-6xl mb-4 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 animate-float"
+                    className="text-6xl mb-4 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 animate-float mx-auto md:mx-0"
                     style={{ animationDelay: `${index * 0.2}s` }}
                   >
                     {feature.icon}
@@ -258,38 +258,38 @@ export default function Home() {
           <div className="max-w-4xl mx-auto space-y-8">
             {[
               {
-                step: "01",
+                step: "1",
                 title: "Create Your Profile",
                 desc: "Sign up and tell us about your current health and lifestyle habits.",
               },
               {
-                step: "02",
+                step: "2",
                 title: "Track Daily Habits",
                 desc: "Log your nutrition, activity, sleep, and mental wellness through simple check-ins.",
               },
               {
-                step: "03",
+                step: "3",
                 title: "Watch Your Twin Evolve",
                 desc: "Your 3D avatar grows and changes based on your real-world health patterns.",
               },
               {
-                step: "04",
+                step: "4",
                 title: "Get AI Recommendations",
                 desc: "Receive personalized suggestions to improve your lifestyle and reach your goals.",
               },
             ].map((item, index) => (
               <div
                 key={index}
-                className="group flex flex-col md:flex-row items-start gap-6 bg-dark-card border border-dark-border rounded-2xl p-8 hover:border-primary/50 transition-all duration-500 card-glow animate-slide-in-right hover-lift cursor-pointer relative overflow-hidden"
+                className="group flex flex-col md:flex-row items-center md:items-start gap-6 bg-dark-card border border-dark-border rounded-2xl p-8 hover:border-primary/50 transition-all duration-500 card-glow animate-slide-in-right hover-lift cursor-pointer relative overflow-hidden"
                 style={{ animationDelay: `${index * 150}ms` }}
               >
                 {/* Animated gradient border */}
                 <div className="absolute inset-0 bg-gradient-animated opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500" />
 
-                <div className="text-3xl sm:text-4xl md:text-5xl font-bold gradient-text-animated min-w-[80px] group-hover:scale-125 transition-transform duration-500 relative z-10">
+                <div className="text-3xl sm:text-4xl md:text-5xl font-bold gradient-text-animated min-w-[80px] group-hover:scale-125 transition-transform duration-500 relative z-10 text-center">
                   {item.step}
                 </div>
-                <div className="flex-1 relative z-10">
+                <div className="flex-1 relative z-10 text-center md:text-left">
                   <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2 group-hover:gradient-text-animated transition-all duration-300">
                     {item.title}
                   </h3>
