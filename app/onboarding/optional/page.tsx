@@ -653,7 +653,7 @@ export default function OnboardingOptional() {
   };
 
   return (
-    <div className="min-h-screen bg-dark-bg flex items-center justify-center px-4 py-12 relative overflow-hidden">
+    <div className="min-h-screen bg-dark-bg flex items-center justify-center px-4 sm:px-6 py-8 sm:py-12 relative overflow-hidden">
       {/* Animated Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 -left-40 w-80 h-80 bg-primary/20 rounded-full blur-3xl animate-pulse-slow"></div>
@@ -671,10 +671,10 @@ export default function OnboardingOptional() {
         {/* Progress Indicator */}
         <div className="mb-8 animate-fade-in-down">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm text-gray-400">
+            <span className="text-xs sm:text-sm text-gray-400">
               Step 2 of 2 • {modules[currentModuleIndex].label}
             </span>
-            <span className="text-sm text-primary font-medium">
+            <span className="text-xs sm:text-sm text-primary font-medium">
               {progressPercent}% Complete
             </span>
           </div>
@@ -690,7 +690,7 @@ export default function OnboardingOptional() {
             {modules.map((module, index) => (
               <div
                 key={module.key}
-                className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 ${
+                className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs font-medium transition-all duration-300 ${
                   index < currentModuleIndex
                     ? "bg-primary/20 text-primary border border-primary/30"
                     : index === currentModuleIndex
@@ -706,7 +706,7 @@ export default function OnboardingOptional() {
         </div>
 
         {/* Questions Card */}
-        <div className="bg-dark-card border border-dark-border rounded-3xl p-8 md:p-10 card-glow animate-fade-in-up">
+        <div className="bg-dark-card border border-dark-border rounded-3xl p-6 sm:p-8 md:p-10 card-glow animate-fade-in-up">
           {/* Header */}
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/20 rounded-full mb-4 animate-bounce-slow">
@@ -714,12 +714,12 @@ export default function OnboardingOptional() {
                 {modules[currentModuleIndex].icon}
               </span>
             </div>
-            <h1 className="text-4xl font-bold mb-2">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">
               <span className="gradient-text-animated">
                 {modules[currentModuleIndex].label}
               </span>
             </h1>
-            <p className="text-gray-400">All questions are optional</p>
+            <p className="text-xs sm:text-base text-gray-400">All questions are optional</p>
           </div>
 
           {/* Questions */}
@@ -730,7 +730,7 @@ export default function OnboardingOptional() {
                 className="space-y-3 animate-fade-in-up"
                 style={{ animationDelay: `${qIndex * 100}ms` }}
               >
-                <label className="block text-lg font-medium text-gray-200">
+                <label className="block text-sm sm:text-lg font-medium text-gray-200">
                   {question.label}
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -739,7 +739,7 @@ export default function OnboardingOptional() {
                       key={option.value}
                       type="button"
                       onClick={() => handleAnswer(question.key, option.value)}
-                      className={`px-4 py-3 rounded-xl border-2 text-left transition-all duration-300 hover-lift ${
+                      className={`px-3 sm:text-base text-sm sm:px-4 py-2 sm:py-3 rounded-xl border-2 text-left transition-all duration-300 hover-lift ${
                         answers[currentModule][question.key] === option.value
                           ? "border-primary bg-primary/20 text-white"
                           : "border-dark-border bg-dark-bg text-gray-400 hover:border-primary/50"
@@ -759,7 +759,7 @@ export default function OnboardingOptional() {
               <button
                 onClick={handleBack}
                 disabled={isLoading}
-                className="flex-1 px-6 py-4 bg-dark-bg border-2 border-dark-border rounded-xl text-white font-semibold text-lg transition-all duration-300 hover:border-primary/50 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 px-4 sm:px-6 py-3 sm:py-4 bg-dark-bg border-2 border-dark-border rounded-xl text-white font-semibold text-lg transition-all duration-300 hover:border-primary/50 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <span className="flex items-center justify-center gap-2">
                   <span className="transition-transform duration-300 group-hover:-translate-x-1">
@@ -774,9 +774,9 @@ export default function OnboardingOptional() {
             <button
               onClick={handleNext}
               disabled={isLoading}
-              className="flex-1 px-6 py-4 bg-gradient-animated rounded-xl text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover-glow disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 relative overflow-hidden group"
+              className="flex-1 px-4 sm:px-6 py-3 sm:py-4 bg-gradient-animated rounded-xl text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover-glow disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 relative overflow-hidden group"
             >
-              <span className="relative z-10 flex items-center justify-center gap-2">
+              <span className="relative sm:text-base text-sm z-10 flex items-center justify-center gap-2">
                 {isLoading ? (
                   <>
                     <span className="animate-spin">⏳</span>
@@ -803,7 +803,7 @@ export default function OnboardingOptional() {
         </div>
 
         {/* Footer Note */}
-        <p className="text-center text-gray-500 text-sm mt-6">
+        <p className="text-center text-gray-500 text-xs sm:text-sm mt-6">
           Your answers help us personalize your experience
         </p>
       </div>

@@ -515,44 +515,44 @@ export default function Mindfulness() {
           <div className="grid grid-cols-3 gap-3 px-4 md:px-6 pb-4">
             {/* Weekly Average Stress */}
             <div className="p-3 rounded-xl bg-linear-to-br from-red-500/10 to-red-600/10 border border-red-500/20">
-              <div className="flex items-center gap-2 mb-1">
+              <div className="flex flex-col md:flex-row items-center gap-2 mb-1">
                 <span className="text-lg sm:text-xl">😰</span>
                 <span className="text-[10px] sm:text-xs text-gray-400">Avg Stress</span>
               </div>
-              <p className="text-base sm:text-lg font-bold text-white">
+              <p className="text-base sm:text-lg md:text-left text-center font-bold text-white">
                 {(
                   mentalPatternsData.reduce((a, b) => a + b.stressLevel, 0) /
                   mentalPatternsData.length
                 ).toFixed(1)}
                 /10
               </p>
-              <p className="text-[10px] sm:text-xs text-gray-400">This week</p>
+              <p className="text-[10px] text-center md:text-left sm:text-xs text-gray-400">This week</p>
             </div>
 
             {/* Weekly Average Energy */}
             <div className="p-3 rounded-xl bg-linear-to-br from-amber-500/10 to-amber-600/10 border border-amber-500/20">
-              <div className="flex items-center gap-2 mb-1">
+              <div className="flex flex-col md:flex-row items-center gap-2 mb-1">
                 <span className="text-lg sm:text-xl">⚡</span>
                 <span className="text-[10px] sm:text-xs text-gray-400">Avg Energy</span>
               </div>
-              <p className="text-base sm:text-lg font-bold text-white">
+              <p className="text-base text-center md:text-left sm:text-lg font-bold text-white">
                 {(
                   mentalPatternsData.reduce((a, b) => a + b.energyLevel, 0) /
                   mentalPatternsData.length
                 ).toFixed(1)}
                 /10
               </p>
-              <p className="text-[10px] sm:text-xs text-gray-400">This week</p>
+              <p className="text-[10px] text-center md:text-left sm:text-xs text-gray-400">This week</p>
             </div>
 
             {/* Best Day */}
             <div className="p-3 rounded-xl bg-linear-to-br from-emerald-500/10 to-emerald-600/10 border border-emerald-500/20">
-              <div className="flex items-center gap-2 mb-1">
+              <div className="flex flex-col md:flex-row items-center gap-2 mb-1">
                 <span className="text-lg sm:text-xl">🌟</span>
                 <span className="text-[10px] sm:text-xs text-gray-400">Best Day</span>
               </div>
-              <p className="text-base sm:text-lg font-bold text-white">Saturday</p>
-              <p className="text-[10px] sm:text-xs text-gray-400">Energized & Calm</p>
+              <p className="text-base sm:text-lg font-bold text-center md:text-left text-white">Saturday</p>
+              <p className="text-[10px] text-center md:text-left sm:text-xs text-gray-400">Energized & Calm</p>
             </div>
           </div>
 
@@ -1161,6 +1161,31 @@ function ExerciseModal({
     return () => clearInterval(interval);
   }, [isRunning, timeLeft]);
 
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    // Prevent scrolling on mobile when modal is open
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.width = "100%";
+    document.body.style.top = `-${window.scrollY}px`;
+    document.body.style.touchAction = "none";
+    document.body.style.overscrollBehavior = "none";
+
+    return () => {
+      // Restore scrolling when modal is closed
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+      document.body.style.top = "";
+      document.body.style.touchAction = "";
+      document.body.style.overscrollBehavior = "";
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+      }
+    };
+  }, []);
+
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -1281,6 +1306,31 @@ function MindfulnessSettingsModal({
     const user = JSON.parse(localStorage.getItem("user") || "{}");
     return user.optionalAnswers?.mindfulness || {};
   });
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    // Prevent scrolling on mobile when modal is open
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.width = "100%";
+    document.body.style.top = `-${window.scrollY}px`;
+    document.body.style.touchAction = "none";
+    document.body.style.overscrollBehavior = "none";
+
+    return () => {
+      // Restore scrolling when modal is closed
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+      document.body.style.top = "";
+      document.body.style.touchAction = "";
+      document.body.style.overscrollBehavior = "";
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+      }
+    };
+  }, []);
 
   const questions = [
     {

@@ -758,14 +758,14 @@ export default function Profile() {
                 </svg>
               </button>
 
-              <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-4 sm:mb-6">
                 Edit Profile Information
               </h2>
 
               <div className="space-y-4">
                 {/* Sex */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <label className="block text-sm md:text-base font-medium text-gray-300 mb-2">
                     Sex
                   </label>
                   <div className="grid grid-cols-2 gap-3">
@@ -792,7 +792,7 @@ export default function Profile() {
 
                 {/* Birthdate */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <label className="block text-sm md:text-base font-medium text-gray-300 mb-2">
                     Birthdate
                   </label>
                   <input
@@ -808,7 +808,7 @@ export default function Profile() {
                 {/* Height & Weight */}
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="block text-sm md:text-base font-medium text-gray-300 mb-2">
                       Height (cm)
                     </label>
                     <input
@@ -822,7 +822,7 @@ export default function Profile() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="block text-sm md:text-base font-medium text-gray-300 mb-2">
                       Weight (kg)
                     </label>
                     <input
@@ -839,7 +839,7 @@ export default function Profile() {
 
                 {/* Job */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <label className="block text-sm md:text-base font-medium text-gray-300 mb-2">
                     Job
                   </label>
                   <select
@@ -877,7 +877,7 @@ export default function Profile() {
 
                 {/* Goal */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <label className="block text-sm md:text-base font-medium text-gray-300 mb-2">
                     Health Goal
                   </label>
                   <select
@@ -909,7 +909,7 @@ export default function Profile() {
 
                 {/* Activity Level */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <label className="block text-sm md:text-base font-medium text-gray-300 mb-2">
                     Activity Level
                   </label>
                   <select
@@ -945,10 +945,10 @@ export default function Profile() {
               {/* Action Buttons */}
               <div className="flex gap-3 mt-6">
                 <button
-                  onClick={() => setShowEditModal(false)}
-                  className="flex-1 px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-white font-medium transition-colors border border-white/10"
+                  onClick={() => router.push('/onboarding/optional')}
+                  className="flex-1 px-4 py-3 rounded-xl bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 font-medium transition-colors border border-blue-500/40"
                 >
-                  Cancel
+                  Re-run Onboarding
                 </button>
                 <button
                   onClick={handleSaveBasicInfo}

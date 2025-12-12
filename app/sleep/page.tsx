@@ -152,12 +152,35 @@ export default function Sleep() {
   // Disable body scroll when modal is open
   useEffect(() => {
     if (showLogModal || showSettingsModal || showResetConfirm) {
+      // Prevent scrolling on mobile when modal is open
       document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.width = "100%";
+      document.body.style.top = `-${window.scrollY}px`;
+      document.body.style.touchAction = "none";
+      document.body.style.overscrollBehavior = "none";
     } else {
-      document.body.style.overflow = "unset";
+      // Restore scrolling when modal is closed
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+      document.body.style.top = "";
+      document.body.style.touchAction = "";
+      document.body.style.overscrollBehavior = "";
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+      }
     }
+
     return () => {
-      document.body.style.overflow = "unset";
+      // Cleanup on unmount
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+      document.body.style.top = "";
+      document.body.style.touchAction = "";
+      document.body.style.overscrollBehavior = "";
     };
   }, [showLogModal, showSettingsModal, showResetConfirm]);
 
@@ -963,6 +986,31 @@ function SleepSettingsModal({
     const user = JSON.parse(localStorage.getItem("user") || "{}");
     return user.sleepSettings || {};
   });
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    // Prevent scrolling on mobile when modal is open
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.width = "100%";
+    document.body.style.top = `-${window.scrollY}px`;
+    document.body.style.touchAction = "none";
+    document.body.style.overscrollBehavior = "none";
+
+    return () => {
+      // Restore scrolling when modal is closed
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+      document.body.style.top = "";
+      document.body.style.touchAction = "";
+      document.body.style.overscrollBehavior = "";
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+      }
+    };
+  }, []);
 
   const questions = [
     {

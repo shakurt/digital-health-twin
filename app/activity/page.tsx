@@ -1886,6 +1886,31 @@ function OnboardingSettingsModal({
     return user.optionalAnswers?.activity || {};
   });
 
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    // Prevent scrolling on mobile when modal is open
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.width = "100%";
+    document.body.style.top = `-${window.scrollY}px`;
+    document.body.style.touchAction = "none";
+    document.body.style.overscrollBehavior = "none";
+
+    return () => {
+      // Restore scrolling when modal is closed
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+      document.body.style.top = "";
+      document.body.style.touchAction = "";
+      document.body.style.overscrollBehavior = "";
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+      }
+    };
+  }, []);
+
   const questions = [
     {
       key: "frequency",
@@ -1990,14 +2015,14 @@ function OnboardingSettingsModal({
       <div className="bg-dark-card border border-white/10 rounded-2xl max-w-3xl w-full max-h-[85vh] overflow-y-auto">
         <div className="p-4 sm:p-6 border-b border-white/5 flex items-center justify-between sticky top-0 bg-dark-card z-10">
           <div>
-            <h2 className="text-2xl font-bold text-white">Activity Settings</h2>
-            <p className="text-sm text-gray-400 mt-1">
+            <h2 className="text-xl md:text-2xl font-bold text-white">Activity Settings</h2>
+            <p className="text-xs sm:text-sm text-gray-400 mt-1">
               Customize your fitness tracking preferences
             </p>
           </div>
           <button
             onClick={onClose}
-            className="w-10 h-10 rounded-lg bg-white/5 hover:bg-white/10 text-white transition-all duration-300"
+            className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-white/5 hover:bg-white/10 text-white transition-all duration-300"
           >
             ✕
           </button>
@@ -2006,7 +2031,7 @@ function OnboardingSettingsModal({
         <div className="p-4 sm:p-6 space-y-6">
           {questions.map((question) => (
             <div key={question.key}>
-              <label className="block text-sm font-medium text-white mb-3">
+              <label className="block text-sm md:text-base font-medium text-white mb-3">
                 {question.label}
               </label>
               <div className="space-y-2">
@@ -2014,7 +2039,7 @@ function OnboardingSettingsModal({
                   <button
                     key={option.value}
                     onClick={() => handleAnswer(question.key, option.value)}
-                    className={`w-full p-3 rounded-xl border transition-all duration-300 text-left ${
+                    className={`w-full p-3 rounded-xl text-sm md:text-base border transition-all duration-300 text-left ${
                       answers[question.key] === option.value
                         ? "bg-primary/20 border-primary/40 text-white"
                         : "bg-white/5 border-white/10 text-gray-300 hover:border-white/30"
@@ -2031,13 +2056,13 @@ function OnboardingSettingsModal({
         <div className="p-4 sm:p-6 border-t border-white/5 flex gap-3 sticky bottom-0 bg-dark-card">
           <button
             onClick={onClose}
-            className="flex-1 px-4 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-xl font-medium transition-all duration-300"
+            className="flex-1 px-4 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-xl font-medium transition-all duration-300 text-sm md:text-base"
           >
             Cancel
           </button>
           <button
             onClick={handleSave}
-            className="flex-1 px-4 py-3 bg-linear-to-r from-primary to-secondary text-white rounded-xl font-medium transition-all duration-300 hover:scale-105"
+            className="flex-1 px-4 py-3 bg-linear-to-r from-primary to-secondary text-white rounded-xl font-medium transition-all duration-300 hover:scale-105 text-sm md:text-base"
           >
             Save Settings
           </button>

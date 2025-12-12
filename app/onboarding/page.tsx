@@ -186,7 +186,7 @@ export default function OnboardingBasic() {
   };
 
   return (
-    <div className="min-h-screen bg-dark-bg flex items-center justify-center px-4 py-12 relative overflow-hidden">
+    <div className="min-h-screen bg-dark-bg flex items-center justify-center px-4 sm:px-6 py-8 sm:py-12 relative overflow-hidden">
       {/* Animated Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 -left-40 w-80 h-80 bg-primary/20 rounded-full blur-3xl animate-pulse-slow"></div>
@@ -201,29 +201,19 @@ export default function OnboardingBasic() {
       </div>
 
       <div className="relative z-10 w-full max-w-3xl">
-        {/* Progress Indicator */}
-        <div className="mb-8 animate-fade-in-down">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-sm text-gray-400">Step 1 of 2</span>
-          </div>
-          <div className="h-2 bg-dark-card rounded-full overflow-hidden">
-            <div className="h-full bg-gradient-animated w-1/2 transition-all duration-500"></div>
-          </div>
-        </div>
-
         {/* Onboarding Card */}
-        <div className="bg-dark-card border border-dark-border rounded-3xl p-8 md:p-10 card-glow animate-fade-in-up">
+        <div className="bg-dark-card border border-dark-border rounded-3xl p-6 sm:p-8 md:p-10 card-glow animate-fade-in-up">
           {/* Header */}
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/20 rounded-full mb-4 animate-bounce-slow">
               <span className="text-3xl">👤</span>
             </div>
-            <h1 className="text-4xl font-bold mb-2">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">
               <span className="gradient-text-animated">
                 Tell Us About Yourself
               </span>
             </h1>
-            <p className="text-gray-400">
+            <p className="text-sm sm:text-base text-gray-400">
               Help us personalize your digital health twin
             </p>
           </div>
@@ -232,7 +222,7 @@ export default function OnboardingBasic() {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Sex Selection */}
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-gray-300">
+              <label className="block text-xs sm:text-sm font-medium text-gray-300">
                 Sex <span className="text-red-500">*</span>
               </label>
               <div className="grid grid-cols-2 gap-4">
@@ -241,7 +231,7 @@ export default function OnboardingBasic() {
                     key={sex}
                     type="button"
                     onClick={() => handleChange("sex", sex)}
-                    className={`px-6 py-4 rounded-xl border-2 transition-all duration-300 hover-lift ${
+                    className={`px-4 sm:px-6 py-3 sm:py-4 rounded-xl border-2 transition-all duration-300 hover-lift ${
                       formData.sex === sex
                         ? "border-primary bg-primary/20 text-white"
                         : "border-dark-border bg-dark-bg text-gray-400 hover:border-primary/50"
@@ -265,7 +255,7 @@ export default function OnboardingBasic() {
             <div className="space-y-2">
               <label
                 htmlFor="birthdate"
-                className="block text-sm font-medium text-gray-300"
+                className="block text-xs sm:text-sm font-medium text-gray-300"
               >
                 Birthdate <span className="text-red-500">*</span>
               </label>
@@ -276,7 +266,7 @@ export default function OnboardingBasic() {
                 onChange={(e) => handleChange("birthdate", e.target.value)}
                 min={getMinDate()}
                 max={getMaxDate()}
-                className={`w-full px-4 py-3 bg-dark-bg border ${
+                className={`w-full px-3 sm:px-4 py-2 sm:py-3 bg-dark-bg border ${
                   errors.birthdate ? "border-red-500" : "border-dark-border"
                 } rounded-xl text-white focus:outline-none focus:border-primary transition-all duration-300 hover:border-primary/50`}
               />
@@ -293,7 +283,7 @@ export default function OnboardingBasic() {
               <div className="space-y-2">
                 <label
                   htmlFor="height"
-                  className="block text-sm font-medium text-gray-300"
+                  className="block text-xs sm:text-sm font-medium text-gray-300"
                 >
                   Height (cm) <span className="text-red-500">*</span>
                 </label>
@@ -304,7 +294,7 @@ export default function OnboardingBasic() {
                     value={formData.height}
                     onChange={(e) => handleChange("height", e.target.value)}
                     placeholder="170"
-                    className={`w-full px-4 py-3 bg-dark-bg border ${
+                    className={`w-full px-3 sm:px-4 py-2 sm:py-3 bg-dark-bg border ${
                       errors.height ? "border-red-500" : "border-dark-border"
                     } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-primary transition-all duration-300 hover:border-primary/50`}
                   />
@@ -320,7 +310,7 @@ export default function OnboardingBasic() {
               <div className="space-y-2">
                 <label
                   htmlFor="weight"
-                  className="block text-sm font-medium text-gray-300"
+                  className="block text-xs sm:text-sm font-medium text-gray-300"
                 >
                   Weight (kg) <span className="text-red-500">*</span>
                 </label>
@@ -331,7 +321,7 @@ export default function OnboardingBasic() {
                     value={formData.weight}
                     onChange={(e) => handleChange("weight", e.target.value)}
                     placeholder="70"
-                    className={`w-full px-4 py-3 bg-dark-bg border ${
+                    className={`w-full px-3 sm:px-4 py-2 sm:py-3 bg-dark-bg border ${
                       errors.weight ? "border-red-500" : "border-dark-border"
                     } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-primary transition-all duration-300 hover:border-primary/50`}
                   />
@@ -348,7 +338,7 @@ export default function OnboardingBasic() {
             <div className="space-y-2">
               <label
                 htmlFor="job"
-                className="block text-sm font-medium text-gray-300"
+                className="block text-xs sm:text-sm font-medium text-gray-300"
               >
                 Occupation <span className="text-red-500">*</span>
               </label>
@@ -356,7 +346,7 @@ export default function OnboardingBasic() {
                 id="job"
                 value={formData.job}
                 onChange={(e) => handleChange("job", e.target.value)}
-                className={`w-full px-4 py-3 bg-dark-bg border ${
+                className={`w-full px-3 sm:px-4 py-2 sm:py-3 bg-dark-bg border ${
                   errors.job ? "border-red-500" : "border-dark-border"
                 } rounded-xl text-white focus:outline-none focus:border-primary transition-all duration-300 hover:border-primary/50 cursor-pointer`}
               >
@@ -380,7 +370,7 @@ export default function OnboardingBasic() {
             <div className="space-y-2">
               <label
                 htmlFor="goal"
-                className="block text-sm font-medium text-gray-300"
+                className="block text-xs sm:text-sm font-medium text-gray-300"
               >
                 Main Goal <span className="text-red-500">*</span>
               </label>
@@ -388,7 +378,7 @@ export default function OnboardingBasic() {
                 id="goal"
                 value={formData.goal}
                 onChange={(e) => handleChange("goal", e.target.value)}
-                className={`w-full px-4 py-3 bg-dark-bg border ${
+                className={`w-full px-3 sm:px-4 py-2 sm:py-3 bg-dark-bg border ${
                   errors.goal ? "border-red-500" : "border-dark-border"
                 } rounded-xl text-white focus:outline-none focus:border-primary transition-all duration-300 hover:border-primary/50 cursor-pointer`}
               >
@@ -412,7 +402,7 @@ export default function OnboardingBasic() {
             <div className="space-y-2">
               <label
                 htmlFor="activityLevel"
-                className="block text-sm font-medium text-gray-300"
+                className="block text-xs sm:text-sm font-medium text-gray-300"
               >
                 Daily Activity Level <span className="text-red-500">*</span>
               </label>
@@ -420,7 +410,7 @@ export default function OnboardingBasic() {
                 id="activityLevel"
                 value={formData.activityLevel}
                 onChange={(e) => handleChange("activityLevel", e.target.value)}
-                className={`w-full px-4 py-3 bg-dark-bg border ${
+                className={`w-full px-3 sm:px-4 py-2 sm:py-3 bg-dark-bg border ${
                   errors.activityLevel ? "border-red-500" : "border-dark-border"
                 } rounded-xl text-white focus:outline-none focus:border-primary transition-all duration-300 hover:border-primary/50 cursor-pointer`}
               >
@@ -444,7 +434,7 @@ export default function OnboardingBasic() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full px-6 py-4 bg-gradient-animated rounded-xl text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover-glow disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 relative overflow-hidden group mt-8"
+              className="w-full px-4 sm:px-6 py-3 sm:py-4 bg-gradient-animated rounded-xl text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover-glow disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 relative overflow-hidden group mt-8"
             >
               <span className="relative z-10 flex items-center justify-center gap-2">
                 {isLoading ? (
@@ -466,7 +456,7 @@ export default function OnboardingBasic() {
         </div>
 
         {/* Footer Note */}
-        <p className="text-center text-gray-500 text-sm mt-6">
+        <p className="text-center text-gray-500 text-xs sm:text-sm mt-6">
           All information is encrypted and kept private
         </p>
       </div>

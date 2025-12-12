@@ -16,12 +16,35 @@ export default function Sidebar({ isMobileOpen, onClose }: SidebarProps) {
   // Disable body scroll when mobile sidebar is open
   useEffect(() => {
     if (isMobileOpen) {
+      // Prevent scrolling on mobile when sidebar is open
       document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.width = "100%";
+      document.body.style.top = `-${window.scrollY}px`;
+      document.body.style.touchAction = "none";
+      document.body.style.overscrollBehavior = "none";
     } else {
-      document.body.style.overflow = "unset";
+      // Restore scrolling when sidebar is closed
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+      document.body.style.top = "";
+      document.body.style.touchAction = "";
+      document.body.style.overscrollBehavior = "";
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+      }
     }
+
     return () => {
-      document.body.style.overflow = "unset";
+      // Cleanup on unmount
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+      document.body.style.top = "";
+      document.body.style.touchAction = "";
+      document.body.style.overscrollBehavior = "";
     };
   }, [isMobileOpen]);
 
