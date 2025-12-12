@@ -355,14 +355,14 @@ export default function AvatarDocs() {
 
   return (
     <AppLayout>
-      <div className="max-w-6xl mx-auto px-4 md:px-6 py-8">
-        <div className="mb-8">
+      <div className="max-w-6xl mx-auto px-3 sm:px-6 py-4 sm:py-8">
+        <div className="mb-6 sm:mb-8 md:mb-12">
           <button
             onClick={() => router.push("/docs")}
-            className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-4"
+            className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-3 sm:mb-4"
           >
             <svg
-              className="w-5 h-5"
+              className="w-4 h-4 sm:w-5 sm:h-5"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -374,28 +374,28 @@ export default function AvatarDocs() {
                 d="M15 19l-7-7 7-7"
               />
             </svg>
-            Back to Docs
+            <span className="text-sm sm:text-base">Back to Docs</span>
           </button>
 
-          <div className="flex items-center gap-3 sm:gap-4 mb-4">
-            <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-linear-to-br from-purple-500/20 via-pink-500/20 to-blue-500/20 border border-purple-500/30 flex items-center justify-center">
-              <span className="text-2xl sm:text-3xl md:text-4xl">🎭</span>
+          <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-xl sm:rounded-2xl bg-linear-to-br from-purple-500/20 via-pink-500/20 to-blue-500/20 border border-purple-500/30 flex items-center justify-center">
+              <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl">🎭</span>
             </div>
             <div>
-              <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white">
+              <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-white">
                 Avatar & Metaverse Documentation
               </h1>
-              <p className="text-gray-400 text-lg mt-1">
+              <p className="text-gray-400 text-sm sm:text-base md:text-lg mt-1">
                 Your digital health twin that evolves with your wellness journey
               </p>
             </div>
           </div>
         </div>
 
-        <div className="flex gap-1 sm:gap-2 mb-8 border-b border-white/10 overflow-x-auto">
+        <div className="flex gap-1 sm:gap-2 mb-6 sm:mb-8 md:mb-12 border-b border-white/10 overflow-x-auto">
           <button
             onClick={() => setActiveTab("onboarding")}
-            className={`px-3 sm:px-6 py-3 font-semibold text-xs sm:text-base whitespace-nowrap transition-all duration-300 border-b-2 ${
+            className={`px-2 sm:px-3 md:px-6 py-2 sm:py-3 font-semibold text-xs sm:text-sm md:text-base whitespace-nowrap transition-all duration-300 border-b-2 ${
               activeTab === "onboarding"
                 ? "text-white border-primary"
                 : "text-gray-400 border-transparent hover:text-gray-300"
@@ -405,7 +405,7 @@ export default function AvatarDocs() {
           </button>
           <button
             onClick={() => setActiveTab("implemented")}
-            className={`px-3 sm:px-6 py-3 font-semibold text-xs sm:text-base whitespace-nowrap transition-all duration-300 border-b-2 ${
+            className={`px-2 sm:px-3 md:px-6 py-2 sm:py-3 font-semibold text-xs sm:text-sm md:text-base whitespace-nowrap transition-all duration-300 border-b-2 ${
               activeTab === "implemented"
                 ? "text-white border-green-500"
                 : "text-gray-400 border-transparent hover:text-gray-300"
@@ -415,7 +415,7 @@ export default function AvatarDocs() {
           </button>
           <button
             onClick={() => setActiveTab("future")}
-            className={`px-3 sm:px-6 py-3 font-semibold text-xs sm:text-base whitespace-nowrap transition-all duration-300 border-b-2 ${
+            className={`px-2 sm:px-3 md:px-6 py-2 sm:py-3 font-semibold text-xs sm:text-sm md:text-base whitespace-nowrap transition-all duration-300 border-b-2 ${
               activeTab === "future"
                 ? "text-white border-purple-500"
                 : "text-gray-400 border-transparent hover:text-gray-300"
@@ -425,14 +425,14 @@ export default function AvatarDocs() {
           </button>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4 md:space-y-6">
           {activeTab === "onboarding" && (
             <>
-              <div className="bg-primary/10 border border-primary/30 rounded-2xl p-6 mb-6">
-                <h3 className="text-xl font-bold text-white mb-2">
+              <div className="bg-primary/10 border border-primary/30 rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6">
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2">
                   Why We Ask These Questions
                 </h3>
-                <p className="text-gray-300">
+                <p className="text-gray-300 text-sm sm:text-base">
                   Avatar system questions help us create a dynamic digital twin
                   that accurately represents your physical appearance and health
                   status. Your avatar evolves in real-time based on
@@ -443,14 +443,14 @@ export default function AvatarDocs() {
               {onboardingQuestions.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-dark-card border border-white/10 rounded-2xl p-6 hover:border-primary/30 transition-all duration-300"
+                  className="bg-dark-card border border-white/10 rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:border-primary/30 transition-all duration-300"
                 >
-                  <h3 className="text-xl font-bold text-white mb-3">
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2 sm:mb-3">
                     {item.title}
                   </h3>
-                  <p className="text-gray-300 mb-4">{item.description}</p>
-                  <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-                    <p className="text-sm text-gray-400">💡 {item.example}</p>
+                  <p className="text-gray-300 text-sm sm:text-base mb-3 sm:mb-4">{item.description}</p>
+                  <div className="bg-white/5 border border-white/10 rounded-lg sm:rounded-xl p-3 sm:p-4">
+                    <p className="text-xs sm:text-sm text-gray-400">💡 {item.example}</p>
                   </div>
                 </div>
               ))}
@@ -459,11 +459,11 @@ export default function AvatarDocs() {
 
           {activeTab === "implemented" && (
             <>
-              <div className="bg-green-500/10 border border-green-500/30 rounded-2xl p-6 mb-6">
-                <h3 className="text-xl font-bold text-white mb-2">
+              <div className="bg-green-500/10 border border-green-500/30 rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6">
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2">
                   What You Can Do Right Now
                 </h3>
-                <p className="text-gray-300">
+                <p className="text-gray-300 text-sm sm:text-base">
                   These avatar features are live and working. Your digital
                   health twin adapts in real-time based on comprehensive health
                   data from all modules - displayed on profile, dashboard,
@@ -474,14 +474,14 @@ export default function AvatarDocs() {
               {implementedFeatures.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-dark-card border border-white/10 rounded-2xl p-6 hover:border-green-500/30 transition-all duration-300"
+                  className="bg-dark-card border border-white/10 rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:border-green-500/30 transition-all duration-300"
                 >
-                  <h3 className="text-xl font-bold text-white mb-3">
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2 sm:mb-3">
                     {item.title}
                   </h3>
-                  <p className="text-gray-300 mb-4">{item.description}</p>
-                  <div className="bg-green-500/5 border border-green-500/20 rounded-xl p-4">
-                    <p className="text-sm text-green-300">✨ {item.example}</p>
+                  <p className="text-gray-300 text-sm sm:text-base mb-3 sm:mb-4">{item.description}</p>
+                  <div className="bg-green-500/5 border border-green-500/20 rounded-lg sm:rounded-xl p-3 sm:p-4">
+                    <p className="text-xs sm:text-sm text-green-300">✨ {item.example}</p>
                   </div>
                 </div>
               ))}
@@ -490,11 +490,11 @@ export default function AvatarDocs() {
 
           {activeTab === "future" && (
             <>
-              <div className="bg-purple-500/10 border border-purple-500/30 rounded-2xl p-6 mb-6">
-                <h3 className="text-xl font-bold text-white mb-2">
+              <div className="bg-purple-500/10 border border-purple-500/30 rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6">
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2">
                   Coming Soon to the Metaverse
                 </h3>
-                <p className="text-gray-300">
+                <p className="text-gray-300 text-sm sm:text-base">
                   The future of health avatars: Immersive 3D metaverse worlds,
                   virtual currency economy, avatar customization, social spaces,
                   quests, battles, and NFT integration. Your health journey
@@ -505,14 +505,14 @@ export default function AvatarDocs() {
               {futureFeatures.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-dark-card border border-white/10 rounded-2xl p-6 hover:border-purple-500/30 transition-all duration-300"
+                  className="bg-dark-card border border-white/10 rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:border-purple-500/30 transition-all duration-300"
                 >
-                  <h3 className="text-xl font-bold text-white mb-3">
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2 sm:mb-3">
                     {item.title}
                   </h3>
-                  <p className="text-gray-300 mb-4">{item.description}</p>
-                  <div className="bg-purple-500/5 border border-purple-500/20 rounded-xl p-4">
-                    <p className="text-sm text-purple-300">🌟 {item.example}</p>
+                  <p className="text-gray-300 text-sm sm:text-base mb-3 sm:mb-4">{item.description}</p>
+                  <div className="bg-purple-500/5 border border-purple-500/20 rounded-lg sm:rounded-xl p-3 sm:p-4">
+                    <p className="text-xs sm:text-sm text-purple-300">🌟 {item.example}</p>
                   </div>
                 </div>
               ))}
