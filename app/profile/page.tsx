@@ -38,16 +38,13 @@ export default function Profile() {
     string | null
   >(null);
 
-  const [notificationSettings, setNotificationSettings] = useState(() => {
-    const saved = localStorage.getItem('notificationSettings');
-    return saved ? JSON.parse(saved) : {
-      healthAlerts: true,
-      dailyReminders: true,
-      weeklyReports: false,
-      achievements: true,
-      emailNotifications: false,
-      pushNotifications: true,
-    };
+  const [notificationSettings, setNotificationSettings] = useState({
+    healthAlerts: true,
+    dailyReminders: true,
+    weeklyReports: false,
+    achievements: true,
+    emailNotifications: false,
+    pushNotifications: true,
   });
 
   // Form state for editing
@@ -769,9 +766,7 @@ export default function Profile() {
                       type="checkbox"
                       checked={notificationSettings.healthAlerts}
                       onChange={(e) => {
-                        const newSettings = {...notificationSettings, healthAlerts: e.target.checked};
-                        setNotificationSettings(newSettings);
-                        localStorage.setItem('notificationSettings', JSON.stringify(newSettings));
+                        setNotificationSettings({...notificationSettings, healthAlerts: e.target.checked});
                       }}
                       className="sr-only peer"
                     />
@@ -788,9 +783,7 @@ export default function Profile() {
                       type="checkbox"
                       checked={notificationSettings.dailyReminders}
                       onChange={(e) => {
-                        const newSettings = {...notificationSettings, dailyReminders: e.target.checked};
-                        setNotificationSettings(newSettings);
-                        localStorage.setItem('notificationSettings', JSON.stringify(newSettings));
+                        setNotificationSettings({...notificationSettings, dailyReminders: e.target.checked});
                       }}
                       className="sr-only peer"
                     />
@@ -807,9 +800,7 @@ export default function Profile() {
                       type="checkbox"
                       checked={notificationSettings.weeklyReports}
                       onChange={(e) => {
-                        const newSettings = {...notificationSettings, weeklyReports: e.target.checked};
-                        setNotificationSettings(newSettings);
-                        localStorage.setItem('notificationSettings', JSON.stringify(newSettings));
+                        setNotificationSettings({...notificationSettings, weeklyReports: e.target.checked});
                       }}
                       className="sr-only peer"
                     />
@@ -826,9 +817,7 @@ export default function Profile() {
                       type="checkbox"
                       checked={notificationSettings.achievements}
                       onChange={(e) => {
-                        const newSettings = {...notificationSettings, achievements: e.target.checked};
-                        setNotificationSettings(newSettings);
-                        localStorage.setItem('notificationSettings', JSON.stringify(newSettings));
+                        setNotificationSettings({...notificationSettings, achievements: e.target.checked});
                       }}
                       className="sr-only peer"
                     />
@@ -845,9 +834,7 @@ export default function Profile() {
                       type="checkbox"
                       checked={notificationSettings.emailNotifications}
                       onChange={(e) => {
-                        const newSettings = {...notificationSettings, emailNotifications: e.target.checked};
-                        setNotificationSettings(newSettings);
-                        localStorage.setItem('notificationSettings', JSON.stringify(newSettings));
+                        setNotificationSettings({...notificationSettings, emailNotifications: e.target.checked});
                       }}
                       className="sr-only peer"
                     />
@@ -864,9 +851,7 @@ export default function Profile() {
                       type="checkbox"
                       checked={notificationSettings.pushNotifications}
                       onChange={(e) => {
-                        const newSettings = {...notificationSettings, pushNotifications: e.target.checked};
-                        setNotificationSettings(newSettings);
-                        localStorage.setItem('notificationSettings', JSON.stringify(newSettings));
+                        setNotificationSettings({...notificationSettings, pushNotifications: e.target.checked});
                       }}
                       className="sr-only peer"
                     />

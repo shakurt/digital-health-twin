@@ -23,7 +23,11 @@ export default function AppLayout({ children }: AppLayoutProps) {
 
       {/* Main Content */}
       <main className="pt-16 lg:pl-20 transition-all duration-300">
-        <div className="p-6">{children}</div>
+        <div className="p-6">
+          <div className="max-w-7xl mx-auto">
+            {children}
+          </div>
+        </div>
       </main>
     </div>
   );
