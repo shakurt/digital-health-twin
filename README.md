@@ -1,36 +1,106 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏥 Digital Health Twin
 
-## Getting Started
+> A comprehensive digital health tracking application that creates your personalized digital twin to learn from your daily habits, predict health trends, and guide you toward a better lifestyle through AI-powered insights.
 
-First, run the development server:
+## 🎯 Purpose
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This project is an **open-source prototype** developed as part of a **university AI course** to demonstrate the integration of health tracking, data visualization, and AI-driven recommendations in a modern web application. It serves as both an educational tool and a functional demonstration of digital health concepts.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Key Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 🏃 Core Health Domains
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+#### Activity Tracking
+Monitor your daily movement, exercise patterns, and physical activities with smart habit tracking. Set goals, track workouts, and view detailed activity analytics.
 
-## Learn More
+#### 🍎 Nutrition Insights
+Track your eating habits, log meals, and receive personalized nutrition recommendations based on your dietary patterns and health goals.
 
-To learn more about Next.js, take a look at the following resources:
+#### 😴 Sleep Analysis
+Understand your sleep patterns, track sleep quality, and get insights to improve your rest. Analyze sleep cycles and receive optimization suggestions.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### 🧘 Mindfulness
+Access mental wellness features, guided meditation sessions, breathing exercises, and stress management tools for holistic health.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+#### ❤️ Health Overview
+Comprehensive dashboard displaying all your health metrics, trends, and vital statistics in one centralized location.
 
-## Deploy on Vercel
+### 🎨 Additional Features
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Health Avatar**: Interactive visual representation that reflects your current health status and progress
+- **Dashboard**: Centralized hub with real-time health metrics, charts, and personalized insights
+- **Devices**: Integration capabilities for connected health devices and wearables
+- **Social (Friends)**: Connect with friends, share progress, and motivate each other
+- **Leaderboard**: Participate in health challenges and friendly competitions
+- **Profile**: Manage account settings, notifications, preferences, and premium features
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 🤖 AI-Powered Chat
+Each health domain includes an AI chat assistant that provides:
+- Personalized advice and recommendations
+- Answers to health-related questions
+- Context-aware insights based on your data
+- Motivational support and guidance
+
+## 🔐 Authentication System
+
+Secure **OTP-based email verification** ensures safe user registration and login. Features include:
+- Email verification with one-time passwords
+- Secure session management
+- User data protection and privacy
+
+## 📚 Comprehensive Documentation
+
+Complete in-app documentation available for:
+- All feature modules (Activity, Nutrition, Sleep, Mindfulness, Health, Avatar)
+- Authentication and security implementation
+- API integration guides
+- User tutorials and best practices
+
+## 🛠 Tech Stack
+
+- **Framework**: Next.js 16 with App Router
+- **Language**: TypeScript for type safety
+- **Styling**: Tailwind CSS with custom animations and responsive design
+- **State Management**: React hooks with localStorage/sessionStorage
+- **Deployment**: Optimized for Vercel platform
+
+## 🚀 Getting Started
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/shakurt/digital-health-twin.git
+   cd digital-health-twin
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+## 📖 Project Context
+
+- **🌟 Open Source**: Freely available on GitHub for learning and contribution
+- **🎓 University AI Course**: Created as an academic project to explore AI in healthcare
+- **🔬 Prototype**: Educational and demonstration-focused implementation
+- **✨ Vibe Coding**: Built with creativity, innovation, and modern development practices
+- **📝 Well-Documented**: Extensive documentation for all features and implementations
+
+## 👨‍💻 Developer
+
+**ThePrimeShak** - [GitHub Profile](https://github.com/shakurt)
+
+## 📄 License
+
+This project is open source and available under the MIT License.
+
+---
+
+**Note**: This is a prototype for educational and presentation purposes. Always consult healthcare professionals for medical advice.
