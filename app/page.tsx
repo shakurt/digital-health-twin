@@ -108,7 +108,15 @@ export default function Home() {
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-dark-card border border-dark-border rounded-full text-[10px] sm:text-xs md:text-sm animate-fade-in-down hover-glow">
               <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
               <span className="text-gray-400">
-                Welcome to the Future of Health • By ThePrimeShak
+                Welcome to the Future of Health • By{" "}
+                <a
+                  href="https://github.com/shakurt"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:text-primary-light transition-colors duration-300 font-medium"
+                >
+                  ThePrimeShak
+                </a>
               </span>
             </div>
 
@@ -342,16 +350,31 @@ export default function Home() {
 
           <div className="relative z-10 text-center text-gray-500 space-y-3">
             <p className="text-xs sm:text-sm hover:text-gray-400 transition-colors duration-300">
-              © 2025 Digital Health Twin. A university project prototype.
+              © 2025{" "}
+              <a
+              href="https://github.com/shakurt/digital-health-twin"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:text-primary-light transition-colors duration-300 font-medium underline"
+              >
+              Digital Health Twin
+              </a>
+              <br />
+              A prototype for a university project, featuring open-source development and vibe coding.
             </p>
             <p className="text-[10px] sm:text-xs text-gray-600 hover:text-gray-500 transition-colors duration-300">
               For educational and presentation purposes only.
             </p>
-            <p className="text-xs sm:text-sm text-primary font-semibold group cursor-pointer inline-block">
+            <p className="text-xs sm:text-sm text-primary font-semibold group  inline-block">
               Developed by{" "}
-              <span className="gradient-text-animated font-bold text-sm sm:text-base md:text-lg group-hover:scale-110 inline-block transition-transform duration-300">
+              <a
+                href="https://github.com/shakurt"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="gradient-text-animated cursor-pointer font-bold text-sm sm:text-base md:text-lg group-hover:scale-105 inline-block transition-transform duration-300 underline"
+              >
                 ThePrimeShak
-              </span>
+              </a>
             </p>
           </div>
         </footer>
