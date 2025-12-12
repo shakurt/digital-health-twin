@@ -27,7 +27,9 @@ export default function OnboardingOptional() {
       const userData = localStorage.getItem("user");
       if (userData) {
         const parsedUser = JSON.parse(userData);
-        return parsedUser.email || "";
+        if (parsedUser.session) {
+          return parsedUser.email || "";
+        }
       }
     }
     return "";
@@ -754,12 +756,12 @@ export default function OnboardingOptional() {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 mt-10">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-8 sm:mt-10">
             {currentModuleIndex > 0 && (
               <button
                 onClick={handleBack}
                 disabled={isLoading}
-                className="flex-1 px-4 sm:px-6 py-3 sm:py-4 bg-dark-bg border-2 border-dark-border rounded-xl text-white font-semibold text-lg transition-all duration-300 hover:border-primary/50 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 px-3 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4 bg-dark-bg border-2 border-dark-border rounded-lg sm:rounded-xl text-white font-semibold text-sm sm:text-base md:text-lg transition-all duration-300 hover:border-primary/50 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <span className="flex items-center justify-center gap-2">
                   <span className="transition-transform duration-300 group-hover:-translate-x-1">
@@ -774,9 +776,9 @@ export default function OnboardingOptional() {
             <button
               onClick={handleNext}
               disabled={isLoading}
-              className="flex-1 px-4 sm:px-6 py-3 sm:py-4 bg-gradient-animated rounded-xl text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover-glow disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 relative overflow-hidden group"
+              className="flex-1 px-3 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4 bg-gradient-animated rounded-lg sm:rounded-xl text-white font-semibold text-sm sm:text-base md:text-lg transition-all duration-300 hover:scale-105 hover-glow disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 relative overflow-hidden group"
             >
-              <span className="relative sm:text-base text-sm z-10 flex items-center justify-center gap-2">
+              <span className="relative z-10 flex items-center justify-center gap-2">
                 {isLoading ? (
                   <>
                     <span className="animate-spin">⏳</span>
